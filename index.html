@@ -8,6 +8,7 @@
     <!-- icones -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
     <header>
@@ -44,7 +45,29 @@
             <div class="side-two">
                 <img src="./img/gif2-main.gif" class="gif" alt="">
             </div>
-            <div class="acess-bt"></div>
+            <div class="div-acess-bt"><button class="acess-bt"><i class="bi bi-universal-access-circle"></i></button></div>
+            <!-- conteudo acessibilidade -->
+            <div class="acess-window"><div class="window-point"></div><p>Janela de acessibilidade.</p>
+                <div class="moreorless">
+                    <button class="more"><span class="material-symbols-outlined">
+                        text_increase
+                        </span>
+                    </button>
+                    <button class="less">
+                        <span class="material-symbols-outlined">
+                            text_decrease
+                            </span>
+                    </button>
+                </div>
+                <div class="dk_mode">
+                    <label class="tema-check" for="checkbox" id="themeswitch">
+                        <input type="checkbox" class="input-dark-mode" id="checkbox">
+                        <div class="slider round"></div>
+                        <span class="name"></span>
+                        <div class="back"></div>
+                   </label>
+                </div>
+            </div>
         </section>
 
         <section class="hidden container-two">
@@ -240,7 +263,7 @@
             <div class="p2-c8">
                 <p class="p2">Se você é uma instituição educacional, empresa local ou organização sem fins lucrativos interessada em ser divulgado, entre em contato para discutirmos as oportunidades de colaboração.  </p>
             </div>
-            <button class="bt-c8">Fale conosco</button>
+            <div class="div-bt-c8"><button class="bt-c8">Fale conosco</button></div>
         </section>
     </main>
 
