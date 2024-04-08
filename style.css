@@ -1174,4 +1174,34 @@ footer a:hover{
           }
 }
 
+ /* seta pra subir a pagina */ 
+ #seta-subir {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 50px 50px ;
+    transition: transform 0.3s ease; 
+}
 
+#seta-subir:hover {
+    border-color: white;
+    box-shadow: 0 0 10px white;
+    transform: scale(1.2); 
+}
+
+#seta-subir i {
+    font-size: 40px;
+    color: black;
+}
+.darkModeStorage #seta-subir {
+    border-color: #949191;
+    color: #949191;
+ }
+
+.darkModeStorageo #seta-subir:hover {
+    box-shadow: 50px #949191; 
+    color: #949191;
+}
