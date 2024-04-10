@@ -1,39 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estuda Vizinhança</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- icones -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="jsseta.js"></script>
+<?php
+  require_once 'head.php';
+  require_once 'menu.php';
+?>  
 
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="nav-bar">
-                <i class="bi bi-list sidebarOpen"></i>
-                <span class="logo"><a href="#"><img src="./img/home-ic.png" alt=""></a></span>
-                <div class="menu">
-                    <i class="bi bi-x sidebarClose"></i>
 
-                    <ul class="nav-links">
-                        <li><a href="#" class="pag-atual"> <span class="active"></span> Início </a></li>
-                        <li><a href="./html/cursos.html">Cursos</a></li>
-                        <li><a href="#nos">Sobre nós</a></li>
-                        <li><a href="./html/contato.html">Contato</a></li>
-                        <li class="user"><a href=""><i class="bi bi-person-circle"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main>
+<main>
         <section class="container-one">
             <div class="side-one">
                 <div class="ball-one"></div>
@@ -52,11 +23,11 @@
             <!-- conteudo acessibilidade -->
             <div class="acess-window"><div class="window-point"></div><p>Janela de acessibilidade.</p>
                 <div class="moreorless">
-                    <button class="more"><span class="material-symbols-outlined">
+                    <button class="more" onclick="aumentarTexto()"><span class="material-symbols-outlined">
                         text_increase
                         </span>
                     </button>
-                    <button class="less">
+                    <button class="less" onclick="diminuirTexto()">
                         <span class="material-symbols-outlined">
                             text_decrease
                             </span>
@@ -273,26 +244,11 @@
     <a href="#" id="seta-subir">
         <i class="bi bi-arrow-up-circle-fill">
     </i>
-    </a>    
+    </a>  
 
-    <footer>
-        <div class="logo-footer"><img src="./img/home-ic.png" alt=""></div>
-        <div class="sidetwo-footer">
-            <h1 class="h1-footer">Fale Conosco</h1>
-            <p class="p-footer">(12) 3456-7890
-                Rua Qualquer, 123, Cidade Qualquer
-                ola@grandesite.com.br</p>
-            <h2 class="h2-footer">Links Rápidos</h2>
-            <div class="links-ft">
-                <a href="">Inicio</a>
-                <a href="">Cursos</a>
-                <a href="">Sobre nós</a>
-                <a href="">Contato</a>
-            </div>
-        </div>
-    </footer>
-    <script src="./js/script.js"></script>
 
-</body>
-<script src="./js/scroll.js"></script>
-</html>
+
+
+<?php
+    require_once 'footer.php';
+?>
