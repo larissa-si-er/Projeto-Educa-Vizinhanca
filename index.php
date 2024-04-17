@@ -1,23 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estuda Vizinhança</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- icones -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="nav-bar">
-                <i class="bi bi-list sidebarOpen"></i>
-                <span class="logo"><a href="#"><img src="./img/home-ic.png" alt=""></a></span>
-                <div class="menu">
-                    <i class="bi bi-x sidebarClose"></i>
+<?php
+  require_once 'head.php';
+  require_once 'menu.php';
+?>  
 
                     <ul class="nav-links">
                         <li><a href="#" class="pag-atual"> <span class="active"></span> Início </a></li>
@@ -31,7 +15,7 @@
         </nav>
     </header>
 
-    <main>
+<main>
         <section class="container-one">
             <div class="side-one">
                 <div class="ball-one"></div>
@@ -43,17 +27,18 @@
                 <div class="ball-two"></div>
             </div>
             <div class="side-two">
-                <img src="./img/gif2-main.gif" class="gif" alt="">
+                <img src="./img/gif2-main-unscreen.gif" class="gif" alt="">
             </div>
             <div class="div-acess-bt"><button class="acess-bt"><i class="bi bi-universal-access-circle"></i></button></div>
+
             <!-- conteudo acessibilidade -->
             <div class="acess-window"><div class="window-point"></div><p>Janela de acessibilidade.</p>
                 <div class="moreorless">
-                    <button class="more"><span class="material-symbols-outlined">
+                    <button class="more" onclick="aumentarTexto()"><span class="material-symbols-outlined">
                         text_increase
                         </span>
                     </button>
-                    <button class="less">
+                    <button class="less" onclick="diminuirTexto()">
                         <span class="material-symbols-outlined">
                             text_decrease
                             </span>
@@ -69,7 +54,7 @@
                 </div>
             </div>
         </section>
-
+    
         <section class="hidden container-two">
             <div class="content-c2">
                 <h2 class="h2-c2">
@@ -301,6 +286,9 @@
     </footer>
     <script src="./js/script.js"></script>
 
-</body>
-<script src="./js/scroll.js"></script>
-</html>
+
+
+
+<?php
+    require_once 'footer.php';
+?>
