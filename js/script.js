@@ -15,7 +15,7 @@ body.addEventListener("click" , e => {
     }
 });
 
-// acessibilidade
+// acessibilidade - icone
 const acess = document.querySelector('.acess-bt');
 const acess_Window = document.querySelector(".acess-window");
 
@@ -25,7 +25,7 @@ acess.addEventListener ("click", () => {
       } else {
         acess_Window.style.display = "block";
       }
-})
+});
 // acessibilidade - dk mode
 document.addEventListener('DOMContentLoaded', () => {
     const darkModeStorage = localStorage.getItem('dark-mode')
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputDarkMode = document.querySelector('.input-dark-mode')
 
     if(darkModeStorage){
-        html.setAttribute("black", "true");
+        html.setAttribute("dark", "true");
     }
 
     inputDarkMode.addEventListener('change', () => {
@@ -54,13 +54,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }else{
             html.removeAttribute("dark")
-            localStorage.removeItem('dark-mode');
             body.removeAttribute("dark")
-
-
+            localStorage.removeItem('dark-mode');
         }
    })
 })
 
 // DARK MODE - FIM
 
+// FAQ - [INICIO]
+
+const faqs = document.querySelectorAll('.faq');
+
+faqs.forEach(faq => {
+    faq.addEventListener("click", () => {
+        faq.classList.toggle("act");
+    });
+});
+
+// FAQ - [FIM]
