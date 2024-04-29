@@ -6,6 +6,7 @@ const body = document.querySelector("body"),
 
 sidebarOpen.addEventListener("click" , () => {
     nav.classList.add("ativo");
+    console.log('online nav')
 });
 body.addEventListener("click" , e => {
     let clickedElm = e.target;

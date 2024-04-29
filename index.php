@@ -3,18 +3,6 @@
   require_once 'menu.php';
 ?>  
 
-                    <ul class="nav-links">
-                        <li><a href="#" class="pag-atual"> <span class="active"></span> Início </a></li>
-                        <li><a href="./html/cursos.html">Cursos</a></li>
-                        <li><a href="#nos">Sobre nós</a></li>
-                        <li><a href="#footer">Contato</a></li>
-                        <li class="user"><a href="./html/cadastro.html"><i class="bi bi-person-circle"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
 <main>
         <section class="container-one">
             <div class="side-one">
@@ -27,7 +15,7 @@
                 <div class="ball-two"></div>
             </div>
             <div class="side-two">
-                <img src="./img/gif2-main-unscreen.gif" class="gif" alt="">
+                <img src="./img/gif2-main.gif" class="gif" alt="">
             </div>
             <div class="div-acess-bt"><button class="acess-bt"><i class="bi bi-universal-access-circle"></i></button></div>
 
@@ -267,23 +255,6 @@
             <div class="div-bt-c8"><button class="bt-c8">Fale conosco</button></div>
         </section>
     </main>
-
-    <footer id="footer">
-        <div class="logo-footer"><img src="./img/home-ic.png" alt=""></div>
-        <div class="sidetwo-footer">
-            <h1 class="h1-footer">Fale Conosco</h1>
-            <p class="p-footer">(12) 3456-7890
-                Rua Qualquer, 123, Cidade Qualquer
-                ola@grandesite.com.br</p>
-            <h2 class="h2-footer">Links Rápidos</h2>
-            <div class="links-ft">
-                <a href="">Inicio</a>
-                <a href="">Cursos</a>
-                <a href="">Sobre nós</a>
-                <a href="">Contato</a>
-            </div>
-        </div>
-    </footer>
     <script src="./js/script.js"></script>
 
 

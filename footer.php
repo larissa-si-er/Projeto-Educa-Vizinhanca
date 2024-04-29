@@ -1,4 +1,4 @@
-<footer>
+<footer id="footer">
         <div class="logo-footer"><img src="./img/home-ic.png" alt=""></div>
         <div class="sidetwo-footer">
             <h1 class="h1-footer">Fale Conosco</h1>

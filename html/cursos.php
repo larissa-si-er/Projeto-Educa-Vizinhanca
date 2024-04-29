@@ -5,23 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursos - EV</title>
     <link rel="stylesheet" href="../css/cursos.css">
+    <link rel="stylesheet" href="../style.css">
     <!-- icones -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="../js/menu.js"></script>
+
 </head>
 <body>
     <header>
         <nav>
-            <div class="nav-bar">
-                <span class="logo"><a href="#"><img src="../img/home-ic.png" alt=""></a></span>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Início</a></li>
-                    <li><a href="#">Cursos <span class="active"></span></a></a></li>
-                    <li><a href="../index.html">Sobre nós</a></li>
-                    <li><a href="./contato.html">Contato</a></li>
-                    <li class="user"><a href="../index.html"><i class="bi bi-person-circle"></i></a></li>
-                </ul>
-            </div>
+                <div class="nav-bar">
+                    <i class="bi bi-list sidebarOpen"></i>
+                    <span class="logo"><a href="#"><img src="../img/home.png" alt=""></a></span>
+                    <div class="menu">
+                        <i class="bi bi-x sidebarClose"></i>
+
+                        <ul class="nav-links">
+                            <li><a href="../index.php" class="pag-atual"> Início </a></li>
+                            <li><a href="./html/cursos.php">Cursos <span class="active"></span></a></li>
+                            <li><a href="#">Produtos </a></li>
+                            <li><a href="#footer">Contato</a></li>
+                            <li class="user"><a href=""><i class="bi bi-person-circle"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
         </nav>
     </header>
 
@@ -35,7 +44,7 @@
                         <P class="p-cursos">Turno: Tarde</P>
                         <p class="local">RJ</p>
 
-                        <button class="bt-info"><img src="../img/info-ic.png" alt=""></button>
+                        <button class="bt-info"><i class="bi bi-info-circle-fill"></i></button>
                     </div>
 
                     <div class="card card2">
@@ -44,7 +53,7 @@
                         <P class="p-cursos">Turno: Manhã</P>
                         <p class="local">RJ</p>
 
-                        <button class="bt-info"><img src="../img/info-ic.png" alt=""></button>
+                        <button class="bt-info"><i class="bi bi-info-circle-fill"></i></button>
                     </div>
 
                     <div class="card card3">
@@ -53,7 +62,7 @@
                         <P class="p-cursos">Turno: noite</P>
                         <p class="local">RJ</p>
 
-                        <button class="bt-info"><img src="../img/info-ic.png" alt=""></button>
+                        <button class="bt-info"><i class="bi bi-info-circle-fill"></i></button>
                     </div>
                 </div>
             </div>
@@ -81,6 +90,10 @@
             </div>
         </section>
     </main>    
+
+    <?php
+    require_once '../footer.php';
+    ?>
+
 </body>
-<script src="./js/scroll.js"></script>
 </html>
