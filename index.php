@@ -20,7 +20,7 @@
             <div class="div-acess-bt"><button class="acess-bt"><i class="fa-solid fa-universal-access"></i></button></div>
 
             <!-- conteudo acessibilidade -->
-            <div class="acess-window"><div class="window-point"></div><p>Janela de acessibilidade.</p>
+            <div class="acess-window"><div class="window-point"></div><small>Janela de acessibilidade.</small>
                 <div class="moreorless">
                     <button class="more" onclick="aumentarTexto()"><span class="material-symbols-outlined">
                         text_increase

@@ -807,6 +807,7 @@ section.container-eight{
     background-color: rgb(11, 0, 108);
     color: var(--body-color);
     cursor: pointer;
+    margin-top: 2%;
 }
 
 footer{
@@ -1045,6 +1046,8 @@ footer a:hover{
     .acess-window {
         bottom: 8%;
         right: 70%;
+        z-index: 9999;
+
     }
     .window-point {
         display: none;
@@ -1253,6 +1256,7 @@ footer a:hover{
         overflow: hidden;
 
         min-height: 80vh;
+        min-height: 90vh;
         width: 100vh;
      }
 
@@ -1277,6 +1281,7 @@ footer a:hover{
         border-radius: 100%;
         margin: 110px;
         z-index: 9999;
+        position: relative;
     }
     .container-one .side-one button{
         margin: 0px 180px;
@@ -1376,6 +1381,7 @@ footer a:hover{
         font-size: 24px;
         font-weight: 500;
         margin-top: 8%;
+        color: rgb(255, 255, 255);
     }
     nav{
         position: fixed;

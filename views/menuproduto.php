@@ -26,8 +26,8 @@
                             </p> 
                             </a>
                         </li>
-                        <li><a href="">Voltar</a></li>
-                        <li><a href="">Sair</a></li>
+                        <li><a href="javascript:history.go(-1)">Voltar</a></li>
+                        <li><a href="../../index.php">Sair</a></li>
                     </ul>
                 </div>
             </div>

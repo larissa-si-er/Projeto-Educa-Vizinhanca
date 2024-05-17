@@ -519,9 +519,7 @@ a{
 }
 .card-GG{
     display:inline-block;
-    background-color: #f4f4f4;
-    background-color: #ececec;
-    background-color: rgb(239, 239, 239);
+    background-color: rgb(255, 255, 255);
 
     margin: 30px;
     width: 280px;
@@ -531,6 +529,8 @@ a{
     border-radius: 3px;
     padding: 15px;
     overflow: hidden;
+    -webkit-box-shadow: 0px 1px 15px 0px rgb(0 0 0 / 23%);
+    box-shadow: 0px 1px 15px 0px rgb(0 0 0 / 19%);
 }
 .card-GG-img{
     width: 100%;
