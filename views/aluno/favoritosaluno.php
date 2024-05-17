@@ -1,7 +1,7 @@
 
 <?php
-    require_once '../templates/head.php';
-    include_once '../templates/menuinterno.php';
+    require_once '../../head.php';
+    include_once '../../views/menuinterno.php';
     require_once '../../models/conexao.php';
 ?>  
 <div class="voltar" style="margin-top: 10%;">
@@ -368,5 +368,5 @@ progress:hover::after {
   </style>
 
   <?php
-  require_once '../templates/footer.php';
+  require_once '../../footer.php';
   ?>

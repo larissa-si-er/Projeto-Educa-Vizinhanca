@@ -15,9 +15,9 @@
                 <div class="ball-two"></div>
             </div>
             <div class="side-two">
-                <img src="\views\img\gif2-main.gif" class="gif" alt="">
+                <img src=".\views\img\gif2-main.gif" class="gif" alt="">
             </div>
-            <div class="div-acess-bt"><button class="acess-bt"><i class="bi bi-universal-access-circle"></i></button></div>
+            <div class="div-acess-bt"><button class="acess-bt"><i class="fa-solid fa-universal-access"></i></button></div>
 
             <!-- conteudo acessibilidade -->
             <div class="acess-window"><div class="window-point"></div><p>Janela de acessibilidade.</p>
@@ -56,13 +56,13 @@
 
         <section class="container-three">
             <div class="title-c3">
-                <div class="star-one"><img src="\views\img\star.png" alt=""></div>
+                <div class="star-one"><img src=".\views\img\star.png" alt=""></div>
                 <h1 class="h1-c3">CURSOS E INSTITUIÇÕES</h1>
-                <div class="star-two"><img src="\views\img\star.png" alt=""></div>
+                <div class="star-two"><img src=".\views\img\star.png" alt=""></div>
             </div>
             <div class="cards-c3">
                 <div class="hidden c3 card1">
-                    <img src="\views\img\teste.png" alt="" class="cursos1">
+                    <img src=".\views\img\teste.png" alt="" class="cursos1">
                     <h3 class="txt-cursos">NOME INSTITUIÇÃO</h3>
                     <P class="p-cursos">Breve resumo</P>
                     <p class="local"><i class="bi bi-pin-angle-fill"></i>Localização</p>
@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="hidden c3 card2">
-                    <img src="\views\img\teste.png" alt="" class="cursos1">
+                    <img src=".\views\img\teste.png" alt="" class="cursos1">
                     <h3 class="txt-cursos">NOME INSTITUIÇÃO</h3>
                     <P class="p-cursos">Breve resumo</P>
                     <p class="local"><i class="bi bi-pin-angle-fill"></i>Localização</p>
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="hidden c3 card3">
-                    <img src="\views\img\teste.png" alt="" class="cursos1">
+                    <img src=".\views\img\teste.png" alt="" class="cursos1">
                     <h3 class="txt-cursos">NOME INSTITUIÇÃO</h3>
                     <P class="p-cursos">Breve resumo</P>
                     <p class="local"><i class="bi bi-pin-angle-fill"></i>Localização</p>
@@ -104,7 +104,7 @@
                 </div>
 
                 <div class="hidden c3 card4">
-                    <img src="\views\img\teste.png" alt="" class="cursos1">
+                    <img src=".\views\img\teste.png" alt="" class="cursos1">
                     <h3 class="txt-cursos">NOME INSTITUIÇÃO</h3>
                     <P class="p-cursos">Breve resumo</P>
                     <p class="local"><i class="bi bi-pin-angle-fill"></i>Localização</p>
@@ -126,9 +126,9 @@
                 <p class="p-c4">Conectar estudantes a oportunidades de aprendizado significativas em seus próprios bairros, fortalecendo laços comunitários e estimulando o desenvolvimento pessoal e profissional.</p>
             </div>
             <div class="sidetwo-c4">
-                <div class="ft1"><img src="\views\img\estrela.png" alt="" class="ft1"></div>
-                <img src="\views\img\estudantes.png" alt="" class="students">
-                <div class="ft2"><img src="\views\img\flecha.png" alt="" class="ft2"></div>
+                <div class="ft1"><img src=".\views\img\estrela.png" alt="" class="ft1"></div>
+                <img src=".\views\img\estudantes.png" alt="" class="students">
+                <div class="ft2"><img src=".\views\img\flecha.png" alt="" class="ft2"></div>
             </div>
         </section>
 
@@ -144,7 +144,7 @@
                 </p>
             </div>
             <div class="sidetwo-c5">
-                <img src="\views\img\cell.png" alt="">
+                <img src=".\views\img\cell.png" alt="">
             </div>
         </section>
 
@@ -154,7 +154,7 @@
             </div>
             <div class="cards-c6">
                 <div class="c6 card1-c6">
-                    <img src="\views\img\teste.png" alt="" class="cursos1-c6">
+                    <img src=".\views\img\teste.png" alt="" class="cursos1-c6">
                     <h3 class="txt-cursos">NOME ALUNO</h3>
                     <div class="line1"></div>
                     <div class="line2"></div>
@@ -168,7 +168,7 @@
                     <button class="bt-acessar" onclick="window.open('https://www.instagram.com/ev_projeto?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')">Acessar</button>
                 </div>
                 <div class="c6 card1-c6">
-                    <img src="\views\img\teste.png" alt="" class="cursos2-c6">
+                    <img src=".\views\img\teste.png" alt="" class="cursos2-c6">
                     <h3 class="txt-cursos">NOME ALUNO</h3>
                     <div class="line1"></div>
                     <div class="line2"></div>
@@ -182,7 +182,7 @@
                     <button class="bt-acessar" onclick="window.open('https://www.instagram.com/ev_projeto?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')">Acessar</button>
                 </div>
                 <div class="c6 card3-c6">
-                    <img src="\views\img\teste.png" alt="" class="cursos3-c6">
+                    <img src=".\views\img\teste.png" alt="" class="cursos3-c6">
                     <h3 class="txt-cursos">NOME ALUNO</h3>
                     <div class="line1"></div>
                     <div class="line2"></div>

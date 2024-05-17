@@ -1,6 +1,6 @@
 <?php
-    require_once '../views/templates/head.php';
-    include_once '../views/templates/menuinterno.php';
+    require_once '../head.php';
+    include_once '../views/menuinterno.php';
     require_once '../models/conexao.php';
 ?>  
 <div class="voltar">

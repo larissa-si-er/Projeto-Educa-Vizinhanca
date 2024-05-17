@@ -192,7 +192,7 @@
 
         <!-- CARDS - GRANDE - PRODUTOS -->
         <section class="third">
-            <h3 class="title title-produtos">TODOS</h3>
+            <h3 class="title title-produtos">PODUTOS DISPONÍVEIS</h3>
 
             <div class="row">
                 

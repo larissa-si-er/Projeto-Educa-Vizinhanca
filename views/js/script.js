@@ -71,27 +71,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // TEXT-RESIZER - INICIO
 function aumentarTexto() {
-    var elementosTexto = document.querySelectorAll('body *'); // Seleciona todos os elementos dentro do body
+    var elementosTexto = document.querySelectorAll('body :not(.acess-window):not(.moreorless) p'); // Seleciona todos os elementos dentro do body, exceto a janela de acessibilidade e os botões de aumento/diminuição
 
     elementosTexto.forEach(function(elemento) {
-        var tamanhoAtual = window.getComputedStyle(elemento).fontSize; // Obtém o tamanho atual da fonte
-        var novoTamanho = parseInt(tamanhoAtual) * 1.2; // Aumenta o tamanho da fonte em 20%
+        var tamanhoAtual = parseFloat(window.getComputedStyle(elemento).fontSize);
+        var novoTamanho = tamanhoAtual + 1; // Aumenta o tamanho da fonte em 1px
 
-        elemento.style.fontSize = novoTamanho + 'px'; // Define o novo tamanho da fonte
+        // Define um limite superior de 24px para o tamanho da fonte
+        if (novoTamanho <= 24) {
+            elemento.style.fontSize = novoTamanho + 'px';
+        }
     });
 }
 
 function diminuirTexto() {
-    var elementosTexto = document.querySelectorAll('body *');
+    var elementosTexto = document.querySelectorAll('body:not(.acess-window):not(.moreorless) p');
 
     elementosTexto.forEach(function(elemento) {
-        var tamanhoAtual = window.getComputedStyle(elemento).fontSize;
-        var novoTamanho = parseInt(tamanhoAtual) * 0.8; // Diminui o tamanho da fonte em 20%
+        var tamanhoAtual = parseFloat(window.getComputedStyle(elemento).fontSize);
+        var novoTamanho = tamanhoAtual - 1; // Diminui o tamanho da fonte em 1px
 
-        elemento.style.fontSize = novoTamanho + 'px';
+        // Define um limite inferior de 10px para o tamanho da fonte
+        if (novoTamanho >= 10) {
+            elemento.style.fontSize = novoTamanho + 'px';
+        }
     });
 }
 // TEXT-RESIZER - FIM
+
+
 
 // -------------------- FIM ACESSIBILIDADE
 

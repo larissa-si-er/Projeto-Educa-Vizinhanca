@@ -1,11 +1,12 @@
 <header>
         <link rel="stylesheet" href="../css/menu.css">
+        <link rel="stylesheet" href="../views/css/menu.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <script src="../js/menu.js"></script>
         <nav>
             <div class="nav-bar">
                 <i class="bi bi-list sidebarOpen"></i>
-                <span class="logo"><a href="#"><img src="../img/home-ic.png" alt=""></a></span>
+                <span class="logo"><a href="#"><img src="../views/img/home-ic.png" alt=""></a></span>
 
                 <div class="group">
                             <i class="fa-solid fa-magnifying-glass" id="search"></i>

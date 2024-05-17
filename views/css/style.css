@@ -7,7 +7,7 @@
 }
 
 :root{
-    --body-color: #E4E9F7;
+    --body-color: white;
     --nav-color: #2070F4;
     --side-nav: #010718;
     --text-color: #fff;
@@ -208,18 +208,18 @@ section.container-one{
     bottom: 75%;
     z-index: 9999; 
 }
-.div-acess-bt button{
-    width: 50px;
-    height: 50px;
-    font-size: 44px;
-    border-radius: 100%;
-    border: none;
-    cursor: pointer;
-    color: #ffffff;
-    background-color: #21008e;
+.fa-universal-access {
+    font-size: 50px;
+    color: #210082;
+    
 }
-.div-acess-bt button:hover{
-    background-image:linear-gradient(to right,#21008e, #007fd4, #21008e);
+.acess-bt{
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+}
+.fa-universal-access:hover{
+    color: #007fd4
 }
 .acess-window {
     display: none;
@@ -233,6 +233,7 @@ section.container-one{
     border-radius: 5px;
     padding: 10px;
     z-index: 9998;
+    overflow:hidden;
   }
   .window-point{
     width: 0;
@@ -772,13 +773,13 @@ section.container-eight{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25%;
+    height: 27%;
 }
 .p1{
     font-size: 30px;
     width: 700px;
     color: #686868;
-    margin-left: 5%;
+    text-align: center;
 }
 .p2-c8{
     width: 100%;
@@ -790,6 +791,7 @@ section.container-eight{
 }
 .p2{
     width: 500px;
+
     text-align: center;
 }
 .div-bt-c8{
@@ -1404,9 +1406,15 @@ footer a:hover{
         .ball-one, .ball-two{
             display: none;
         }
-        .div-acess-bt{
-            left: 40%;
-            bottom: 90%;
+        .div-acess-bt {
+            position: fixed;
+            left: 20%; 
+            bottom: 1%;
+            z-index: 9999;
+            
+        }
+        .fa-universal-access{
+            font-size: 30px;
         }
         .div-acess-bt button {
             /* font-size: 25px; */
@@ -1421,8 +1429,8 @@ footer a:hover{
 
         }
         .acess-window {
-            bottom: 58%;
-            right: 35%;
+            bottom: 4%;
+            right: 6%;
         }
         .dk_mode{
             height: 60px;
@@ -1614,6 +1622,7 @@ footer a:hover{
         .sidetwo-c5 img{
             border-radius: 40px;
             width: 200px;
+            
         }
         
 
