@@ -1743,6 +1743,10 @@ footer a:hover{
     bottom: 0; 
     right: 10px; 
     font-size: 46px; 
-    color: black; 
+    color: #210082; 
     text-decoration: none; 
+}
+
+.seta:hover{
+    color:#007fd4;
 }

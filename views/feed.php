@@ -33,8 +33,8 @@
                                 </p> 
                                 </a>
                             </li>
-                            <li><a href="">Produtos</a></li>
-                            <li><a href="">Sair</a></li>
+                            <li><a href="./html/contato.html">Produtos</a></li>
+                            <li><a href="./html/contato.html">Sair</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
         <img src="./img/gif-main.gif" alt="" srcset="">
     </div>
 </div>
-<div class="container">
+<div class="container-top">
         <div class="card-top">
             <div class="card-top1 star1">
                 <img src="./img/1.png" alt="" srcset="" class="img-top1">
@@ -81,101 +81,183 @@
                  Aprenda Python para análise de dados e desenvolvimento web.</p>
             </div>
         </div>
-    </div>
+</div>
 <br>
 <br>
 <br>
-
-    <div class="container">
-            <div class="curso">
-                <img src="./img/img curso 1.png" alt="Curso HTML e CSS">
-                <div class="curso-content">
-                    <h2>Curso de HTML e CSS</h2>
-                    <p>Duração: 8 semanas<br> Instituição: Curso em vídeo <br>
-                        Aprenda os fundamentos do desenvolvimento web criando páginas estáticas e responsivas com HTML e CSS. Este curso oferece uma introdução prática aos princípios essenciais de estruturação de conteúdo e estilização de design para web. </p>
-                    <a href="https://www.cursoemvideo.com/matricula-gratis" target="_blank" class="botao-inscrever">Inscrever-se</a>
-                </div>
+<div class="container">
+       <div class="curso">
+            <img src="./img/img curso 1.png" alt="Curso HTML e CSS" class="curso-img">
+            <h2>Aprenda HTML e CSS!</h2>
+            <p>Área: Desenvolvimento Web</p>
+            <div class="curso-content">
+            <p class="instituicao"><i class="bi bi-building"></i>Curso em vídeo</p>
+            <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
             </div>
-
-            <div class="curso">
-                <img src="./img/imagem curso 2.png" alt="Curso JavaScript">
-                <div class="curso-content">
-                    <h2>Curso de JavaScript</h2>
-                    <p>Duração: 10 semanas<br>Instituição: Alura <br> Domine os conceitos básicos da programação Java e explore suas aplicações em projetos do mundo real. Este curso oferece uma introdução prática à linguagem de programação Java, desde os princípios fundamentais até as técnicas avançadas de desenvolvimento de software.</p>
-                    <a href="https://www.alura.com.br/curso-online-javascritpt-orientacao-objetos" target="_blank" class="botao-inscrever">Inscrever-se</a>
-                </div>
+            <div class="curso-buttons">
+                <a href= "https://www.cursoemvideo.com/matricula-gratis"class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
             </div>
-
-            <div class="curso">
-                <img src="./img/imagem curso 3.png" alt="Curso Python">
-                <div class="curso-content">
-                    <h2>Curso de Python</h2>
-                    <p>Duração: 85 horas<br>Instituição: XPE <br>Explore a linguagem de programação Python e descubra suas capacidades versáteis em projetos de programação do dia a dia. Este curso oferece uma introdução acessível aos conceitos fundamentais de Python, preparando você para aplicá-los em uma variedade de contextos profissionais e pessoais.
-                    </p>
-                    <a href="https://forms.xpeducacao.com.br/curso-gratuito-python-pre-inscricao/?gad_source=1&gclid=CjwKCAjwoa2xBhACEiwA1sb1BA3vTS0aKOJsC282bgj0_4gvB9YEYNl72Zeus2z3kqxQX93CmKq8kBoC1HUQAvD_BwE" target="_blank" class="botao-inscrever">Inscrever-se</a>
-                </div>
-            </div>
-            
-            <div class="curso">
-                <img src="./img/imagem curso 4.png" alt="Curso Python">
-                <div class="curso-content">
-                    <h2>Curso de Jogos</h2>
-                    <p>Duração: 95 horas<br> Instituição: CDPI <br>Descubra os segredos por trás dos jogos mais populares neste curso. Desde a criação de ambientes e personagens até a implementação de mecânicas de jogo e lógica de programação. Com instrução prática e projetos envolventes, você estará preparado para iniciar sua jornada no mundo do desenvolvimento de jogos. </p>
-                    <a href="https://cpdi.org.br/projeto/alem-de-jogar-eu-faco-jogos/" target="_blank" class="botao-inscrever">Inscrever-se</a>
-                    
-                </div>
-            </div>
-            <div class="curso">
-                <img src="./img/imagem curso 5.png" alt="Curso Python">
-                <div class="curso-content">
-                    <h2>Marketing digital</h2>
-                    <p>Duração: 90 horas<br> Instituição:SEBRAE <br>
-                    Atualmente, empresários e empresárias buscam desenvolver suas empresas por meio de estratégias ágeis e com baixo custo. Além disso, desejam o crescimento sustentável e escalável do negócio. Nesta Curso você compreenderá esses pontos. </p>
-                    <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/marketing-digital-para-sua-empresa-equipe-comercial,12e7125576a4e710VgnVCM100000d701210aRCRD" target="_blank" class="botao-inscrever">Inscrever-se</a>
-                    
-                </div>
-            </div>
-            <div class="curso">
-                <img src="./img/imagem curso 6.png" alt="Curso Python">
-                <div class="curso-content">
-                    <h2>Legislação e negócios para o audiovisual</h2>
-                    <p>Duração: 360 horas<br>
-                    Instituição:SEBRAE <br>
-                     Curso aborda os principais aspectos legais da produção e do negócio audiovisual. Apresenta as principais fontes de fomento público e privado para a sustentabilidade dos projetos audiovisuais.</p>
-                    <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/legislacao-e-negocios,20d5baa60fd5d710VgnVCM100000d701210aRCRD" target="_blank" class="botao-inscrever">Inscrever-se</a>
-                    
-                </div>
-            </div>
-            <div class="curso">
-                <img src="./img/imagem 7.png" alt="Curso Python">
-                <div class="curso-content">
-                    <h2>Preço de vendas para beleza</h2>
-                    <p>Duração:45 horas <br>
-                    Instituição:SEBRAE <br>
-                     Este estudo, abordará a importância da precificação como fator de competitividade de seu salão de beleza, estética ou sua loja de cosméticos e perfumaria. Não importa qual o segmento da beleza você atua, é importante entender e aplicar os princípios básicos da precificação.</p>
-                    <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/preco-de-vendas-para-beleza,85bb36435d608810VgnVCM1000001b00320aRCRD" target="_blank" class="botao-inscrever">Inscrever-se</a>
-                    </div>    
-                </div>
-                <div class="curso">
-                    <img src="./img/imagem curso 8.png" alt="Curso Python">
-                    <div class="curso-content">
-                        <h2>Volte a empreender!</h2>
-                        <p>Duração: 60 horas<br>
-                        Instituição:SEBRAE <br>
-                    Neste curso você entenderá a importância de desenvolver competências emocionais para o dia a dia dos negócios, conhecerá as tendências de mercado no pós-pandemia, reconhecerá o papel da capacitação para a abertura de uma empresa e verá aspectos importantes ao decidir tornar-se empreendedor.</p>
-                        <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/volte-a-empreender,67b2adea33c4c710VgnVCM100000d701210aRCRD" target="_blank" class="botao-inscrever">Inscrever-se</a>
-                        
-                    </div>
-                </div>
-            </div>
-    </div>
-   
-
-
+        </div>
     
 
-    <a href="#" class="scroll-to-top"><i class="fas fa-arrow-up"></i></a>
+    
+        <div class="curso">
+                <img src="./img/imagem curso 2.png" alt="Curso HTML e CSS" class="curso-img">
+                <h2>JavaScript para Iniciantes</h2>
+               <p>Área: Desenvolvimento Web</p>
+            <div class="curso-content">
+           <p class="instituicao"><i class="bi bi-building"></i>Alura</p>
+            <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
+            </div> 
+            <div class="curso-buttons">
+                <a href="https://www.alura.com.br/curso-online-javascritpt-orientacao-objetos" class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
+            </div>
+    
+        </div>
+        
+            <div class="curso">
+                    <img src="./img/imagem curso 3.png" alt="Curso HTML e CSS" class="curso-img">
+                    <h2>Aprenda Phyton!</h2>
+                     <p>Área: Desenvolvimento Web</p>
+             <div class="curso-content">
+            <p class="instituicao"><i class="bi bi-building"></i>XPE</p>
+            <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
+            </div>
+            <div class="curso-buttons">
+                <a href="https://forms.xpeducacao.com.br/curso-gratuito-python-pre-inscricao/?gad_source=1&gclid=CjwKCAjwoa2xBhACEiwA1sb1BA3vTS0aKOJsC282bgj0_4gvB9YEYNl72Zeus2z3kqxQX93CmKq8kBoC1HUQAvD_BwE" class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
+            </div>
+    
+        </div>
+        
+        
+        <div class="curso">
+                <img src="./img/imagem curso 4.png" alt="Curso HTML e CSS" class="curso-img">
+                    <h2>Desenvolvimentode Jogos</h2>
+                  <p>Área: Desenvolvimento T.I</P>
+                 <div class="curso-content">
+            <p class="instituicao"><i class="bi bi-building"></i>CDPI</p>
+            <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
+                 </div>
+            <div class="curso-buttons">
+                <a href="https://cpdi.org.br/projeto/alem-de-jogar-eu-faco-jogos/" class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
+            </div>
+        </div>
 
+       <div class="curso">
+                    <img src="./img/imagem curso 5.png" alt="Curso HTML e CSS" class="curso-img">
+                    <h2>Marketing Digital</h2>
+            <p>Área: Marketing</p>
+            
+            <div class="curso-content">
+            
+            <p class="instituicao"><i class="bi bi-building"></i> SEBRAE</p>
+            <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
+            <div class="curso-buttons">
+                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/marketing-digital-para-sua-empresa-equipe-comercial,12e7125576a4e710VgnVCM100000d701210aRCRD" class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
+            </div>
+      </div>
+        </div>
+        
+
+            <div class="curso">
+                    <img src="./img/imagem curso 6.png" alt="Curso HTML e CSS" class="curso-img">
+                    <h2>Legislação e Negácios para Audiovisual</h2>
+            <p>Área: Direito</p>
+            
+            <div class="curso-content">
+            
+            <p class="instituicao"> <i class="bi bi-building"></i>SEBRAE</p>
+            <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
+            <div class="curso-buttons">
+                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/legislacao-e-negocios,20d5baa60fd5d710VgnVCM100000d701210aRCRD" class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
+            </div>
+            </div>
+        </div>
+        
+                    
+
+            <div class="curso">
+                <img src="./img/imagem 7.png" alt="Curso HTML e CSS" class="curso-img">
+                    <h2>Preço de Vendas para Beleza</h2>
+            <p>Área: Empreendedorismo e  Estética</p>
+            
+            <div class="curso-content">
+            
+            <p class="instituicao"> <i class="bi bi-building"></i>SEBRAE</p>
+            <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
+            <div class="curso-buttons">
+                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/preco-de-vendas-para-beleza,85bb36435d608810VgnVCM1000001b00320aRCRD" class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
+            </div>
+            </div>
+        </div>
+        
+
+            <div class="curso">
+                <img src="./img/imagem curso 8.png" alt="Curso HTML e CSS" class="curso-img">
+                    <h2>Volte a Empreender!</h2>
+            <p>Área: Empreendedorismo</p>
+            <div class="curso-content">
+                <p class="instituicao"> <i class="bi bi-building"></i>SEBRAE</p>
+                <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
+            
+            <div class="curso-buttons">
+                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/volte-a-empreender,67b2adea33c4c710VgnVCM100000d701210aRCRD" class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
+            </div>
+    
+        </div>
+        </div>
+            
+            <div class="curso">
+                    <img src="./img/imagem curso 9.png" alt="Curso HTML e CSS" class="curso-img">
+                    <h2>Formação pedagógica </h2>
+            
+            <p>Área: curso pedagógico</p>
+            <div class="curso-content">
+            
+                <p class="instituicao"> <i class="bi bi-building"></i>SEBRAE</p>
+                <p class="localizacao"><i class="bi bi-laptop"></i>Online</p>
+            
+        <div class="curso-buttons">
+                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/formacao-pedagogica,55ee16d291e4d710VgnVCM100000d701210aRCRD" class="botao-acessar">Acessar</a>
+                <i class="bi bi-heart-fill botao-curtir"></i>
+                <i class="bi bi-chat-dots botao-comentar"></i>
+                <i class="bi bi-share-fill botao-compartilhar"></i>
+            </div>
+         </div>
+
+        </div> 
+</div> 
+
+            
+            
+
+             
+    <a href="#" class="scroll-to-top"><i class="fas fa-arrow-up"></i></a>
     <script src="./js/script.js"></script>
 </body>
+    
 </html>

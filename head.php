@@ -13,5 +13,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
      <!--fontawesome-->
      <script src="https://kit.fontawesome.com/6c3bbfdabc.js" crossorigin="anonymous"> </script>
+     <link rel="icon" type="image/png" href="./img/home-ic.png">
 </head>
 <body>
