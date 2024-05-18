@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./img/home-ic.png">
     <title>Feed de Cursos</title>
     <script src="./js/menu.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -27,14 +28,14 @@
                         <i class="bi bi-x sidebarClose"></i>
     
                         <ul class="nav-links">
-                            <li><a href="#nos">
+                            <li><a href="./admin/areaadm.php">
                                 <p class="user-log"><i class="bi bi-chevron-down"></i> Usuário 
                                   <i class="bi bi-person-circle"></i>
                                 </p> 
                                 </a>
                             </li>
-                            <li><a href="./html/contato.html">Produtos</a></li>
-                            <li><a href="./html/contato.html">Sair</a></li>
+                            <li><a href="./produtos.php">Produtos</a></li>
+                            <li><a href="../index.php">Sair</a></li>
                         </ul>
                     </div>
                 </div>

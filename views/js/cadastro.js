@@ -4,8 +4,8 @@
     var tipoCadastro = tipoCadastroSelect.value;
 
     if (tipoCadastro === 'normal') {
-        window.location.href = '../views/auth/cadastro.php';
+        window.location.href = '../auth/cadastro.php';
     } else if (tipoCadastro === 'admin') {
-        window.location.href = '../views/auth/cadastro_admin.php';
+        window.location.href = '../auth/cadastro_admin.php';
     }
 }
