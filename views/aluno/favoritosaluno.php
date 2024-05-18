@@ -4,7 +4,7 @@
     include_once '../../views/menuinterno.php';
     require_once '../../models/conexao.php';
 ?>  
-<div class="voltar" style="margin-top: 10%;">
+<div class="voltar">
   <div class="meu_perfil">
   <ul>
     <li>
@@ -21,8 +21,9 @@
   </div>
   </div>
 <div class="container">
+  <div class="card">
     <div id="pagina1" class="page">
-      <img src="../../img/oratoria.png">
+      <img src="../img/oratoria.png">
       <div class="card-content">
         <div class="card-title">teste</div>
         <div class="card-price">Tipo de Curso</div>
@@ -46,8 +47,10 @@
       </div>
       </div>
   </div>
+  </div>
   <div id="pagina1" class="page">
-      <img src="../../img/oratoria.png">
+    <div class="card">
+      <img src="../img/oratoria.png">
       <div class="card-content">
         <div class="card-title">Nome do Curso</div>
         <div class="card-price">Tipo de Curso</div>
@@ -71,8 +74,10 @@
       </div>
       </div>
   </div>
+  </div>
   <div id="pagina1" class="page">
-      <img src="../../img/oratoria.png">
+    <div class="card">
+      <img src="../img/oratoria.png">
       <div class="card-content">
         <div class="card-title">Nome do Curso</div>
         <div class="card-price">Tipo de Curso</div>
@@ -95,112 +100,11 @@
       <progress value="50" max="100" id="progress1"></progress>
       </div>
       </div>
+  </div>
   </div>
   
-  <!--pag 2-->
-  <div id="pagina2" class="page">
-      <img src="../../img/oratoria.png">
-      <div class="card-content">
-        <div class="card-title">Nome do Curso</div>
-        <div class="card-price">Tipo de Curso</div>
-      </div>
-      <div class="card-description">
-        <p>Área do Curso</p>
-      </div>
-     <br>
-      <div class="progress">
-        <div class="item">
-      <i class="fa-regular fa-bookmark"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-thumbs-up"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-comment-dots"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      </div>
-  </div>
-  <div id="pagina2" class="page">
-      <img src="../../img/oratoria.png">
-      <div class="card-content">
-        <div class="card-title">Nome do Curso</div>
-        <div class="card-price">Tipo de Curso</div>
-      </div>
-      <div class="card-description">
-        <p>Área do Curso</p>
-      </div>
-     <br>
-      <div class="progress">
-        <div class="item">
-      <i class="fa-regular fa-bookmark"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-thumbs-up"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-comment-dots"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      </div>
-  </div>
-  <div id="pagina2" class="page">
-      <img src="../../img/oratoria.png">
-      <div class="card-content">
-        <div class="card-title">Nome do Curso</div>
-        <div class="card-price">Tipo de Curso</div>
-      </div>
-      <div class="card-description">
-        <p>Área do Curso</p>
-      </div>
-     <br>
-      <div class="progress">
-        <div class="item">
-      <i class="fa-regular fa-bookmark"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-thumbs-up"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-comment-dots"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      </div>
   </div>
 
-  </div>
-  <!--TESTE--
-  <button id="mostrarPagina1" class="showPageButton">Mostrar Página 1</button>
-  <button id="mostrarPagina2" class="showPageButton">Mostrar Página 2</button>
-  <script>
-var buttons = document.querySelectorAll('.showPageButton');
-var pages = document.querySelectorAll('.page');
-
-
-for (var i = 1; i < pages.length; i++) {
-  pages[i].style.display = 'none';
-}
-
-
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].onclick = function(index) {
-    return function() {
-      
-      for (var j = 0; j < pages.length; j++) {
-        pages[j].style.display = 'none';
-      }
-      // Exibe apenas a página correspondente ao botão clicado
-      pages[index].style.display = 'block';
-    };
-  }(i); // Captura o valor atual de 'i' no momento da iteração
-}
-</script>-->
   <style>
  .meu_perfil ul {
   list-style: none;
@@ -218,10 +122,13 @@ for (var i = 0; i < buttons.length; i++) {
 }
     .voltar {
    justify-content: center; 
+   margin-top: 10px;
+
 }
 .voltar a{
   text-decoration: none;
   color: #0d0c22;
+  
 }
        .titulo_pag h1{
             text-align: left;
@@ -233,6 +140,7 @@ for (var i = 0; i < buttons.length; i++) {
       flex-wrap: wrap;
       justify-content: space-around;
       padding: 20px;
+      
     }
 
     .card {
@@ -243,6 +151,7 @@ for (var i = 0; i < buttons.length; i++) {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
 
@@ -252,6 +161,7 @@ for (var i = 0; i < buttons.length; i++) {
       padding: 10px;
       height: 200px;
       height: auto;
+
     }
 
     .card-content {

@@ -358,7 +358,7 @@ $(document).ready(function(){
 
     .voltar {
         justify-content: center; 
-        margin-top: 115px;
+        margin-top: 10px;
 
     }
 

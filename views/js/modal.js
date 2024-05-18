@@ -1,35 +1,62 @@
-// Função para abrir o modal de adicionar curso
-document.getElementById('abrirModalAdicionar').addEventListener('click', function() {
-    document.getElementById('modalAdicionar').style.display = 'block';
-});
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('ativo');
 
-// Função para fechar o modal de adicionar curso
-document.getElementById('modalAdicionar').getElementsByClassName('fechar')[0].addEventListener('click', function() {
-    document.getElementById('modalAdicionar').style.display = 'none';
-});
-
-// Função para fechar o modal de adicionar curso se o usuário clicar fora dele
-window.addEventListener('click', function(event) {
-    var modalAdicionar = document.getElementById('modalAdicionar');
-    if (event.target == modalAdicionar) {
-        modalAdicionar.style.display = 'none';
+    // Abrir o modal de adicionar curso
+    var abrirModalAdicionar = document.getElementById('abrirModalAdicionar');
+    if (abrirModalAdicionar) {
+        abrirModalAdicionar.addEventListener('click', function() {
+            var modalAdicionar = document.getElementById('modalAdicionar');
+            if (modalAdicionar) {
+                modalAdicionar.style.display = 'block';
+                console.log('ativo');
+            }
+        });
     }
-});
 
-// Função para abrir o modal de editar perfil
-document.getElementById('abrirModalEditar').addEventListener('click', function() {
-    document.getElementById('modalEditar').style.display = 'block';
-});
+    // Fechar o modal de adicionar curso
+    var modalAdicionar = document.getElementById('modalAdicionar');
+    if (modalAdicionar) {
+        var fecharAdicionar = modalAdicionar.getElementsByClassName('fechar')[0];
+        if (fecharAdicionar) {
+            fecharAdicionar.addEventListener('click', function() {
+                modalAdicionar.style.display = 'none';
+            });
+        }
 
-// Função para fechar o modal de editar perfil
-document.getElementById('modalEditar').getElementsByClassName('fechar')[0].addEventListener('click', function() {
-    document.getElementById('modalEditar').style.display = 'none';
-});
+        // Fechar o modal de adicionar curso se o usuário clicar fora dele
+        window.addEventListener('click', function(event) {
+            if (event.target == modalAdicionar) {
+                modalAdicionar.style.display = 'none';
+            }
+        });
+    }
 
-// Função para fechar o modal de editar perfil se o usuário clicar fora dele
-window.addEventListener('click', function(event) {
+    // Abrir o modal de editar perfil
+    var abrirModalEditar = document.getElementById('abrirModalEditar');
+    if (abrirModalEditar) {
+        abrirModalEditar.addEventListener('click', function() {
+            var modalEditar = document.getElementById('modalEditar');
+            if (modalEditar) {
+                modalEditar.style.display = 'block';
+            }
+        });
+    }
+
+    // Fechar o modal de editar perfil
     var modalEditar = document.getElementById('modalEditar');
-    if (event.target == modalEditar) {
-        modalEditar.style.display = 'none';
+    if (modalEditar) {
+        var fecharEditar = modalEditar.getElementsByClassName('fechar')[0];
+        if (fecharEditar) {
+            fecharEditar.addEventListener('click', function() {
+                modalEditar.style.display = 'none';
+            });
+        }
+
+        // Fechar o modal de editar perfil se o usuário clicar fora dele
+        window.addEventListener('click', function(event) {
+            if (event.target == modalEditar) {
+                modalEditar.style.display = 'none';
+            }
+        });
     }
 });
