@@ -4,6 +4,11 @@
     require_once '../../models/conexao.php';
 
 ?>  
+<!-- Script [inicio] -->
+<script src="../js/modal.js"></script>
+<!-- Script [fim] -->
+
+
 <div class="voltar">
   <div class="meu_perfil">
   <ul>
@@ -348,7 +353,7 @@ require_once '../../footer.php';
 }
 .voltar {
    justify-content: center; 
-   margin-top: 115px;
+   margin-top: 10px;
   
 }
 .container {

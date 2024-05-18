@@ -6,7 +6,8 @@
         <nav>
             <div class="nav-bar">
                 <i class="bi bi-list sidebarOpen"></i>
-                <span class="logo"><a href="#"><img src="../img/home-ic.png" alt=""></a></span>
+                <!-- <span class="logo"><a href="#"><img src="../img/home-ic.png" alt=""></a></span> -->
+                <span class="logo"><a href="#"><img src="../../views/img/home-ic.png" alt=""></a></span>
 
                 <div class="group">
                             <i class="fa-solid fa-magnifying-glass" id="search"></i>

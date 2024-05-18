@@ -205,17 +205,24 @@ section.content{
     flex-wrap: nowrap;
 }
 .icons-g1 img{
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-right: 2px solid rgb(202, 202, 202);
     border-radius: 2px;
     margin-top: 3%;
 }
 .goal-2 img{
-    width: 90px;
+    width: 70px;
 }
 .goal-3 img{
-    width: 60px;
+    width: 50px;
+}
+ 
+.bt-info{
+    cursor: pointer;
+}
+.bt-info:hover{
+    color: #525252;
 }
 
 /* CORPO [FIM] */

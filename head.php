@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./views/img/home-ic.png">
     <link rel="icon" type="image/png" href="../img/home-ic.png">
+    <link rel="icon" type="image/png" href="../../views/img/home-ic.png">
     <title>Estuda Vizinhança</title>
     <link rel="stylesheet" href="./views/css/style.css">
     <!-- icones -->

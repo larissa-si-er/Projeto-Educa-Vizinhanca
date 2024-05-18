@@ -2,12 +2,9 @@
     require_once '../../head.php';
     include_once '../menuinterno.php';
     require_once '../../models/conexao.php';
-  // Verifica se o usuário está autenticado
-//session_start();
-//if (!isset($_SESSION['id_aluno'])) {
-   // header('Location: login.php'); // Redireciona para a página de login se não estiver autenticado
-   //} exit;//
 ?>  
+<script src="../js/modal.js"></script>
+
 
 <div class="voltar">
   <div class="meu_perfil">
@@ -256,7 +253,7 @@ require_once '../../footer.php';
 }
 .voltar {
    justify-content: center; 
-   margin-top: 115px;
+   margin-top: 10px;
   
 }
 .container {

@@ -45,7 +45,7 @@
                         <P class="p-cursos">Turno: Tarde</P>
                         <p class="local">RJ</p>
 
-                        <button class="bt-info" onclick="window.location.href ='./auth/login.php'"><i class="bi bi-info-circle-fill"></i></button>
+                        <button class="bt-info" title="Ver Cursos" onclick="window.location.href ='./feed.php'"><i class="bi bi-info-circle-fill"></i></button>
                     </div>
 
                     <div class="card card2">
@@ -54,7 +54,7 @@
                         <P class="p-cursos">Turno: Manhã</P>
                         <p class="local">RJ</p>
 
-                        <button class="bt-info" onclick="window.location.href ='./auth/login.php'"><i class="bi bi-info-circle-fill"></i></button>
+                        <button class="bt-info" title="Ver Cursos" onclick="window.location.href ='./feed.php'"><i class="bi bi-info-circle-fill"></i></button>
                     </div>
 
                     <div class="card card3">
@@ -63,7 +63,7 @@
                         <P class="p-cursos">Turno: noite</P>
                         <p class="local">RJ</p>
 
-                        <button class="bt-info" onclick="window.location.href ='./auth/login.php'"><i class="bi bi-info-circle-fill"></i></button>
+                        <button class="bt-info" title="Ver Cursos" onclick="window.location.href ='./feed.php'"><i class="bi bi-info-circle-fill"></i></button>
                     </div>
                 </div>
             </div>
