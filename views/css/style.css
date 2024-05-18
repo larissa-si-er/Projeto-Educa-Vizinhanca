@@ -1736,3 +1736,13 @@ footer a:hover{
             font-size: medium;
         }
 }
+
+.seta {
+    position: fixed; 
+    top: 600px;
+    bottom: 0; 
+    right: 10px; 
+    font-size: 46px; 
+    color: black; 
+    text-decoration: none; 
+}

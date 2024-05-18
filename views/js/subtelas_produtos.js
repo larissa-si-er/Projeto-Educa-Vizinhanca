@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('increment').addEventListener('click', function() {
     var quantityInput = document.getElementById('quantity');
     var currentValue = parseInt(quantityInput.value);
-    quantityInput.value = currentValue + 1;
+    quantityInput.value = currentValue + 0;
 });
 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('color').addEventListener('change', function() {
         var number = parseInt(this.value); // Obter o número selecionado
         var mainImage = document.getElementById('main-image');
-        var imagePath = number + ".png";
+        var imagePath = '../img/' + number + '.png';
         mainImage.src = imagePath;
     });
 });
