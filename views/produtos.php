@@ -192,7 +192,7 @@
 
         <!-- CARDS - GRANDE - PRODUTOS -->
         <section class="third">
-            <h3 class="title title-produtos">PODUTOS DISPONÍVEIS</h3>
+            <h3 class="title title-produtos">PRODUTOS DISPONÍVEIS</h3>
 
             <div class="row">
                 
@@ -243,7 +243,7 @@
                         <a class="link-prod" href="./subtelas/subProd3.php">
                             <img class="card-GG-img" src="./img/Garrafa LoveYourself.png" alt="#">
                         </a>
-                        <h5 class="title-card-GG img-prod-teste">Garrafa Térmica Love Yourself</h5>
+                        <h5 class="title-card-GG img-prod-teste">Garrafa Love Yourself</h5>
                         <div class="footer-card-GG">
                             <P class="preco-card-GG">R$ 89,99</P>
                             <button class="add-carrinho"><i class="bi bi-cart-plus-fill"></i></button>
@@ -254,7 +254,7 @@
                         <a class="link-prod" href="./subtelas/subProd2.php">
                             <img class="card-GG-img" src="./img/images.jpg" alt="#">
                         </a>
-                        <h5 class="title-card-GG">Garrafa Térmica Hydro Flask 500ml</h5>
+                        <h5 class="title-card-GG">Garrafa Hydro Flask </h5>
                         <div class="footer-card-GG">
                             <P class="preco-card-GG">R$ 89,99</P>
                             <button class="add-carrinho"><i class="bi bi-cart-plus-fill"></i></button>
@@ -265,7 +265,7 @@
                         <a class="link-prod" href="./subtelas/subProd6.php">
                             <img class="card-GG-img" src="./img/Garrafa White Star.png" alt="#">
                         </a>
-                        <h5 class="title-card-GG">Garrafa Térmica White Star 600ml</h5>
+                        <h5 class="title-card-GG">Garrafa White Star</h5>
                         <div class="footer-card-GG">
                             <P class="preco-card-GG">R$ 89,99</P>
                             <button class="add-carrinho"><i class="bi bi-cart-plus-fill"></i></button>

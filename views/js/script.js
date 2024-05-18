@@ -71,14 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // TEXT-RESIZER - INICIO
 function aumentarTexto() {
-    var elementosTexto = document.querySelectorAll('body :not(.acess-window):not(.moreorless) p'); // Seleciona todos os elementos dentro do body, exceto a janela de acessibilidade e os botões de aumento/diminuição
+    var elementosTexto = document.querySelectorAll('body :not(.acess-window):not(.moreorless) p'); 
 
     elementosTexto.forEach(function(elemento) {
         var tamanhoAtual = parseFloat(window.getComputedStyle(elemento).fontSize);
-        var novoTamanho = tamanhoAtual + 1; // Aumenta o tamanho da fonte em 1px
+        var novoTamanho = tamanhoAtual + 1; // 1px
 
-        // Define um limite superior de 24px para o tamanho da fonte
-        if (novoTamanho <= 24) {
+        if (novoTamanho <= 22) {
             elemento.style.fontSize = novoTamanho + 'px';
         }
     });
@@ -89,17 +88,15 @@ function diminuirTexto() {
 
     elementosTexto.forEach(function(elemento) {
         var tamanhoAtual = parseFloat(window.getComputedStyle(elemento).fontSize);
-        var novoTamanho = tamanhoAtual - 1; // Diminui o tamanho da fonte em 1px
+        var novoTamanho = tamanhoAtual - 1; // Diminui em 1px
 
-        // Define um limite inferior de 10px para o tamanho da fonte
-        if (novoTamanho >= 10) {
+
+        if (novoTamanho >= 12) {
             elemento.style.fontSize = novoTamanho + 'px';
         }
     });
 }
 // TEXT-RESIZER - FIM
-
-
 
 // -------------------- FIM ACESSIBILIDADE
 
