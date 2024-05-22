@@ -77,7 +77,7 @@ function aumentarTexto() {
         var tamanhoAtual = parseFloat(window.getComputedStyle(elemento).fontSize);
         var novoTamanho = tamanhoAtual + 1; // 1px
 
-        if (novoTamanho <= 22) {
+        if (novoTamanho <= 20) {
             elemento.style.fontSize = novoTamanho + 'px';
         }
     });
@@ -103,28 +103,23 @@ function diminuirTexto() {
 
 // ------------------------JSSETA [INICIO]
 document.addEventListener('DOMContentLoaded', function() {
-    var setaSubir = document.getElementById('seta-subir');
+    var scrollToTopBtn = document.querySelector(".seta");
 
     window.onscroll = function() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            setaSubir.style.display = "block";
+            scrollToTopBtn.style.display = "block";
         } else {
-            setaSubir.style.display = "none";
+            scrollToTopBtn.style.display = "none";
         }
     };
 
-    setaSubir.addEventListener('click', function() {
-        scrollToTop(9000);
+    scrollToTopBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
-
-    function scrollToTop(scrollDuration) {
-        var scrollStep = -window.scrollY / (scrollDuration / 30),
-            scrollInterval = setInterval(function() {
-                if (window.scrollY != 0) {
-                    window.scrollBy(0, scrollStep);
-                } else clearInterval(scrollInterval);
-            }, 15);
-    }
 });
 // ----------------------------JSSETA [FIM]
 

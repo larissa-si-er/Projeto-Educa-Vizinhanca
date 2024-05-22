@@ -106,21 +106,249 @@ nav .sidebarClose{
 
 
 
+/*--------------acessibilidade [inicio]---------------*/
+.div-acess-bt{
+    position: fixed;
+    left: 95%;
+    bottom: 67%;
+    z-index: 999; 
+}
+.fa-universal-access {
+    font-size: 40px;
+    color: #210082;
+    
+}
+.acess-bt{
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+}
+.fa-universal-access:hover{
+    color: #007fd4
+}
+.acess-window {
+    display: none;
+    position: fixed;
+    bottom: 40%;
+    right: 10px;
+    width: 200px;
+    height: 150px;
+    background-color: #ffffffd2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 998;
+    overflow:hidden;
+  }
+  .window-point{
+    width: 0px;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 16px solid rgb(205, 203, 203);
+    margin: -1.9% 0px 5% 9%;
+    z-index: 9999;
+    position: fixed;
+  }
+  /* aumentar e diminuir */
+  .moreorless{
+    justify-content: center;
+    display: flex;
+    height: 60px;
+  }
+  .moreorless button{
+    margin-top: 5%;
+    width: 45px;
+    height: 40px;
+    align-self: center;
+    cursor: pointer;
+    border: 1px solid black;
+    box-shadow: 2px 2px 0px black;
+    transition: .3s;
+  }
+  .moreorless button:hover {
+    color: white;
+    box-shadow: none;
+    transform: translateX(3px) translateY(3px);
+    background-color: black;
+    border: none;
+  }
+  /* dark mode [inicio]*/
+  .dk_mode{
+    justify-content: center;
+    display: flex;
+    height: 60px;
+    align-items: center;
+  }
+  .tema-check {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 8em;
+    height: 1em;
+    font-size: 17px;
+    font-weight: 600;
+    color: black;
+    background-color: white;
+    padding: 0.5em;
+    border: 1px solid black;
+    border-radius: 2px;
+    box-shadow: 2px 2px 0px black;
+    transition: .4s;
+    z-index: 1;
+  }
+  .name::before {
+    color: black;
+    content: "Dark Mode";
+    margin-right: 2em;
+    transition: .2s ease-in-out;
+  }
+  .name::after {
+    color: black;
+    content: "Light Mode";
+    margin-right: 1.7em;
+    transition: .2s ease-in-out;
+    display: none;
+  }
+  .tema-check .slider {
+    position: absolute;
+    background-color: #222222;
+    margin-left: 6.2em;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 4px solid #222222;
+    transform: rotate(-120deg);
+    box-shadow: inset 0px 6px #999, inset 0px 6px 1px 1px #999;
+  }
+  .tema-check:hover {
+    color: white;
+    cursor: pointer;
+    box-shadow: none;
+    transform: translateX(6px) translateY(6px);
+    background-color: black;
+    border: none;
+  }
+  .tema-check:hover .name::before {
+    color: white;
+  }
+  .tema-check:hover .name::after {
+    color: white;
+  }
+  .tema-check input[type=checkbox]:checked + .slider {
+    transform: rotate(360deg);
+    box-shadow: none;
+    border: 4px solid #F28C38;
+    background-color: #F28C38;
+  }
+  .tema-check input[type=checkbox]:checked ~ .name::before {
+    display: none;
+  }
+  .tema-check input[type=checkbox]:checked ~ .name::after {
+    display: block;
+  }
+  .tema-check input[type=checkbox] {
+    position: absolute;
+    visibility: hidden;
+  }
+  .slider {
+    transition: 300ms ease;
+  }
 
+
+html[dark]{
+    background-color: rgb(28, 27, 27);
+    color: rgb(221, 221, 221);
+    transition: 2s;
+}
+html[dark] nav{
+    background-color: #0e0e0e;
+    transition: 1s;
+}
+
+html[dark] .sub-menu{
+    background-color: #0e0e0e;
+    transition: 1s;
+    margin-top: -2px;
+}
+html[dark] .logos{
+    background-color: #0e0e0e;
+    transition: 1s;
+}
+html[dark] .logos{
+    background-color: rgb(28, 27, 27);
+    transition: 1s;
+}
+html[dark] .logos:before{
+    left: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(28, 27, 27));
+}
+html[dark] .logos:after{
+    right: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(28, 27, 27));
+}
+html[dark] .sub-menu small, .sub-menu i{
+    color: #ffffff;
+    transition: 1s;
+}
+html[dark] .titulos h1{
+    color: #0e0e0e;
+    transition: 1s;
+}
+html[dark] section{
+    background-color: rgb(28, 27, 27);
+    color: white;
+    transition: 1s;
+}
+html[dark] main{
+    background-color: rgb(28, 27, 27);
+}
+html[dark] footer{
+    background-image: url(/img/footer-dark.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+html[dark] .b1-c1{
+    background-color: rgb(0, 0, 0);
+    transition: 1s;
+}
+html[dark] h1 {
+  color: #dadada;
+  text-shadow: 0px -1px 2px #0EC1C2;
+}
+html[dark] .h1-c3{
+    color: #00145671;
+}
+html[dark] h2{
+  color: #dadada;
+}
+html[dark] p{
+    color: #9b9b9b;
+}
+html[dark] .acess-window{
+    background-color: rgb(50, 45, 45);
+}
+  /* dark mode [fim]*/
+
+
+
+.seta {
+    position: fixed;
+    top: 600px;
+    bottom: 0;
+    right: 10px;
+    font-size: 46px;
+    color: #210082;
+    text-decoration: none;
+}
+/*--------------acessibilidade [fim]---------------*/
 
 
 
 
 /* >>>>>>>> RESPONSIVIDADE <<<<<<<<< */
-@media (min-width:300px) and (max-width:400px) {
-
-}
-
-@media (min-width:1024px) and (max-width:1026px){
-   
-}
-
-
 @media (max-width: 912px) {
     
     nav img{
@@ -145,13 +373,46 @@ nav .sidebarClose{
         margin-top: -13%;
     }
 
+
+    /* acess */
+    .acess-window {
+        bottom: 9%;
+        right: 40%;
+    }
+    .window-point {
+        display: none;
+    }
+    .div-acess-bt {
+        position: fixed;
+        left: 1%; 
+        bottom: 3.5%;
+        z-index: 999;
+    }
+
 }
 
-@media (max-width:640px) {
+@media (min-width:720px) and (max-width:900px){
+        /* acess */
+        .acess-window {
+            bottom: 9%;
+            right: 75%;
+        }
 }
 
-
-
-@media (max-width:480px){
- 
+@media (max-width: 650px) {
+        /* acess */
+        .acess-window {
+            bottom: 9%;
+            right: 40%;
+        }
+        .window-point {
+            display: none;
+        }
+        .div-acess-bt {
+            position: fixed;
+            left: 1%; 
+            bottom: 3.5%;
+            z-index: 999;
+        }
 }
+

@@ -6,6 +6,10 @@
  font-family: "Poppins", sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root{
     --body-color: #E4E9F7;
     --nav-color: #2070F4;

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/menu-index.css">
     <link rel="stylesheet" href="./css/produtos.css">
     <link rel="stylesheet" href="./css/footer.css">
-    <link rel="stylesheet" href="./css/menu-index.css">
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
     <script src="./js/produtos.js"></script>
     <!-- icones -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- <script src="../js/script.js"></script> -->
-
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/6c3bbfdabc.js" crossorigin="anonymous"> </script>
 </head>
 <body>
     <header>
@@ -50,10 +51,10 @@
         <div class="sub-menu">
             <i class="bi bi-house-door-fill"></i>
             <i class="bi bi-caret-right-fill"></i>
-            <p class="p-sub-menu p-prod">Produtos</p>
+            <small class="p-sub-menu p-prod">Produtos</small>
             <button onclick="abrirCarrinho()">
                 <i class="bi bi-cart3"></i>
-                <p class="p-sub-menu">Carrinho</p>
+                <small class="p-sub-menu">Carrinho</small>
             </button>
 
         </div>
@@ -306,6 +307,38 @@
 
             </div>
         </div>
+
+        <!-- BOTOES ACESSIBILIDADE E SETA [inicio]-->
+        <div class="div-acess-bt"><button class="acess-bt"><i class="fa-solid fa-universal-access"></i></button></div>
+
+         <!-- conteudo acessibilidade -->
+         <div class="acess-window"><div class="window-point"></div><small>Janela de acessibilidade.</small>
+                <div class="moreorless">
+                    <button class="more" onclick="aumentarTexto()"><span class="material-symbols-outlined">
+                        text_increase
+                        </span>
+                    </button>
+                    <button class="less" onclick="diminuirTexto()">
+                        <span class="material-symbols-outlined">
+                            text_decrease
+                            </span>
+                    </button>
+                </div>
+                <div class="dk_mode">
+                    <label class="tema-check" for="checkbox" id="themeswitch">
+                        <input type="checkbox" class="input-dark-mode" id="checkbox">
+                        <div class="slider round"></div>
+                        <span class="name"></span>
+                        <div class="back"></div>
+                   </label>
+                </div>
+            </div>
+            <script src="../views/js/script.js"></script>
+
+           <a href="#" class="seta" ><i class="bi bi-arrow-up-circle-fill"></i></a>
+           <script src="../views/js/seta.js"></script>
+        <!-- BOTOES ACESSIBILIDADE E SETA [fim]-->
+
 
           
           <!-- //////////////////////// MODAL //////////////////////// -->

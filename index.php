@@ -255,7 +255,7 @@
             <div class="div-bt-c8"><button class="bt-c8" onclick="window.open('https://www.instagram.com/ev_projeto?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')">Fale conosco</button></div>
         </section>
     </main>
-    <a href="#" class="seta" ><i class="bi bi-arrow-up-circle-fill"></i></a>
+    <a href="#" class="seta" id="seta-subir"><i class="bi bi-arrow-up-circle-fill"></i></a>
     <script src="../views/js/seta.js"></script>
 <?php
     require_once 'footer.php';

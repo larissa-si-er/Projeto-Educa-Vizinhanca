@@ -36,6 +36,8 @@ acess.addEventListener ("click", () => {
 document.addEventListener('DOMContentLoaded', () => {
     const darkModeStorage = localStorage.getItem('dark-mode')
     const html = document.querySelector('html')
+    const main = document.querySelector('main')
+    const sub_menu = document.querySelector('.sub-menu') 
     const header = document.querySelector('header')
     const p = document.querySelector('p')
     const h1 = document.querySelector('h1')
@@ -46,6 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const footer = document.querySelector('footer')
     const bt = document.querySelector('.b1-c1')
     const inputDarkMode = document.querySelector('.input-dark-mode')
+    const acess_Window = document.querySelector('.acess-window')
+    const titulos = document.querySelector('.titulos')
+    const logos = document.querySelector('.logos')
+
+
 
     if(darkModeStorage){
         html.setAttribute("dark", "true");

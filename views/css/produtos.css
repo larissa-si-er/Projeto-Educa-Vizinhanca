@@ -162,6 +162,9 @@ nav .sidebarClose{
     margin-top: 1.5%;
     align-items: center;
 }
+.p-sub-menu{
+    color: #fff;
+}
 .sub-menu i{
     margin: 0.5%;
 }
@@ -176,6 +179,8 @@ nav .sidebarClose{
     background-color: transparent;
     font-size: 18px;
     width: 125px;
+    align-items: center;
+    gap: 10px;
 }
 .sub-menu button i{
     font-size: 20px;
@@ -730,6 +735,7 @@ button.add-carrinho{
 
 
  padding-bottom: 70px; 
+ z-index: 9999;
 
 }
 
@@ -994,25 +1000,15 @@ button.add-carrinho{
         justify-content: space-between;
      } */
 
-        /* submenu */
-        .sub-menu button {
-            /* margin: 0;
-            position: relative;
-            left: 35%;
-            margin-bottom: -30%; */
-        }
-        .sub-menu{
-            /* margin-bottom: -20%; */
-        }
-         /* corpo */
-    .fundo-principal{
-        /* height: 20vh;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-size: 100%;
-        padding: 115px 10px; */
+
+
+    /* sub-menu */
+    .sub-menu{
+        display: none;
     }
+    /* sub-menu */
+
+    
     .fundo-principal h1{
         font-size: 60px;
     }

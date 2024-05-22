@@ -387,6 +387,9 @@ html[dark] h2{
 html[dark] p{
     color: #9b9b9b;
 }
+html[dark] .acess-window{
+    background-color: rgb(50, 45, 45);
+}
   /* dark mode [fim]*/
 
 section.container-two{

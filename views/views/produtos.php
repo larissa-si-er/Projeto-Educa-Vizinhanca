@@ -327,8 +327,7 @@
             </div>
             <script src="../views/js/script.js"></script>
             
-        <a href="#" class="seta" ><i class="bi bi-arrow-up-circle-fill"></i></a>
-        <script src="../views/js/seta.js"></script>
+        <button href="#" class="seta" id="seta-subir"><i class="bi bi-arrow-up-circle-fill"></i></button>
 
           <!-- //////////////////////// MODAL //////////////////////// -->
 

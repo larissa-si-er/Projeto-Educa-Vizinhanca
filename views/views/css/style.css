@@ -1733,6 +1733,14 @@ footer a:hover{
         }
 }
 
+#seta-subir{
+    border-radius: 100%;
+    border: none;
+    outline: none; 
+    background-color: transparent;
+    border: none; /* Remove a borda padrão do botão */
+    outline: none; /* Remove o contorno padrão do botão */
+}
 .seta {
     position: fixed; 
     top: 600px;
@@ -1741,6 +1749,11 @@ footer a:hover{
     font-size: 46px; 
     color: #210082; 
     text-decoration: none; 
+    border: none;
+    outline: none; 
+    background-color: transparent;
+    border: none; /* Remove a borda padrão do botão */
+    outline: none; /* Remove o contorno padrão do botão */
 }
 
 .seta:hover{
