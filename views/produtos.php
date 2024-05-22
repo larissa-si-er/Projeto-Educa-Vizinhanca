@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./img/home-ic.png">
     <title>Produtos - EV</title>
+    <link rel="stylesheet" href="./css/menu-index.css">
     <link rel="stylesheet" href="./css/produtos.css">
     <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/menu-index.css">
     <script src="./js/produtos.js"></script>
     <!-- icones -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -24,7 +26,11 @@
         <nav>
             <div class="nav-bar">
                 <i class="bi bi-list sidebarOpen"></i>
-                <span class="logo"><a href="#"><img src="./img/Home.png" alt=""></a></span>
+                <span class="logo"><a href="#"><img src="./img/home-ic.png" alt=""></a></span>
+                <!-- mobile carrinho -->
+                <button onclick="abrirCarrinho()" class="cart-mobile">
+                  <i class="bi bi-cart3"></i>
+                </button>
                 <div class="menu">
                     <i class="bi bi-x sidebarClose"></i>
 

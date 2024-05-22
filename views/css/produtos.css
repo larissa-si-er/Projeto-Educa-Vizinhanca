@@ -24,7 +24,7 @@ body{
 }
 
 
-nav {
+/* nav {
     position: relative;
     top: 0;
     left: 0;
@@ -38,10 +38,8 @@ nav .nav-bar{
    position: relative;
    height: 100%;
    max-width: 1000px;
-   /* width: 100%; */
    width: auto;
    margin: 0px auto;
-   /* padding: 0 30px; */
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -86,7 +84,7 @@ nav .bi-person-circle{
     color: #929296;
     font-size: 27px;
     margin-right: 5px;
-}
+} */
 /* PAGINA ATUAL FUNDO MENU */
 nav ul li a .active {
     position: absolute;
@@ -159,7 +157,6 @@ nav .sidebarClose{
 .sub-menu{
     height: 30px;
     background-color: #00c8db;
-    /* background-color: #c4c4c4; */
     display: flex;
     padding: 3px 55px;
     margin-top: 1.5%;
@@ -183,8 +180,6 @@ nav .sidebarClose{
 .sub-menu button i{
     font-size: 20px;
 }
-
-
 
 /* sub menu [fim] */
 
@@ -782,6 +777,7 @@ button.add-carrinho{
    .footer-carrinho{
     position: fixed;
     width: 300px;
+    /* width: 50%; */
     top: 80%;
    }
    .linha-modal2{
@@ -825,6 +821,14 @@ button.add-carrinho{
 
 /* ------------------------------------------------------------------------------------------- */
 /* >>>>>>>> RESPONSIVIDADE <<<<<<<<< */
+@media (min-width:1300px) and (min-width:1300px) {
+    .linha1{
+        top: 180%;
+    }
+    .linha2{
+        top: 180%;
+    }
+}
 @media (min-width:1024px) and (max-width:1026px){
     /* menu e acess */
 
@@ -903,11 +907,11 @@ button.add-carrinho{
     nav .sidebarOpen{
         display: block;
     }
-    .logo img{
+    /* .logo img{
         margin-left: -93%;
         margin-left: -85%;
         position: absolute;
-    }
+    } */
 
         /* submenu */
         .sub-menu button {
@@ -949,6 +953,14 @@ button.add-carrinho{
         .linha1, .linha2{
             display: none;
         }
+
+        /* carrinho */
+        .modal-1 {
+            background-color: aliceblue;
+            background-image: none;
+            top: 71%;
+            left: 90%;
+        }
     
 
 }
@@ -956,7 +968,7 @@ button.add-carrinho{
 
 
 @media (max-width:640px) {
-    nav .logo img{
+    /* nav .logo img{
         width: 100px;
         top: 6%;
         top: 36%;
@@ -967,7 +979,6 @@ button.add-carrinho{
         margin-top: 8%;
     }
     nav{
-        /* position: fixed; */
         width: 100%;
     }
 
@@ -975,37 +986,32 @@ button.add-carrinho{
         position: relative;
         height: 100%;
         max-width: 100%;
-        /* width: 100%; */
         width: auto;
         margin: 0px auto;
         padding: 0 30px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-     }
+     } */
 
         /* submenu */
         .sub-menu button {
-            margin: 0;
+            /* margin: 0;
             position: relative;
             left: 35%;
-            margin-bottom: -30%;
+            margin-bottom: -30%; */
         }
         .sub-menu{
-            margin-bottom: -20%;
+            /* margin-bottom: -20%; */
         }
          /* corpo */
     .fundo-principal{
-        height: 20vh;
+        /* height: 20vh;
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
         background-size: 100%;
-        padding: 115px 10px;
-        /* margin-top: -22%;
-        margin-top: -7%;
-        margin-top: -20%; */
-
+        padding: 115px 10px; */
     }
     .fundo-principal h1{
         font-size: 60px;
@@ -1027,16 +1033,22 @@ button.add-carrinho{
         margin-left: 10%;
     }
 
+    /* carrinho */
+    .modal-1 {
+        width: 75vh;
+        background-color: aliceblue;
+        background-image: none;
+    }
+
 }
 
 @media (min-width:480px) and (max-width:520px){
-    nav .logo img{
+    /* nav .logo img{
         width: 90px;
         position: static;
-        /* position: absolute; */
         margin-top: 17%;
         margin-right: 150px;
-    }
+    } */
 
         /* corpo */
         .fundo-principal{
@@ -1070,21 +1082,21 @@ button.add-carrinho{
 }
 
 @media (max-width:480px){
-    nav .logo img{
+    /* nav .logo img{
         width: 90px;
         position: static;
         margin-right: 75px;
         margin-right: 60px;
-        margin-right: 45px;
-        margin-top: 20%;
+        margin-right: 20px;
+        margin-top: 22%;
 
-    }
+    } */
  
     /* submenu */
     .sub-menu button {
-        margin: 0;
+        /* margin: 0;
         position: relative;
-        left: 25%;
+        left: 25%; */
     }
     .bi-caret-right-fill, .bi-house-door-fill, .p-prod{
         display: none;

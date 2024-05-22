@@ -19,7 +19,7 @@
         <nav>
                 <div class="nav-bar">
                     <i class="bi bi-list sidebarOpen"></i>
-                    <span class="logo"><a href="#"><img src="./img/home.png" alt=""></a></span>
+                    <span class="logo"><a href="#"><img src="./img/home-ic.png" alt=""></a></span>
                     <div class="menu">
                         <i class="bi bi-x sidebarClose"></i>
 

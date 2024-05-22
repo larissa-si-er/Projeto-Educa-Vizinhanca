@@ -72,7 +72,7 @@
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                     </div>
-                    <button class="bt-acessar" onclick="window.location.href ='./views/auth/login.php'">Acessar</button>
+                    <button class="bt-acessar" onclick="window.location.href ='./views/feed.php'">Acessar</button>
                 </div>
 
                 <div class="hidden c3 card2">
@@ -86,7 +86,7 @@
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                     </div>
-                    <button class="bt-acessar" onclick="window.location.href ='./views/auth/login.php'">Acessar</button>
+                    <button class="bt-acessar" onclick="window.location.href ='./views/feed.php'">Acessar</button>
                 </div>
 
                 <div class="hidden c3 card3">
@@ -100,7 +100,7 @@
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                     </div>
-                    <button class="bt-acessar" onclick="window.location.href ='./views/auth/login.php'">Acessar</button>
+                    <button class="bt-acessar" onclick="window.location.href ='./views/./views/feed.php'">Acessar</button>
                 </div>
 
                 <div class="hidden c3 card4">
@@ -115,7 +115,7 @@
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                     </div>
-                    <button class="bt-acessar" onclick="window.location.href ='./views/auth/login.php'">Acessar</button>
+                    <button class="bt-acessar" onclick="window.location.href ='./views/./views/feed.php'">Acessar</button>
                 </div>
             </div>
         </section>

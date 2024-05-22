@@ -471,7 +471,7 @@ section.container-three .cards-c3{
 }
 .cards-c3 img{
     background-color: #2070F4;
-    margin: 30px 25px;
+    margin: 20px 25px;
     width: 200px;
 }
 .cards-c3 h3{
@@ -899,6 +899,8 @@ footer a:hover{
         height: 33vh;
         width: 100%;
     }
+
+
     section.container-two{
         width: 100%;
         min-height: 50vh;
@@ -974,7 +976,7 @@ footer a:hover{
     }
     .container-seven .faq{
         width: 100%;
-        height: 35%;
+        /* height: 35%; */
     }
     .faq h2{
         font-size: 23px;
@@ -985,6 +987,68 @@ footer a:hover{
 
     section.container-eight{
         height: 50vh;
+    }
+}
+
+@media (min-width:915px) and (max-width:1100px) {
+    .container-one{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        overflow: hidden;
+
+        min-height: 100vh;
+        width: 130vh;
+        min-height: 75vh;
+     }
+
+     .side-one{
+        flex-wrap: wrap;
+        width: 100%;
+        height: 45%;
+     }
+     .side-one .p1-c1{
+        width: 535px;     
+    }
+     .h1-c1{
+        font-size: 34px;
+        width: 440px;    
+     }
+     button.b1-c1{
+        font-size: 11px;
+        width: 140px;
+        height: 30px;
+        margin-left: 20%;
+     }
+     .side-two {
+        width: 100%;
+        height: 54%;
+    }
+    .side-two img{
+        width: 490px;
+        border-radius: 100%;
+        box-shadow: none;
+    }
+
+    section.container-two{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .content-c2{
+       align-items: center;
+       justify-content: center;
+       display: flex;
+       flex-wrap: wrap;
+       width: 100%;
+    }
+    section .h2-c2{
+        font-size: 40px;
+        width: 800px;
+        max-width: auto;
+    }
+    .p-c2{
+        margin: 30px 120px;
     }
 }
 
@@ -1028,7 +1092,7 @@ footer a:hover{
     nav .sidebarOpen{
         display: block;
     }
-    .logo img{
+    /* .logo img{
         margin-left: -93%;
         position: fixed;
 
@@ -1038,6 +1102,14 @@ footer a:hover{
         margin-top: 30%;
         margin-left: -280%;
         margin-left: -200%;
+
+    } */
+    nav .logo {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 
@@ -1218,13 +1290,13 @@ footer a:hover{
         display: block;
     }
     .logo img{
-        margin-left: -93%;
+        /* margin-left: -93%;
         position: fixed;
 
         margin-left: -330%;
         position: static;
 
-        margin-top: 0%;
+        margin-top: 0%; */
     }
 
 
@@ -1256,7 +1328,7 @@ footer a:hover{
         overflow: hidden;
 
         min-height: 80vh;
-        min-height: 90vh;
+        min-height: 100vh;
         width: 100vh;
      }
 
@@ -1267,6 +1339,10 @@ footer a:hover{
      }
      .side-two {
         width: 100%;
+        height: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
 
@@ -1274,12 +1350,12 @@ footer a:hover{
 
      /* corpo */
     .container-one{
-        margin-bottom: -100px;
+        /* margin-bottom: -100px; */
      }
     .container-one img{
-        width: 500px;
+        width: 400px;
         border-radius: 100%;
-        margin: 110px;
+        margin: 13% 41%;        
         z-index: 9999;
         position: relative;
     }
@@ -1287,8 +1363,9 @@ footer a:hover{
         margin: 0px 180px;
     }
 
-    .container-two{
+    section.container-two{
         width: 100%;
+        min-height: 40vh;
     }
     .container-two .h2-c2{
         width: 800px;
@@ -1381,7 +1458,7 @@ footer a:hover{
         font-size: 24px;
         font-weight: 500;
         margin-top: 8%;
-        color: rgb(255, 255, 255);
+        color: rgb(117 117 117);
     }
     nav{
         position: fixed;
@@ -1399,6 +1476,22 @@ footer a:hover{
         align-items: center;
         justify-content: space-between;
      }
+
+
+
+         /* logo teste */
+        nav .logo {
+            height: 100%;
+            width: 80%;
+            margin-right: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        nav .logo img{
+            margin: 0;
+            width: 100px;
+        }
 
 
          /* corpo */
@@ -1520,7 +1613,7 @@ footer a:hover{
             margin-top: -40px;
         }
         .cards-c3 .c3{
-            width: 190px;
+            /* width: 190px; */
             height: 250px;
             margin: 4px 35px 4px 35px;
             margin: 3% 50%;
@@ -1542,7 +1635,8 @@ footer a:hover{
         .cards-c3 button {
             width: 100px;
             font-size: 13px;
-            margin: 0% 22%;
+            margin: 7% 22%;
+            
         }
         .avaliacao{
             margin: 2px;

@@ -385,6 +385,18 @@ section.content{
 
 
 @media (max-width: 920px) {
+    nav .logo{
+        height: 100%;
+        width: 100%;
+        margin-right: 2%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    nav .logo img{
+        width: 100px;
+    }
+
     .menu{
         position: fixed;
         height: 70%;
@@ -423,10 +435,10 @@ section.content{
     nav .sidebarOpen{
         display: block;
     }
-    .logo img{
+    /* .logo img{
         margin-left: -93%;
         position: static;
-    }
+    } */
 
     /* corpo */
     section.content{
@@ -485,14 +497,36 @@ section.content{
 
 }
 
+@media (max-width:640px){
+    nav .logo{
+        height: 100%;
+        width: 100%;
+        margin-right: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    nav .logo img{
+        width: 100px;
+    }
+}
+
 
 
 @media (min-width:530px) and (max-width:640px) {
+    nav .logo{
+        background-color: #010718;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     nav .logo img{
         width: 100px;
-        margin-top: 34%;
+        /* margin-top: 34%;
         margin-top: 35px;
-        margin-left: -485px;
+        margin-left: -485px; */
 
     }
     nav .bi-list{
@@ -532,15 +566,13 @@ section.content{
 }
 
 @media (max-width:500px) {
-    nav .logo img{
-        width: 100px;
-        margin-top: 35px;
-        margin-left: -280%;
-        margin-left: -190%;
-        margin-left: -200%;
+    /* nav .logo img{
+        width: 91px;
+        margin-top: 30px;
+        margin-left: -255%;
 
+    } */
 
-    }
     nav .bi-list{
         font-size: 24px;
         font-weight: 500;

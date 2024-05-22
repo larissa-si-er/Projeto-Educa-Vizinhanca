@@ -32,6 +32,8 @@ require_once '../menuproduto.php';
             </div>
         </div>
     </div>
+    <script src="../js/subtelas_produtos.js"></script>
+
 </body>
 </html>
 <?php
