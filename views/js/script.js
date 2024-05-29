@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkModeStorage = localStorage.getItem('dark-mode')
     const html = document.querySelector('html')
     const main = document.querySelector('main')
+    const body = document.querySelector('body')
     const sub_menu = document.querySelector('.sub-menu') 
     const header = document.querySelector('header')
     const p = document.querySelector('p')

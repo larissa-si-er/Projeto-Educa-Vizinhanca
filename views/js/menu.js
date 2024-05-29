@@ -20,3 +20,32 @@ document.addEventListener("DOMContentLoaded", function() {
     };
   });
   
+
+
+//   teste
+document.addEventListener("DOMContentLoaded", function() {
+    function obterNomeDiaSemana(dia) {
+        const diasDaSemana = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+        return diasDaSemana[dia];
+    }
+
+    function adicionarZero(numero) {
+        return numero < 10 ? `0${numero}` : numero;
+    }
+
+    // Obter a data atual
+    const dataAtual = new Date();
+
+    const diaSemana = dataAtual.getDay();
+    const nomeDiaSemana = obterNomeDiaSemana(diaSemana);
+    const dia = adicionarZero(dataAtual.getDate());
+    const mes = adicionarZero(dataAtual.getMonth() + 1); // Janeiro é 0
+    const ano = dataAtual.getFullYear();
+
+    const diaSemanaSpan = `<span class="weekday">${nomeDiaSemana}</span>`;
+    const dataFormatada = `${diaSemanaSpan} ${dia}/${mes}/${ano}`;
+
+    const elementoDataAtual = document.getElementById("data-atual");
+    elementoDataAtual.innerHTML = dataFormatada;
+});
+

@@ -263,6 +263,14 @@ html[dark]{
     color: rgb(221, 221, 221);
     transition: 2s;
 }
+html[dark] .sidebarOpen, html[dark] .bi-cart3{
+    color: rgb(221, 221, 221);
+    transition: 1s;
+}
+html[dark] .modal-1{
+    background-color: #3c3c3c;
+    transition: 1s;
+}
 html[dark] nav{
     background-color: #0e0e0e;
     transition: 1s;
