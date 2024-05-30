@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `administracao` (
   `id` int(11) NOT NULL,
   `usuario` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `senha` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -49,20 +50,18 @@ CREATE TABLE `aluno` (
   `email` varchar(100) DEFAULT NULL,
   `telefone_celular` varchar(20) DEFAULT NULL,
   `telefone_fixo` varchar(20) DEFAULT NULL,
-  `login` varchar(100) DEFAULT NULL,
+  `usuario` varchar(100) DEFAULT NULL,
   `senha` varchar(100) DEFAULT NULL,
-  `cep` varchar(10) DEFAULT NULL,
-  `complemento` varchar(100) DEFAULT NULL,
-  `numero_casa` int(11) DEFAULT NULL
+  `cep` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
-INSERT INTO `aluno` (`id_aluno`, `nome`, `data_nasc`, `sexo`, `nome_materno`, `cpf`, `email`, `telefone_celular`, `telefone_fixo`, `login`, `senha`, `cep`, `complemento`, `numero_casa`) VALUES
-(0, 'ana', '2001-01-01', 'Feminino', 'teste', '11955468745', 'teste@teste.com', '21983784343', '21983784343', 'teste@teste.com', '1234', NULL, 'casa', 2),
-(1, 'ana', '2001-01-01', 'Feminino', 'teste', '123456789', 'teste@teste.com', '21983784343', '21983784343', 'teste@teste.com', '1234', NULL, 'casa', 2);
+INSERT INTO `aluno` (`id_aluno`, `nome`, `data_nasc`, `sexo`, `nome_materno`, `cpf`, `email`, `telefone_celular`, `telefone_fixo`, `login`, `senha`, `cep` ) VALUES
+(0, 'ana', '2001-01-01', 'Feminino', 'teste', '11955468745', 'teste@teste.com', '21983784343', '21983784343', 'teste@teste.com', '1234', NULL),
+(1, 'ana', '2001-01-01', 'Feminino', 'teste', '123456789', 'teste@teste.com', '21983784343', '21983784343', 'teste@teste.com', '1234', NULL);
 
 -- --------------------------------------------------------
 
@@ -85,6 +84,7 @@ CREATE TABLE `comentario` (
   `id_comentario` int(11) NOT NULL,
   `id_curso` int(11) DEFAULT NULL,
   `id_aluno` int(11) DEFAULT NULL,
+  `comentario` varchar(50) NOT NULL,
   `data_comentario` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -114,6 +114,19 @@ CREATE TABLE `curso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+-- EStrutura Tabela ADMIN-INSTI
+--
+CREATE TABLE `curso_admin_instituicao` (
+  `id_curso` int(11) NOT NULL,
+  `id_admin` int(11) DEFAULT NULL,
+  `id_instituicao` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_curso`, `id_admin`, `id_instituicao`),
+  FOREIGN KEY (`id_curso`) REFERENCES `curso`(`id_curso`) ON DELETE CASCADE,
+  FOREIGN KEY (`id_admin`) REFERENCES `admin`(`id_admin`) ON DELETE CASCADE,
+  FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao`(`id_instituicao`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `curso_salvo`
@@ -133,18 +146,19 @@ CREATE TABLE `curso_salvo` (
 
 CREATE TABLE `endereco` (
   `cep` varchar(10) NOT NULL,
-  `rua` varchar(100) DEFAULT NULL,
-  `bairro` varchar(100) DEFAULT NULL,
   `cidade` varchar(100) DEFAULT NULL,
-  `uf` varchar(2) DEFAULT NULL
+  `uf` varchar(2) DEFAULT NULL,
+  `logradouro` varchar(100) DEFAULT NULL,
+  `bairro` varchar(100) DEFAULT NULL,
+  `numero` varchar(10) DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `endereco`
 --
 
-INSERT INTO `endereco` (`cep`, `rua`, `bairro`, `cidade`, `uf`) VALUES
-('23092631', 'oreco', 'campo', 'rio', 'rj');
+INSERT INTO `endereco` (`cep`, `cidade`, `uf`, `logradouro`, 'bairro', `numero`) VALUES
+('23092631', 'rio de janeiro', 'rj', 'rua tal', 'campo grande','11');
 
 -- --------------------------------------------------------
 
@@ -157,7 +171,6 @@ CREATE TABLE `instituicao` (
   `nome` varchar(100) DEFAULT NULL,
   `telefone` varchar(20) DEFAULT NULL,
   `cep` varchar(10) NOT NULL,
-  `complemento` varchar(10) DEFAULT NULL,
   `numero_insti` int(11) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `senha` varchar(100) DEFAULT NULL,
