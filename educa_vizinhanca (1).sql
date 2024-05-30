@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30/05/2024 às 04:00
+-- Tempo de geração: 30/05/2024 às 04:32
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -69,15 +69,30 @@ CREATE TABLE `aluno_curso` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `id_carrinho` int(11) NOT NULL,
+  `id_aluno` int(11) DEFAULT NULL,
+  `id_instituicao` int(11) DEFAULT NULL,
+  `id_produto` int(11) NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `cor` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `comentario`
 --
 
 CREATE TABLE `comentario` (
   `id_comentario` int(11) NOT NULL,
-  `id_curso` int(11) DEFAULT NULL,
-  `id_aluno` int(11) DEFAULT NULL,
-  `comentario` varchar(50) NOT NULL,
-  `data_comentario` date DEFAULT NULL
+  `id_aluno` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL,
+  `texto` text NOT NULL,
+  `data` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -120,13 +135,13 @@ CREATE TABLE `curso_admin_instituicao` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `curso_salvo`
+-- Estrutura para tabela `curtida`
 --
 
-CREATE TABLE `curso_salvo` (
-  `id_curso_sv` int(11) NOT NULL,
-  `id_aluno` int(11) DEFAULT NULL,
-  `id_curso` int(11) DEFAULT NULL
+CREATE TABLE `curtida` (
+  `id_curtida` int(11) NOT NULL,
+  `id_aluno` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -162,6 +177,35 @@ CREATE TABLE `instituicao` (
   `cnpj` varchar(14) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produto`
+--
+
+CREATE TABLE `produto` (
+  `id_produto` int(11) NOT NULL,
+  `nome_produto` varchar(100) NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `preco` decimal(10,2) NOT NULL,
+  `quantidade_estoque` int(11) NOT NULL,
+  `imagem` varchar(255) DEFAULT NULL,
+  `categoria` varchar(100) NOT NULL,
+  `cor` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `salvo`
+--
+
+CREATE TABLE `salvo` (
+  `id_salvo` int(11) NOT NULL,
+  `id_aluno` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tabelas despejadas
 --
@@ -187,12 +231,21 @@ ALTER TABLE `aluno_curso`
   ADD KEY `id_curso` (`id_curso`);
 
 --
+-- Índices de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD PRIMARY KEY (`id_carrinho`),
+  ADD KEY `id_aluno` (`id_aluno`),
+  ADD KEY `id_instituicao` (`id_instituicao`),
+  ADD KEY `id_produto` (`id_produto`);
+
+--
 -- Índices de tabela `comentario`
 --
 ALTER TABLE `comentario`
   ADD PRIMARY KEY (`id_comentario`),
-  ADD KEY `id_curso` (`id_curso`),
-  ADD KEY `id_aluno` (`id_aluno`);
+  ADD KEY `id_aluno` (`id_aluno`),
+  ADD KEY `id_curso` (`id_curso`);
 
 --
 -- Índices de tabela `curso`
@@ -210,10 +263,10 @@ ALTER TABLE `curso_admin_instituicao`
   ADD KEY `id_instituicao` (`id_instituicao`);
 
 --
--- Índices de tabela `curso_salvo`
+-- Índices de tabela `curtida`
 --
-ALTER TABLE `curso_salvo`
-  ADD PRIMARY KEY (`id_curso_sv`),
+ALTER TABLE `curtida`
+  ADD PRIMARY KEY (`id_curtida`),
   ADD KEY `id_aluno` (`id_aluno`),
   ADD KEY `id_curso` (`id_curso`);
 
@@ -231,6 +284,20 @@ ALTER TABLE `instituicao`
   ADD KEY `cep` (`cep`);
 
 --
+-- Índices de tabela `produto`
+--
+ALTER TABLE `produto`
+  ADD PRIMARY KEY (`id_produto`);
+
+--
+-- Índices de tabela `salvo`
+--
+ALTER TABLE `salvo`
+  ADD PRIMARY KEY (`id_salvo`),
+  ADD KEY `id_aluno` (`id_aluno`),
+  ADD KEY `id_curso` (`id_curso`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -241,16 +308,40 @@ ALTER TABLE `administracao`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `curso_salvo`
+-- AUTO_INCREMENT de tabela `carrinho`
 --
-ALTER TABLE `curso_salvo`
-  MODIFY `id_curso_sv` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `carrinho`
+  MODIFY `id_carrinho` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `comentario`
+--
+ALTER TABLE `comentario`
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `curtida`
+--
+ALTER TABLE `curtida`
+  MODIFY `id_curtida` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao`
 --
 ALTER TABLE `instituicao`
   MODIFY `id_instituicao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `produto`
+--
+ALTER TABLE `produto`
+  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `salvo`
+--
+ALTER TABLE `salvo`
+  MODIFY `id_salvo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para tabelas despejadas
@@ -263,6 +354,21 @@ ALTER TABLE `aluno`
   ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`cep`) REFERENCES `endereco` (`cep`);
 
 --
+-- Restrições para tabelas `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE,
+  ADD CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao` (`id_instituicao`) ON DELETE CASCADE,
+  ADD CONSTRAINT `carrinho_ibfk_3` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE;
+
+--
 -- Restrições para tabelas `curso_admin_instituicao`
 --
 ALTER TABLE `curso_admin_instituicao`
@@ -271,11 +377,18 @@ ALTER TABLE `curso_admin_instituicao`
   ADD CONSTRAINT `curso_admin_instituicao_ibfk_3` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao` (`id_instituicao`) ON DELETE CASCADE;
 
 --
--- Restrições para tabelas `curso_salvo`
+-- Restrições para tabelas `curtida`
 --
-ALTER TABLE `curso_salvo`
-  ADD CONSTRAINT `curso_salvo_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`),
-  ADD CONSTRAINT `curso_salvo_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`);
+ALTER TABLE `curtida`
+  ADD CONSTRAINT `curtida_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE,
+  ADD CONSTRAINT `curtida_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `salvo`
+--
+ALTER TABLE `salvo`
+  ADD CONSTRAINT `salvo_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE,
+  ADD CONSTRAINT `salvo_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
