@@ -168,14 +168,17 @@ CREATE TABLE `endereco` (
 CREATE TABLE `instituicao` (
   `id_instituicao` int(11) NOT NULL,
   `nome` varchar(100) DEFAULT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
-  `cep` varchar(10) NOT NULL,
-  `numero_insti` int(11) DEFAULT NULL,
+  `nome_insti` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `senha` varchar(100) DEFAULT NULL,
-  `status` varchar(1) DEFAULT 'A',
-  `cnpj` varchar(14) DEFAULT NULL
+  `data_fundacao` date DEFAULT NULL,
+  `cnpj` varchar(14) DEFAULT NULL,
+  `telefone_celular` varchar(20) DEFAULT NULL,
+  `telefone_fixo` varchar(20) DEFAULT NULL,
+  `cep` varchar(10) NOT NULL,
+  `usuario` varchar(100) DEFAULT NULL,
+  `senha` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 

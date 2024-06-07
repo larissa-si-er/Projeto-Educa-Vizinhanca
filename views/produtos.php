@@ -315,13 +315,11 @@
          <div class="acess-window"><div class="window-point"></div><small>Janela de acessibilidade.</small>
                 <div class="moreorless">
                     <button class="more" onclick="aumentarTexto()"><span class="material-symbols-outlined">
-                        text_increase
-                        </span>
+                    </span>
                     </button>
                     <button class="less" onclick="diminuirTexto()">
-                        <span class="material-symbols-outlined">
-                            text_decrease
-                            </span>
+                        <span class="material-symbols-outlined">  
+                        </span>
                     </button>
                 </div>
                 <div class="dk_mode">

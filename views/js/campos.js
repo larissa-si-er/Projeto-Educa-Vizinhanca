@@ -109,8 +109,6 @@ function validarSenha(valor) {
 
     if (valor.length !== 8) {
         erroSenha.innerHTML = "A senha deve ter 8 caracteres.";
-    } else if (campos.includes(valor)) {
-      erroSenha.innerHTML = "Nome já existente.";
     } else {
         erroSenha.innerHTML = "";
     }
@@ -150,7 +148,7 @@ function validate() {
 }
 
 function validate_cadTwo() {
-  var campos = [ 'nome', 'instituicao', 'email','datainstituicao','cnpj', 'celular', 'telefone', 'cep', 'complemento', 'usuario', 'senha', 'confirmSenha']; // Vetor contendo os IDs dos campos obrigatórios
+  var campos = [ 'nome', 'instituicao', 'email','datainstituicao','cnpj', 'celular', 'telefone', 'cep', 'complemento', 'usuario', 'senha', 'confirmSenha']; // Vetor com os IDs dos campos obrigatórios
   for (var i = 0; i < campos.length; i++) {
     var campo = document.getElementById(campos[i]);
     var errorSpan = document.getElementById(campos[i] + '_error');

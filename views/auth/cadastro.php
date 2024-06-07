@@ -98,7 +98,7 @@
                     <br>
                     <div class="inputbox w30">
                         <label for="celular">Celular: *</label>
-                        <input type="text" id="celular" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{8}" required inputmode="numeric"  oninput="formatarTel(), clearError('celular')" maxlength="14" class="inputUser" />
+                        <input type="text" id="celular" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{9}" required inputmode="numeric"  oninput="formatarTel(), clearError('celular')" maxlength="14" class="inputUser" />
                         <span id="celular_error" class="error"></span>
                     </div>
 
@@ -157,7 +157,7 @@
     
                     <div class="inputbox w20">
                         <label for="senha">Senha: *</label>
-                        <input type="password" id="senha" maxlength="8"  required class="inputUser" oninput="clearError('senha')" onkeyup="validarSenha(this.value)"/>
+                        <input type="password" id="senha" maxlength="8"  required class="inputUser"  onkeyup="validarSenha(this.value)" oninput="clearError('senha')"/>
                         <i class="bi bi-eye" id="btsenha"  onclick="mostrarSenha()"></i>
                         <span id="senha_error" class="error"></span> 
                         <small class="small-required" id="erroSenha"></small>
