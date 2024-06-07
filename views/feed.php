@@ -43,17 +43,6 @@
                     <div class="user-mobile">
                        <i class="bi bi-person-square"></i>
                     </div>
-
-                        <!-- <ul class="user-ul">
-                            <li class="user-li">
-                                <a href="./admin/areaadm.php">
-                                    <h4 class="user-log">
-                                        <i class="bi bi-chevron-down"></i> Usuário 
-                                    </h4> 
-                                    <i class="bi bi-person-circle"></i>
-                                </a>
-                            </li>
-                        </ul> -->
                 </div>
                
                <div class="menu-geral">
@@ -84,45 +73,6 @@
                                             </a>
                                         </li>
                             </ul>
-
-
-
-                            <!-- <ul class="nav-links">
-                                        <li>
-                                            <a href="./admin/areaadm.php" title="Filtro">
-                                                <i class="bi bi-sliders2"></i><span>Filtro</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="./admin/areaadm.php" title="Tipo">
-                                                <i class="bi bi-caret-down"></i><span>Tipo</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="./admin/areaadm.php" title="Controle">
-                                                <i class="bi bi-bar-chart-line-fill"></i><span>Controle</span>
-                                            </a>
-                                        </li>
-                                    </ul> -->
-                                <!-- <div class="sub-menu">
-                                    <ul class="nav-links-sub">
-                                        <li>
-                                            <a href="./admin/areaadm.php" title="Filtro">
-                                                <i class="bi bi-sliders2"></i><span>Filtro</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="./admin/areaadm.php" title="Tipo">
-                                                <i class="bi bi-caret-down"></i><span>Tipo</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="./admin/areaadm.php" title="Controle">
-                                                <i class="bi bi-bar-chart-line-fill"></i><span>Controle</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                            </div> -->
                 </div>
                       
             </nav>

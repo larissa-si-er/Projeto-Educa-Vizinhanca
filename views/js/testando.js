@@ -7,5 +7,5 @@ toggleMenu.addEventListener('click', () => {
 document.addEventListener("DOMContentLoaded", function() {
   const cards = document.querySelectorAll('.card-top','.card-top2','.car-top3');
   cards.forEach((card, index) => {
-    card.style.animationDelay = `${index * 500}ms`; /* Ajusta o atraso de animação para cada card */
+    card.style.animationDelay = `${index * 500}ms`; 
   })});
