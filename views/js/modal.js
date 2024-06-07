@@ -60,3 +60,82 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// modal user
+function openModal() {
+    document.getElementById('myModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById('myModal')) {
+        document.getElementById('myModal').style.display = 'none';
+    }
+}
+/*filtro feed*/
+function filtrarCursos() {
+    var area = document.getElementById('area-select').value;
+    var modalidade = document.getElementById('modalidade-select').value;
+    var regiao = document.getElementById('regiao-select').value;
+    
+    var cursos = document.querySelectorAll('.curso');
+    var count = 0;
+    
+    cursos.forEach(function(curso) {
+        var cursoArea = curso.getAttribute('data-area');
+        var cursoModalidade = curso.getAttribute('data-modalidade');
+        var cursoRegiao = curso.getAttribute('data-regiao');
+
+        if ((area === 'todos' || cursoArea === area) &&
+            (modalidade === 'todos' || cursoModalidade === modalidade) &&
+            (regiao === 'todos' || cursoRegiao === regiao)) {
+            curso.style.display = 'block';
+            count++;
+        } else {
+            curso.style.display = 'none';
+        }
+    });
+    
+    var noResults = document.querySelector('.no-results');
+    if (count === 0) {
+        noResults.style.display = 'block';
+    } else {
+        noResults.style.display = 'none';
+    }
+}
+
+document.getElementById('filter-icon').addEventListener('click', function() {
+    var modal = document.getElementById('filter-modal');
+    modal.style.display = 'block';
+});
+
+document.querySelector('.close').addEventListener('click', function() {
+    var modal = document.getElementById('filter-modal');
+    modal.style.display = 'none';
+});
+
+document.getElementById('area-select').addEventListener('change', function() {
+    filtrarCursos();
+});
+
+document.getElementById('modalidade-select').addEventListener('change', function() {
+    filtrarCursos();
+});
+
+document.getElementById('regiao-select').addEventListener('change', function() {
+    filtrarCursos();
+});
+
+// Exibir todos os cursos ao carregar a página
+filtrarCursos();
+
+// Fechar o modal se clicar fora dele
+window.onclick = function(event) {
+    var modal = document.getElementById('filter-modal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
