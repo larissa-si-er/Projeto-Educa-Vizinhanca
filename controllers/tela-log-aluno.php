@@ -117,8 +117,8 @@
     const logEntries = document.getElementById("log-entries");
 
     const logs = [
-        { date: "2024-06-01 12:30", name: "João Silva", cpf: "123.456.789-00", authFactor: "2FA" },
-        { date: "2024-06-02 08:45", name: "Maria Oliveira", cpf: "987.654.321-00", authFactor: "Senha" },
+        { date: "2024-06-01 12:30", name: "João Silva", cpf: "123.456.789-00", authFactor: "CEP" },
+        { date: "2024-06-02 08:45", name: "Maria Oliveira", cpf: "987.654.321-00", authFactor: "Nome materno" },
         // Adicione mais registros conforme necessário
     ];
 

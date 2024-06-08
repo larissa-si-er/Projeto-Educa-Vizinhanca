@@ -97,8 +97,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const logEntries = document.getElementById("log-entries");
 
     const logs = [
-        { date: "2024-06-01 12:30", name: "Instituição A", cnpj: "12345678901234", authFactor: "2FA" },
-        { date: "2024-06-02 08:45", name: "Instituição B", cnpj: "98765432109876", authFactor: "Senha" },
+        { date: "2024-06-01 12:30", name: "Instituição A", cnpj: "12345678901234", authFactor: "CEP" },
+        { date: "2024-06-02 08:45", name: "Instituição B", cnpj: "98765432109876", authFactor: "Nome materno" },
         // Adicione mais registros conforme necessário
     ];
 
