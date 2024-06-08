@@ -31,3 +31,35 @@ function abrirCarrinho(){
         }
     })
 }
+
+// Abrir o modal de AdicionarP perfil
+
+    // Selecionar o botão de abrir modal e o modal em si
+    var abrirModalProduto = document.getElementById('#abrirModalProduto');
+    var modalAdicionarP = document.getElementById('#modalAdicionarP');
+
+    // Verificar se ambos os elementos existem
+    if (abrirModalProduto && modalAdicionarP) {
+        // Adicionar evento de clique ao botão de abrir modal
+        abrirModalProduto.addEventListener('click', function() {
+            modalAdicionarP.style.display = 'block'; // Exibir o modal ao clicar no botão
+        });
+
+        // Selecionar o botão de fechar modal
+        var fecharModalProduto = modalAdicionarP.getElementsByClassName('fechar')[0];
+
+        // Verificar se o botão de fechar modal existe
+        if (fecharModalProduto) {
+            // Adicionar evento de clique ao botão de fechar modal
+            fecharModalProduto.addEventListener('click', function() {
+                modalAdicionarP.style.display = 'none'; // Ocultar o modal ao clicar no botão de fechar
+            });
+        }
+
+        // Fechar o modal se o usuário clicar fora dele
+        window.addEventListener('click', function(event) {
+            if (event.target == modalAdicionarP) {
+                modalAdicionarP.style.display = 'none';
+            }
+        });
+    }
