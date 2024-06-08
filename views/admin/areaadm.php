@@ -277,7 +277,7 @@
   <div class="img"></div>
   <div class="textBox">
     <div class="textContent">
-     <p class="h1"><a href="../../controllers/tela-log-aluno.php">Logs de Autenticação</a><i class="fa-solid fa-angle-right"></i></p>
+     <p class="h1"><a href="../../controllers/tela-log-insti.php">Logs de Autenticação</a><i class="fa-solid fa-angle-right"></i></p>
       <span class="span"></span>
     </div>
     <p class="p">Instituições.</p>
