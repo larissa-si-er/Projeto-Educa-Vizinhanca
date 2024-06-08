@@ -135,7 +135,7 @@
                 <br>
                 <div class="inputbox w20">
                     <label for="celular">Celular: *</label>
-                    <input type="text" id="celular" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{8}" required inputmode="numeric" onblur="validarCelular()" oninput="formatarTel(), clearError('celular')" maxlength="13" class="inputUser"/>
+                    <input type="text" id="celular" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{9}" required inputmode="numeric" onblur="validarCelular()" oninput="formatarTel(), clearError('celular')" maxlength="13" class="inputUser"/>
                     <span id="celular_error" class="error"></span>
                 </div>
 

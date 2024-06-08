@@ -57,17 +57,6 @@
                     <div class="user-mobile">
                        <i class="bi bi-person-square"></i>
                     </div>
-
-                        <!-- REVERRRRRR <ul class="user-ul">
-                            <li class="user-li">
-                                <a href="./admin/areaadm.php">
-                                    <h4 class="user-log">
-                                        <i class="bi bi-chevron-down"></i> Usuário 
-                                    </h4> 
-                                    <i class="bi bi-person-circle"></i>
-                                </a>
-                            </li>
-                        </ul> -->
                 </div>
                
                <div class="menu-geral">
@@ -93,7 +82,6 @@
                                             </a>
                                         </li>
                             </ul>
-
                 </div>
                       
             </nav>
