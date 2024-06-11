@@ -6,7 +6,7 @@ if(isset($_POST['termo'])) {
     $termo = $_POST['termo'];
 
     // Atualize a consulta SQL para pesquisar em várias colunas da tabela
-    $query = "SELECT id_aluno, nome, data_nasc, sexo, nome_materno, cpf, email, telefone_celular, telefone_fixo, usuario, cep, date_time FROM aluno 
+    $query = "SELECT id_aluno, nome, data_nasc, sexo, nome_materno, cpf, email, telefone_celular, telefone_fixo, usuario, cep, registro FROM aluno 
               WHERE cpf LIKE '%$termo%' OR nome LIKE '%$termo%' OR email LIKE '%$termo%' OR telefone_celular LIKE '%$termo%' OR telefone_fixo LIKE '%$termo%' OR usuario LIKE '%$termo%' OR cep LIKE '%$termo%'";
     $resultado = $conn->query($query);
 

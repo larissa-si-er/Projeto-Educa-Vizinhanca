@@ -5,11 +5,11 @@ if(isset($_POST['termo'])) {
     $termo = $_POST['termo'];
 
     // Consulta SQL ajustada para incluir o INNER JOIN com a tabela endereco
-    $query = "SELECT i.id_instituicao, i.nome, i.telefone, i.cep, i.email, i.senha, i.status, i.cnpj, e.uf, e.logradouro, e.bairro, e.numero
+    $query = "SELECT i.id_instituicao, i.nome, i.telefone_fixo, i.cep, i.email, i.senha, i.cnpj, e.estado, e.logradouro, e.bairro, e.num
               FROM instituicao i
               INNER JOIN endereco e ON i.cep = e.cep
               WHERE i.nome LIKE '%$termo%' 
-                 OR i.telefone LIKE '%$termo%' 
+                 OR i.telefone_fixo LIKE '%$termo%' 
                  OR i.cep LIKE '%$termo%' 
                  OR i.email LIKE '%$termo%' 
                  OR i.cnpj LIKE '%$termo%' 
@@ -25,10 +25,10 @@ if(isset($_POST['termo'])) {
                 echo "<tr>";
                 echo "<td>{$linha['id_instituicao']}</td>";
                 echo "<td>{$linha['nome']}</td>";
-                echo "<td>{$linha['telefone']}</td>";
+                echo "<td>{$linha['telefone_fixo']}</td>";
                 echo "<td>{$linha['cep']}</td>";
-                echo "<td>{$linha['logradouro']}; {$linha['bairro']}; {$linha['uf']} </td>";
-                echo "<td>{$linha['numero']}</td>";
+                echo "<td>{$linha['logradouro']}; {$linha['bairro']}; {$linha['estado']} </td>";
+                echo "<td>{$linha['num']}</td>";
                 echo "<td>{$linha['email']}</td>";
                 echo "<td>{$linha['cnpj']}</td>";
                 echo "<td>
