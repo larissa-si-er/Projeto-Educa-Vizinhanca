@@ -5,7 +5,7 @@ include_once '../../../models/conexao.php';
 
 $data_atual = date("d/m/Y");
 
-$query_instituicao = "SELECT id_instituicao, nome, telefone, cep, complemento, numero_insti, email, cnpj FROM instituicao";
+$query_instituicao = "SELECT  nome, telefone, cep, email, cnpj FROM instituicao";
 $result_instituicao = $conn->prepare($query_instituicao);
 $result_instituicao->execute(); 
 
@@ -24,7 +24,7 @@ $dados .= "#data { font-size: 12px; text-align: center;}";
 $dados .= "</style>";
 $dados .= "</head>";
 $dados .= "<body>";
-$dados .= "<img src='http://localhost/Projeto-EV/img/imgpdf.jpg'><br>";
+$dados .= "<img src='http://localhost/Projeto-Educa-Vizinhanca/img/imgpdf.jpg'><br>";
 $dados .= "<h3>Relatório de Instituições</h3>";
 while($row_instituicao = $result_instituicao->fetch(PDO::FETCH_ASSOC)){
     //var_dump($row_instituicao);
@@ -32,8 +32,6 @@ while($row_instituicao = $result_instituicao->fetch(PDO::FETCH_ASSOC)){
     $dados .= "<p><strong>Instituição:</strong> $nome <br>";
     $dados .= "<strong>Telefone:</strong> $telefone <br>";
     $dados .= "<strong>CEP:</strong> $cep <br>";
-    $dados .= "<strong>Complemento:</strong> $complemento <br>";
-    $dados .= "<strong>Número:</strong> $numero_insti <br>";
     $dados .= "<strong>Email:</strong> $email </p>";
     $dados .= "<strong>CNPJ:</strong> $cnpj </p>";
     $dados .= "<hr>";

@@ -22,7 +22,7 @@
   </div>
 <div class="container">
     <div class="card">
-      <img src="../../img/oratoria.png">
+      <img src="../img/oratoria.png">
       <div class="card-content">
         <div class="card-title">Nome do Curso</div>
         <div class="card-price">Tipo de Curso</div>
@@ -47,7 +47,7 @@
       </div>
   </div>
   <div class="card">
-        <img src="../../img/oratoria.png">
+        <img src="../img/oratoria.png">
       <div class="card-content">
         <div class="card-title">Nome do Curso</div>
         <div class="card-price">Tipo de Curso</div>
@@ -72,7 +72,7 @@
       </div>
   </div>
   <div class="card">
-      <img src="../../img/oratoria.png">
+      <img src="../img/oratoria.png">
       <div class="card-content">
         <div class="card-title">Nome do Curso</div>
         <div class="card-price">Tipo de Curso</div>

@@ -6,6 +6,9 @@
 ?>  
 <!-- Script [inicio] -->
 <script src="../js/modal.js"></script>
+<script src="../js/quant-prod.js"></script>
+<script src="../js/quant-curso.js"></script>
+<script src="../js/produtos.js"></script>
 <!-- Script [fim] -->
 
 
@@ -29,59 +32,149 @@
     <h3>User:</h3>
     <h3>Email:</h3>
     <h3>Senha:</h3>
-    <br><br>
-    <?php
-    // Consulta para buscar o número de inscrições de alunos e instituições
-$consulta_alunos = "SELECT COUNT(id_aluno) as total_alunos FROM aluno;";
-$consulta_instituicoes = "SELECT COUNT(id_instituicao) as total_instituicoes FROM instituicao;";
-$resultado_alunos = $conn->query($consulta_alunos);
-$resultado_instituicoes = $conn->query($consulta_instituicoes);
-
-// Obtendo o número total de inscrições de alunos e instituições
-$total_alunos = $resultado_alunos->fetch(PDO::FETCH_ASSOC)['total_alunos'];
-$total_instituicoes = $resultado_instituicoes->fetch(PDO::FETCH_ASSOC)['total_instituicoes'];
-?>
-    <h1>Overview</h1>
-    <canvas id="myChart" width="200" height="200"></canvas>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  var ctx = document.getElementById('myChart').getContext('2d');
-//cor do grafico
-  var data = {
-    labels: ['Inscrições de Alunos', 'Inscrições de Instituições'],
-    datasets: [{
-        data: [<?php echo $total_alunos; ?>, <?php echo $total_instituicoes; ?>],
-        backgroundColor: [
-            'rgba(116, 220, 230, 0.6)',   // Azul claro para os alunos (#74DCE6)
-            'rgba(186, 186, 186, 0.6)'     // Cinza para as instituições (#bababa)
-        ],
-        borderColor: [
-            'rgba(116, 220, 230, 1)',     // Azul claro para os alunos (#74DCE6)
-            'rgba(186, 186, 186, 1)'       // Cinza para as instituições (#bababa)
-        ],
-        borderWidth: [1, 1] //  borda- conjunto de dados
-    }]
-};
-
-  var options = {
-    responsive: false,
-    maintainAspectRatio: false,
-    legend: {
-      position: 'bottom'
-    }
-  };
-
-  var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: data,
-    options: options
-  });
-</script>
-
+    <button id="vermais"><a href="#">Ver mais</a>
+                 <svg
+                   xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  >
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+              </button>
+    <br>
     <div class="acoes">
   <ul>
-    <li>
-    <button id="abrirModalAdicionar" title="Adicionar Curso"><i class="fa-regular fa-square-plus" style="cursor: pointer;"></i></button>
+<!--modal editar-->
+<li>
+<button id="abrirModalEditar" title="Editar Curso"><i class="fa-solid fa-user-pen" style="cursor: pointer;" title="Editar Perfil"></i></button>
+    <div id="modalEditar" class="modal">
+        <div class="modal-content">
+            <span class="fechar">&times;</span>
+            <h2>Editar Perfil</h2>
+            <form id="formCurso" action="formulario_editar_adm.php" method="post">
+                <label for="nome_adm">User:</label>
+                <input type="text" id="nome_adm" name="user" required>
+                
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" rows="4" required></input>
+                
+                <label for="senha">Senha:</label>
+                <input type="text" id="senha" name="senha" required>
+
+                <button type="submit" class="adicionar">Editar</button>
+            </form>
+        </div>
+    </div>
+</li>
+    <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket" title="Sair"></i></a></li>
+  </ul>
+</div>
+    <br>
+    
+    <!--cursos_add-->
+    <h1>Adicionados</h1><br>
+    <div class="prod-container">
+    <div class="card_quant_prod">
+      <div class="card-header-prod"></div>
+        <div class="card-body-prod">
+          <h1 class="card-number-prod" id="quantidadeProdutos">Carregando...</h1>
+            <p class="card-products">Produtos </p>
+              <button id="vermais"><a href="">Ver mais</a>
+                 <svg
+                   xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  >
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+              </button>
+         </div>
+    </div>
+    <div class="card_quant_prod">
+    <div class="card-header-prod"></div>
+<div class="card-body-prod">
+    <h1 class="card-number-prod" id="quantidadeCursos">Carregando...</h1>
+    <p class="card-products">Cursos</p>
+    <button id="vermais"><a href="cursosaddadm.php">Ver mais</a>
+                 <svg
+                   xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  >
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+              </button>
+    
+</div>
+    </div>
+</div>
+   <!-- <div class="card">
+      <h3 class="card__title"><i class="fa-solid fa-graduation-cap"></i></h3>
+      <p class="card__content"><a href="cursosaddadm.php" >Veja seus cursos adicionados na plataforma aqui.</a></p>
+      <div class="card__date"></div>
+      <div class="card__arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
+          <path fill="#fff" d="M13.4697 17.9697C13.1768 18.2626 13.1768 18.7374 13.4697 19.0303C13.7626 19.3232 14.2374 19.3232 14.5303 19.0303L20.3232 13.2374C21.0066 12.554 21.0066 11.446 20.3232 10.7626L14.5303 4.96967C14.2374 4.67678 13.7626 4.67678 13.4697 4.96967C13.1768 5.26256 13.1768 5.73744 13.4697 6.03033L18.6893 11.25H4C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75H18.6893L13.4697 17.9697Z"></path>
+        </svg>
+      </div>
+    </div> 
+   APAGAR CSS-->
+
+    <div class="button-container">
+        
+<!--add produto-->
+<button class="button" id="abrirModalProduto" title="Adicionar Produto" style="cursor: pointer;">Adicionar Produto<i class="fa-regular fa-square-plus"></i></button>
+    <div id="modalAdicionarP" class="modal">
+        <div class="modal-content">
+            <span class="fechar">&times;</span>
+            <h2>Adicionar Produto</h2>
+      <form action="#" id="formProduto" action="formulario_add_prod.php" method="post">
+
+        <label for="titulo">Nome do Produto:</label>
+        <input type="text" id="nome_Produto" name="titulo" required>
+        
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" rows="4" required></textarea>
+        
+        <label for="preco">Preço:</label>
+        <input type="number" class="form-control" id="preco" name="preco" step="0.01" required>
+       
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" class="form-control" id="quantidade" name="quantidade" required>
+
+        <label for="cor">Cor:</label>
+        <input type="text" class="form-control" id="cor" name="cor" required>
+         
+         <label for="foto">Foto do Produto:</label>
+         <input type="file" id="fotoProduto" name="foto" accept="image/*">
+         
+        <button type="submit" class="adicionar">Adicionar</button>
+    </form>
+  </div>
+</div>
+  <!--modal adicionar curso-->
+  <button class="button" id="abrirModalAdicionar" title="Adicionar Curso" style="cursor: pointer;">Adicionar Curso<i class="fa-regular fa-square-plus"></i></button>
     <div id="modalAdicionar" class="modal">
         <div class="modal-content">
             <span class="fechar">&times;</span>
@@ -140,35 +233,12 @@ $total_instituicoes = $resultado_instituicoes->fetch(PDO::FETCH_ASSOC)['total_in
     </form>
   </div>
 </div>
-</li>
-<li>
-<button id="abrirModalEditar" title="Editar Curso"><i class="fa-solid fa-user-pen" style="cursor: pointer;" title="Editar Perfil"></i></button>
-    <div id="modalEditar" class="modal">
-        <div class="modal-content">
-            <span class="fechar">&times;</span>
-            <h2>Editar Perfil</h2>
-            <form id="formCurso" action="formulario_editar_adm.php" method="post">
-                <label for="nome_adm">User:</label>
-                <input type="text" id="nome_adm" name="user" required>
-                
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" rows="4" required></input>
-                
-                <label for="senha">Senha:</label>
-                <input type="text" id="senha" name="senha" required>
-
-                <button type="submit" class="adicionar">Adicionar</button>
-            </form>
-        </div>
-    </div>
-</li>
-    <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket" title="Sair"></i></a></li>
-  </ul>
 </div>
     <br>
   </div>
   <div class="div2">
     <h1>Controle</h1>
+    <div class="card-container">
     <div class="card_plano" >
   <div class="img"></div>
   <div class="textBox">
@@ -192,18 +262,79 @@ $total_instituicoes = $resultado_instituicoes->fetch(PDO::FETCH_ASSOC)['total_in
 </div>
 </div>
 </div>
+<div class="card_plano" >
+  <div class="img"></div>
+  <div class="textBox">
+    <div class="textContent">
+     <p class="h1"><a href="../../controllers/tela-log-aluno.php">Logs de Autenticação</a><i class="fa-solid fa-angle-right"></i></p>
+    </div>
+    <p class="p">Alunos.</p>
+  <div>
+</div>
+</div>
+</div> 
+    <div class="card_plano" >
+  <div class="img"></div>
+  <div class="textBox">
+    <div class="textContent">
+     <p class="h1"><a href="../../controllers/tela-log-insti.php">Logs de Autenticação</a><i class="fa-solid fa-angle-right"></i></p>
+      <span class="span"></span>
+    </div>
+    <p class="p">Instituições.</p>
+  <div>
+</div>
+</div>
+</div>
+</div>
 <br>
-<h1>Cursos Adicionados</h1><br>
-    <div class="card">
-      <h3 class="card__title"><i class="fa-solid fa-graduation-cap"></i></h3>
-      <p class="card__content"><a href="cursosaddadm.php" >Veja seus cursos adicionados na plataforma aqui.</a></p>
-      <div class="card__date"></div>
-      <div class="card__arrow">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
-          <path fill="#fff" d="M13.4697 17.9697C13.1768 18.2626 13.1768 18.7374 13.4697 19.0303C13.7626 19.3232 14.2374 19.3232 14.5303 19.0303L20.3232 13.2374C21.0066 12.554 21.0066 11.446 20.3232 10.7626L14.5303 4.96967C14.2374 4.67678 13.7626 4.67678 13.4697 4.96967C13.1768 5.26256 13.1768 5.73744 13.4697 6.03033L18.6893 11.25H4C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75H18.6893L13.4697 17.9697Z"></path>
-        </svg>
-      </div>
-    </div> <!--fim card_plano-->
+
+<?php
+    // Consulta para buscar o número de inscrições de alunos e instituições
+$consulta_alunos = "SELECT COUNT(id_aluno) as total_alunos FROM aluno;";
+$consulta_instituicoes = "SELECT COUNT(id_instituicao) as total_instituicoes FROM instituicao;";
+$resultado_alunos = $conn->query($consulta_alunos);
+$resultado_instituicoes = $conn->query($consulta_instituicoes);
+
+// Obtendo o número total de inscrições de alunos e instituições
+$total_alunos = $resultado_alunos->fetch(PDO::FETCH_ASSOC)['total_alunos'];
+$total_instituicoes = $resultado_instituicoes->fetch(PDO::FETCH_ASSOC)['total_instituicoes'];
+?>
+    <h1>Overview</h1>
+    <canvas id="myChart" width="200" height="200"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+//cor do grafico
+  var data = {
+    labels: ['Inscrições de Alunos', 'Inscrições de Instituições'],
+    datasets: [{
+        data: [<?php echo $total_alunos; ?>, <?php echo $total_instituicoes; ?>],
+        backgroundColor: [
+            'rgba(116, 220, 230, 0.6)',   // Azul claro para os alunos (#74DCE6)
+            'rgba(186, 186, 186, 0.6)'     // Cinza para as instituições (#bababa)
+        ],
+        borderColor: [
+            'rgba(116, 220, 230, 1)',     // Azul claro para os alunos (#74DCE6)
+            'rgba(186, 186, 186, 1)'       // Cinza para as instituições (#bababa)
+        ],
+        borderWidth: [1, 1] //  borda- conjunto de dados
+    }]
+};
+
+  var options = {
+    responsive: false,
+    maintainAspectRatio: false,
+    legend: {
+      position: 'bottom'
+    }
+  };
+
+  var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: options
+  });
+</script>
 </div>
 </div>
 
@@ -215,24 +346,22 @@ require_once '../../footer.php';
 
 
 <style>
-  /*modal*/
-  #abrirModalEditar,#abrirModalAdicionar {
+  /*icon modal*/
+  #abrirModalEditar {
     border: none; 
     background-color: transparent; 
     padding: 0; 
 }
 
-#abrirModalEditar,#abrirModalAdicionar i {
+#abrirModalEditar {
     padding: 8px;
     font-size: 24px; 
     color: #111; 
 }
-#abrirModalEditarr i:hover{
+#abrirModalEditar i:hover{
   color: #63D7E4;
 }
-#abrirModalAdicionai:hover{
-  color: #63D7E4;
-}
+
   /* Estilos para o modal */
   .modal {
       display: none;
@@ -372,6 +501,7 @@ box-shadow:  25px 25px 50px #d0d0d0,
   padding-right: 5%;
   padding-top: 0.5%;
 }
+
 .bem_vindo h1{
  text-align: center;
  margin-top:5px;
@@ -403,6 +533,160 @@ box-shadow:  25px 25px 50px #d0d0d0,
 
   box-sizing: border-box;
 }
+/*button add produto e add curso*/
+.button-container {
+  margin-top: 30px;
+    display: flex;
+}
+
+.button {
+    padding: 10px 10px;
+    margin-right: 10px; /* Espaço entre os botões */
+    background-color: #63D7E4; /* Cor de fundo */
+    border: none;
+    
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.button i{ margin: 10px; font-size: 20;}
+
+.button:last-child {
+    margin-right: 0; /* Remove a margem do último botão para que não haja espaço extra */
+}
+
+.button:hover {
+    background-color: #ccc; /* Cor de fundo ao passar o mouse */
+}
+/*quant prod quant curso*/
+/*button add produto e add curso*/
+.prod-container {
+  display: flex; 
+   
+    
+}
+#vermais {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+#vermais {
+  --primary-color: #111;
+  --hovered-color:  #63D7E4;
+  position: relative;
+  display: flex;
+  font-weight: 600;
+  font-size: 20px;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 2%;
+}
+
+#vermais a {
+  margin: 0;
+  position: relative;
+  font-size: 15px;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+#vermais::after {
+  position: absolute;
+  content: "";
+  width: 0;
+  left: 0;
+  bottom: -7px;
+  background: var(--hovered-color);
+  height: 2px;
+  transition: 0.3s ease-out;
+}
+
+#vermais a::before {
+  position: absolute;
+  /*   box-sizing: border-box; */
+  content: "Ver mais";
+  width: 0%;
+  inset: 0;
+  color: var(--hovered-color);
+  overflow: hidden;
+  transition: 0.3s ease-out;
+}
+
+#vermais:hover::after {
+  width: 100%;
+}
+
+#vermais:hover a::before {
+  width: 100%;
+}
+
+#vermais:hover svg {
+  transform: translateX(4px);
+  color: var(--hovered-color);
+}
+
+#vermais svg {
+  color: var(--primary-color);
+  transition: 0.2s;
+  position: relative;
+  width: 15px;
+  transition-delay: 0.2s;
+}
+
+.card_quant_prod {
+  background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 10px; /* Largura fixa para um card pequeno */
+        position: relative;
+        margin-right: 5px; /* Adiciona uma margem entre as divs */
+        flex: 1; /* Faz com que cada div ocupe a mesma largura */
+}
+
+
+.card-header-prod {
+    background-color: #63D7E4;
+    height: 5px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.card-body-prod {
+    padding-top: 20px; /* Espaço para a linha azul */
+}
+
+.card-number-prod {
+    font-size: 60px; /* Tamanho da fonte ajustado para um card pequeno */
+    margin: 0;
+    color: black;
+}
+
+.card-products{
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 30px;
+    padding-right: 80%; /* Distância entre o número e o texto "Produtos" */
+}
+.card-products {
+        display: flex; /* Colocar os elementos em linha */
+        align-items: center; /* Centralizar verticalmente os elementos */
+    }
+
+
 
 /*card cursos adicionados*/
 .card {
@@ -512,21 +796,29 @@ box-shadow:  25px 25px 50px #d0d0d0,
   transition: all 0.3s ease;
 }
 
-/*card tipo de plano*/
+/*cards controle*/
+.card-container {
+    display: flex;
+    justify-content: space-between; /* Para distribuir as divs igualmente ao longo do contêiner */
+    flex-wrap: wrap; /* Para permitir que as divs quebrem para a próxima linha se necessário */
+}
 .card_plano {
   margin-top: 40px;
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
   height: 85px;
   background: #63D7E4;
-  border-radius: 20px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: left;
+ 
+  
 }
 
+
 .textBox {
-  width: calc(100% - 70px);
+  width: calc(100% - 10px);
   margin-left: 10px;
   color: white;
   font-family: 'Poppins' sans-serif;
