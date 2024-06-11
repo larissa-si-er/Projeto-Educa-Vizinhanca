@@ -27,24 +27,21 @@
             <img src="" alt="" srcset="">
         </div>
     </div>
-    <form class="form" action="" method="POST">
-        <div class="icon-principal"><i class="bi bi-envelope-at-fill"></i>
+    <form class="form form-auth" action="" method="POST">
+        <p class="title-auth">Sistema de segurança  •  Verificação de duas etapas</p>
+        <img src="../img/auth.png" class="auth-img">
+
+        <div class="question-auth">
+            <div class="flex-column">
+              <label class="label-auth">Autenticação </label>
+            </div>
+            <div class="inputForm-auth">
+              <p class="p-question-auth" id="question-auth" name="name-auth">Qual nome da sua mãe?</p>
+              <input type="text" class=" answer-auth" id="answer-auth" name="answer-auth" placeholder="Insira aqui sua resposta" maxlength="30">
+            </div>
         </div>
-        <p class="legenda-h1">Verifique o seu e-mail!</p>
-        <p class="legenda-h2">Clique no botão abaixo para confirmar seu <br>  endereço de e-mail e 
-        receber um código<br> para confirmação de usuário.</p>
-        <div class="flex-column">
-          <label>Digite o seu email: </label>
-        </div>
-        <div class="inputForm">
-          <i class="bi bi-envelope-paper-fill"></i>
-          <input type="email" class="input" id="email" name="email" placeholder="Example@com" maxlength="30">
-        </div>
-        <div class="div-codigo" id="div-codigo">
-          <input type="text" class="input-codigo"
-          id="cod" name="cod" placeholder="Digite o código aqui" maxlength="10">
-        </div>
-        <button class="button-submit confirmar" onclick="block_codigo(event)">Enviar o Codigo</button>
+
+        <button class="button-submit entrar" onclick="">Entrar</button>
     </form>
 </body>
 </html>

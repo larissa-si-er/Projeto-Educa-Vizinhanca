@@ -266,6 +266,12 @@ section.container-one{
     background-color: black;
     border: none;
   }
+
+.more, .less{
+    font-size: 20px;
+    font-weight: bold;
+}
+
   /* dark mode [inicio]*/
   .dk_mode{
     justify-content: center;

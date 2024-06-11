@@ -22,7 +22,7 @@
 <body>
     <div class="menu">
         <div class="menu-bar">
-            <a href="javascript:history.go(-1)"><i class="bi bi-box-arrow-left"></i></a>
+            <a href="./cadastro.php"><i class="bi bi-box-arrow-left"></i></a>
             <img src="../img/Home.png" alt="" srcset="">
         </div>
     </div>
@@ -38,10 +38,11 @@
                 </div>
                 <br>
     
-                <select class="selectInput" id="tipoCadastro" onchange="redirecionarCadastro()">
-                    <option value="" hidden>Escolha o seu tipo de cadastro? </option>
-                    <option value="normal">Sou Aluno</option>
-                    <option value="admin">Sou uma Instituição</option>
+
+                <select  id="tipoCadastro" class="selectInput" onchange="redirecionarCadastro()">
+                        <option value="" disabled selected>Escolha o tipo de cadastro</option>
+                        <option value="normal">Aluno</option>
+                        <option value="instituicao">Instituição</option>
                 </select>
                 <br>
                 <br>

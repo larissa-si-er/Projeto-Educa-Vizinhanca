@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="PT-br">
 <head>
@@ -15,6 +18,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- icones -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
 </head>
@@ -32,16 +37,16 @@
         </div>
 
         <div class="box">
-            <form class="form" action="">
+            <form class="form" action="../../controllers/userController.php" method="POST">
                     <div class="legenda">
                     <legend>Cadastre-se</legend>
                     </div>
                     <br>
-        
+
                     <select id="tipoCadastro" class="selectInput" onchange="redirecionarCadastro()">
-                        <option value="" hidden>Qual o seu tipo de cadastro? </option>
-                        <option value="normal">Sou Aluno</option>
-                        <option value="admin">Sou uma Instituição</option>
+                        <option value="" disabled selected>Escolha o tipo de cadastro</option>
+                        <option value="normal">Aluno</option>
+                        <option value="instituicao">Instituição</option>
                     </select>
 
                     <br>
@@ -74,20 +79,20 @@
 
                     <div class="inputbox">
                         <label for="cpf"> CPF: *</label>
-                        <input type="text" id="cpf" placeholder="000.000.000-00" required maxlength="11" inputmode="numeric" required class="inputUser" onblur="validarCpf()" oninput="clearError('cpf')" onkeyup="CadastrarCpf()">
+                        <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required maxlength="11" inputmode="numeric" required class="inputUser" onblur="validarCpf()" oninput="clearError('cpf')" onkeyup="CadastrarCpf()">
                         <span id="cpf_error" class="error"></span>
                         <small class="small-required" id="erroCpf"></small>
                     </div>
                     <br>
                     <div class="inputbox">
                         <label for="niver" style="background-color: transparent;">Data de Nascimento: *</label>
-                        <input type="date" id="niver" placeholder="" required class="inputUser" oninput="clearError('niver')" />
+                        <input type="date" id="niver" name="nasc" required class="inputUser" oninput="clearError('niver')" />
                         <span id="niver_error" class="error"></span>
                     </div>
                     <br>
                     <div class="inputbox">
                         <label>Informe seu Gênero: </label>
-                        <select id="genero" class="selectInput sel2" oninput="clearError('genero')" required>
+                        <select id="genero" name="genero" class="selectInput sel2" oninput="clearError('genero')" required>
                             <option value="" hidden>Escolha seu Gênero</option>
                             <option value="masculino">Masculino</option>
                             <option value="feminino">Feminino</option>
@@ -98,13 +103,13 @@
                     <br>
                     <div class="inputbox w30">
                         <label for="celular">Celular: *</label>
-                        <input type="text" id="celular" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{9}" required inputmode="numeric"  oninput="formatarTel(), clearError('celular')" maxlength="14" class="inputUser" />
+                        <input type="text" name="cel" id="celular" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{9}" required inputmode="numeric"  oninput="formatarTel(), clearError('celular')" maxlength="14" class="inputUser" />
                         <span id="celular_error" class="error"></span>
                     </div>
 
                     <div class="inputbox">
                         <label for="telefone">Telefone: *</label>
-                        <input type="text" id="telefone" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{8}" required inputmode="numeric"   maxlength="13" class="inputUser" oninput="formatarTel(),clearError('telefone')"/>
+                        <input type="text" name="tel" id="telefone" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{8}" required inputmode="numeric"   maxlength="13" class="inputUser" oninput="formatarTel(),clearError('telefone')"/>
                         <span id="telefone_error" class="error"></span>
                     </div>
                     <br>
@@ -115,34 +120,34 @@
 
                     <div class="inputbox">
                         <label for="cep">CEP: *</label>
-                        <input type="text" id="cep" required maxlength="8" inputmode="numeric" oninput=" clearError('cep'),formatarCEP()" onkeyup="ProcuraCEP()" class="inputUser"/>
+                        <input type="text" name="cep" id="cep" required maxlength="8" inputmode="numeric" oninput=" clearError('cep'),formatarCEP()" onkeyup="ProcuraCEP()" class="inputUser"/>
                         <span id="cep_error" class="error"></span>
 
                     </div>
 
                     <div class="inputbox w30">
                         <label for="cidade">Cidade: *</label>
-                        <input type="text"  id="cidade" required>
+                        <input type="text" name="cidade" id="cidade" required>
                     </div>
 
                     <div class="inputbox">
                         <label for="state">Estado: *</label>
-                        <input type="text"  id="state" required>
+                        <input type="text" name="state" id="state" required>
                     </div>
 
                     <div class="inputbox">
                         <label for="end" >Logradouro: *</label>
-                        <input type="text" id="end" placeholder="Rua" class="inputUser"  />
+                        <input type="text" name="logradouro" id="end" placeholder="Rua" class="inputUser"  />
                     </div>
 
                     <div class="inputbox w30">
                         <label for="bairro" >Bairro: *</label>
-                        <input type="text" id="bairro" class="inputUser"/>
+                        <input type="text" name="bairro" id="bairro" class="inputUser"/>
                     </div>
 
                     <div class="inputbox">
                         <label for="complemento">Número: *</label>
-                        <input type="text" id="complemento" placeholder="nº" required class="inputUser" oninput="clearError('complemento')"/>
+                        <input type="text" name="num" id="complemento" placeholder="nº" required class="inputUser" oninput="clearError('complemento')"/>
                         <span id="complemento_error" class="error"></span>
                     </div>
                     <br>
@@ -150,14 +155,14 @@
 
                     <div class="inputbox">
                         <label id="labelUsuario" for="usuario">Usuário: *</label>
-                        <input type="text" id="usuario" maxlength="6"  required class="inputUser" oninput="clearError('usuario')" onkeyup="validarLogin(this.value)"/>
+                        <input type="text" name="usuario" id="usuario" maxlength="6"  required class="inputUser" oninput="clearError('usuario')" onkeyup="validarLogin(this.value)"/>
                         <span id="usuario_error" class="error"></span>
                         <small class="small-required" id="erroLogin"></small>
                     </div>
     
                     <div class="inputbox w20">
                         <label for="senha">Senha: *</label>
-                        <input type="password" id="senha" maxlength="8"  required class="inputUser"  onkeyup="validarSenha(this.value)" oninput="clearError('senha')"/>
+                        <input type="password" name="senha" id="senha" maxlength="8"  required class="inputUser"  onkeyup="validarSenha(this.value)" oninput="clearError('senha')"/>
                         <i class="bi bi-eye" id="btsenha"  onclick="mostrarSenha()"></i>
                         <span id="senha_error" class="error"></span> 
                         <small class="small-required" id="erroSenha"></small>
@@ -166,13 +171,12 @@
                     <div class="inputbox">
                         <label id="labelConfirmSenha" for="confirmSenha"
                         >Confirmar Senha: *</label>
-                        <input type="password" id="confirmSenha" maxlength="8" required class="inputUser" oninput="clearError('confirmSenha')" onkeyup="comparePassword()"/>
+                        <input type="password" name="confirmSenha" id="confirmSenha" maxlength="8" required class="inputUser" oninput="clearError('confirmSenha')" onkeyup="comparePassword()"/>
                         <i class="bi bi-eye" id="btsenhaTwo" onclick="mostrarSenhaB()"></i>
                         <span id="confirmSenha_error" class="error"></span> 
                         <small class="small-required" id="erroTwoSenha"></small> 
                     </div>
 
-         <!-- ALTERAÇAO 25-04 -->
 
                     <div class="captcha-container">
                         <h2 class="title-captcha">Marque a caixa abaixo se você não é um robô:</h2>
@@ -180,7 +184,7 @@
                             <div class="content-captcha">
                                 <div class="block-chk">
                                     <div class="checkbox-wrapper-46">
-                                        <input type="checkbox" id="cbx-46" class="inp-cbx" />
+                                        <input type="checkbox" name="captcha" id="cbx-46" class="inp-cbx" />
                                         <label for="cbx-46" class="cbx"
                                         ><span>
                                             <svg viewBox="0 0 12 10" height="10px" width="12px">
@@ -195,10 +199,8 @@
                         </div>
                     </div>
 
-         <!-- ALTERAÇAO 25-04 -->
-
                     <div class="buttons">
-                        <button onclick="validate()">
+                        <button onclick="validate()"  name="cadastrar">
                             <span class="shadow"></span>
                             <span class="edge"></span>
                             <span class="front text"> Entrar
@@ -215,4 +217,19 @@
         </div> 
     </div>  
 </body>
+<?php
+if (isset($_SESSION['error_message'])) {
+    echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: '{$_SESSION['error_message']}',
+            showConfirmButton: false,
+            timer: 1800 
+        });
+    </script>";
+    unset($_SESSION['error_message']); 
+}
+?>
+
 </html>

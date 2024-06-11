@@ -21,7 +21,7 @@
 
             <!-- conteudo acessibilidade -->
             <div class="acess-window"><div class="window-point"></div><small>Janela de acessibilidade.</small>
-                <div class="moreorless">
+                <!-- <div class="moreorless">
                     <button class="more" onclick="aumentarTexto()"><span class="material-symbols-outlined">
                         text_increase
                         </span>
@@ -30,6 +30,15 @@
                         <span class="material-symbols-outlined">
                             text_decrease
                             </span>
+                    </button>
+                </div> -->
+                <div class="moreorless">
+                    <button class="more button" onclick="aumentarTexto()">
+                        A+
+                    </svg>
+                    </button>
+                    <button class="less button" onclick="diminuirTexto()">
+                        A-
                     </button>
                 </div>
                 <div class="dk_mode">
