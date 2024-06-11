@@ -156,6 +156,10 @@ nav .sidebarClose{
     display: flex;
     height: 60px;
   }
+  .more, .less{
+    font-size: 20px;
+    font-weight: bold;
+  }
   .moreorless button{
     margin-top: 5%;
     width: 45px;

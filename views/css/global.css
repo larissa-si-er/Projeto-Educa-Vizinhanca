@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .error-container {
+    text-align: center;
+    position: relative;
+  }
+  
+  .error-container h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #bf0000; 
+  }
+  
+  .error-background {
+    position: absolute;
+    font-size: 150px;
+    color: rgba(0, 0, 0, 0.1); 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+  
+  .error-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .error-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .error-container a {
+    text-decoration: none;
+    color: #ff1111; 
+  }
+  .qr_insta{
+    width: 90px;
+  }

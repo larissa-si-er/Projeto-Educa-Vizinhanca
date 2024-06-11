@@ -1,0 +1,148 @@
+<?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit']) && !empty($_POST['user']) && !empty($_POST['password'])) {
+    include_once('../models/conexao.php'); 
+    include_once('../models/users.php');
+
+    $database = new conexao();
+    $db = $database->getConnection();
+
+    $user = new User($db);
+
+    $username = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $result = $user->login($username, $password);
+
+    if ($result) {
+        // Autenticação bem-sucedida
+        echo "Bem-vindo, " . $result['tipo'] . "!";
+        echo "<br>";
+        echo "Bem-vindo, " . $result['dados']['senha'] . "!";
+        echo "<br>";
+        var_dump($result['dados']);
+
+        // Redirecionar para o painel apropriado com base no tipo de usuário
+        // header('Location: ../views/' . $result['tipo'] . '/dashboard.php');
+        // exit();
+    } else {
+        // Credenciais inválidas
+        $_SESSION['login_error'] = 'Credenciais inválidas. Tente novamente.';
+        header('Location: ../views/auth/login.php');
+        exit();
+    }
+} 
+else 
+{
+    // Se o método de solicitação não for POST ou se os campos estiverem vazios
+    header('Location: ../views/auth/login.php');
+    exit();
+}
+?>
+
+
+
+-------------------------------------------------------------------------
+    public function cadastrarAluno($alunoData) {
+        // Verifica se já existe um usuário com o mesmo nome de usuário ou e-mail
+        $sql = "SELECT COUNT(*) AS total FROM aluno WHERE usuario = :usuario OR email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':usuario', $alunoData['usuario'], PDO::PARAM_STR);
+        $stmt->bindParam(':email', $alunoData['email'], PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($result['total'] > 0) {
+            // Já existe um usuário com o mesmo nome de usuário ou e-mail
+            return false;
+        }
+    
+        // Insere os dados do aluno no banco de dados
+        $sql = "INSERT INTO aluno (nome, nome_materno, email, cpf, data_nasc, sexo, telefone_celular, telefone_fixo, usuario, senha, cep, date_time, auth_factor) VALUES (:nome, :nomeM, :email, :cpf, :niver, :genero, :celular, :telefone, :usuario, :senha, :cep, :date_time, '')";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':nome', $alunoData['nome'], PDO::PARAM_STR);
+        $stmt->bindParam(':nomeM', $alunoData['nomeM'], PDO::PARAM_STR);
+        $stmt->bindParam(':email', $alunoData['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':cpf', $alunoData['cpf'], PDO::PARAM_STR);
+        $stmt->bindParam(':niver', $alunoData['niver'], PDO::PARAM_STR);
+        $stmt->bindParam(':genero', $alunoData['genero'], PDO::PARAM_STR);
+        $stmt->bindParam(':celular', $alunoData['celular'], PDO::PARAM_STR);
+        $stmt->bindParam(':telefone', $alunoData['telefone'], PDO::PARAM_STR);
+        $stmt->bindParam(':usuario', $alunoData['usuario'], PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $alunoData['senha'], PDO::PARAM_STR);
+        $stmt->bindParam(':cep', $alunoData['cep'], PDO::PARAM_STR);
+        $stmt->bindParam(':date_time', date('d/m/Y H:i:s'), PDO::PARAM_STR);
+        
+        if ($stmt->execute()) {
+            // Cadastro realizado com sucesso
+            return true;
+        } else {
+            // Erro ao cadastrar aluno
+            return false;
+        }
+    }
+
+--------------------------------------------------------------------------------------------
+
+    public function cadastrarAluno($alunoData) {
+        // Verifica se já existe um usuário com o mesmo nome de usuário ou e-mail
+        $sql = "SELECT COUNT(*) AS total FROM aluno WHERE usuario = :usuario OR email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':usuario', $alunoData['usuario'], PDO::PARAM_STR);
+        $stmt->bindParam(':email', $alunoData['email'], PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($result['total'] > 0) {
+            // Já existe um usuário com o mesmo nome de usuário ou e-mail
+            return false;
+        }
+    
+        // Insere os dados do aluno no banco de dados
+        $sql = "INSERT INTO aluno (nome, nome_materno, email, cpf, data_nasc, sexo, telefone_celular, telefone_fixo, usuario, senha, cep, registro, auth_factor) VALUES (:nome, :nomeM, :email, :cpf, :nasc, :genero, :cel, :tel, :usuario, :senha, :cep, :registro, '')";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':nome', $alunoData['nome'], PDO::PARAM_STR);
+        $stmt->bindParam(':nomeM', $alunoData['nomeM'], PDO::PARAM_STR);
+        $stmt->bindParam(':email', $alunoData['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':cpf', $alunoData['cpf'], PDO::PARAM_STR);
+        $stmt->bindParam(':nasc', $alunoData['nasc'], PDO::PARAM_STR);
+        $stmt->bindParam(':genero', $alunoData['genero'], PDO::PARAM_STR);
+        $stmt->bindParam(':cel', $alunoData['cel'], PDO::PARAM_STR);
+        $stmt->bindParam(':tel', $alunoData['tel'], PDO::PARAM_STR);
+        $stmt->bindParam(':usuario', $alunoData['usuario'], PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $alunoData['senha'], PDO::PARAM_STR);
+        $stmt->bindParam(':cep', $alunoData['cep'], PDO::PARAM_STR);
+        $registro = date('Y-m-d H:i:s');
+        $stmt->bindParam(':registro', $registro);
+    
+        $enderecoSql = "INSERT INTO endereco (cep, uf, logradouro, bairro, numero) VALUES (:cep, :uf, :logradouro, :bairro, :numero)";
+        $stmtEndereco = $this->conn->prepare($enderecoSql);
+        $stmtEndereco->bindParam(':cep', $alunoData['cep'], PDO::PARAM_STR);
+        $stmtEndereco->bindParam(':uf', $alunoData['uf'], PDO::PARAM_STR);
+        $stmtEndereco->bindParam(':logradouro', $alunoData['logradouro'], PDO::PARAM_STR);
+        $stmtEndereco->bindParam(':bairro', $alunoData['bairro'], PDO::PARAM_STR);
+        $stmtEndereco->bindParam(':numero', $alunoData['numero'], PDO::PARAM_STR);
+    
+        // Iniciar uma transação
+        $this->conn->beginTransaction();
+    
+        try {
+            // Executar as duas inserções
+            echo "Antes de executar a inserção do aluno.";
+            $stmt->execute();
+            echo "Aluno inserido com sucesso.";
+            echo "Antes de executar a inserção do endereço.";
+            $stmtEndereco->execute();
+            echo "Endereço inserido com sucesso.";
+    
+            // Commit da transação se tudo ocorrer bem
+            $this->conn->commit();
+            return true;
+        } catch (PDOException $e) {
+            // Reverter a transação em caso de erro
+            $this->conn->rollBack();
+            echo "Erro ao cadastrar aluno: " . $e->getMessage();
+            return false;
+        }
+    }

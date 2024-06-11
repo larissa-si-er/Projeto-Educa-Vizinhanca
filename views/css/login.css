@@ -157,6 +157,13 @@ body::after {
     font-size: 45px;
 }
 
+.icon-principal{
+    display: flex;
+    justify-content: center;
+    color: #9edbe1;
+    font-size: 51px;
+}
+
 /* código */
 .div-codigo{
     display: none;
@@ -179,6 +186,85 @@ body::after {
 
 }
 
+.form-auth{
+    align-items: center;
+}
+.question-auth {
+    background-color: white;
+    height: auto;
+    padding: 5px;
+    /* border: 1px solid #eaeaea; */
+    overflow: hidden;
+    width: 100%;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.label-auth {
+    font-weight: 700;
+}
+.inputForm-auth {
+    border: 1.5px solid #ecedec;
+    border-radius: 10px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 80%;
+    flex-wrap: wrap;
+    margin-top: 1%;
+}
+.p-question-auth {
+    color: #008abb;
+    margin-bottom: 1%;
+    font-weight: 600;
+}
+.answer-auth {
+    margin: 0;
+
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border: 1px solid #8e8e8e;
+}
+.title-auth{
+    font-size: 13px;
+    color: rgb(175, 175, 175);
+}
+.auth-img{
+    width: 150px;
+}
+.entrar{
+    width: 80%;
+}
+.entrar:hover{
+    background-color: rgb(95, 178, 186);
+}
+
+
+.error-message{
+    background-color: #ffe3e3;
+    color: #cc0000;
+    padding: 10px;
+    text-align: center;
+    width: 95%;
+    font-size: 13px;
+    border-bottom: 2px solid red;
+}
+
+
+.sucess-message {
+    background-color: #e8ffe3;
+    color: #007103;
+    padding: 10px;
+    text-align: center;
+    width: 95%;
+    font-size: 13px;
+    border-bottom: 2px solid #009317;
+}
 /* Responsividade */
 @media only screen and (max-width: 600px) {
     .form {

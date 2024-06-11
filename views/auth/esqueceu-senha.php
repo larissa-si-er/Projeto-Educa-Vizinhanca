@@ -27,7 +27,9 @@
         </div>
     </div>
     <form class="form">
-        <i class="bi bi-person-fill-lock"></i>        
+        <div class="icon-principal"><i class="bi bi-person-fill-lock"></i>
+        </div>        
+
         <div class="flex-column">
           <label>Nova Senha: </label></div>
           <div class="inputForm">
@@ -43,12 +45,7 @@
 
           </div>
         
-        <div class="flex-row">
-          <div>
-          <input type="checkbox">
-          <label>Lembre-me </label>
-          </div>
-        </div>
+
         <button class="button-submit confirmar" onclick="window.location.href ='../auth/login.php'">Confirmar</button>
 
         </span>
