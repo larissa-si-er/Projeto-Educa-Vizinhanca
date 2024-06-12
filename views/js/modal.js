@@ -31,6 +31,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // MODAL ADD PRODUTO [INICIO]
+
+
+        // Abrir o modal de adicionar curso
+        var abrirModalAdicionar = document.getElementById('abrirModalProduto');
+        if (abrirModalAdicionar) {
+            abrirModalAdicionar.addEventListener('click', function() {
+                var modalAdicionar = document.getElementById('modalAdicionarP');
+                if (modalAdicionar) {
+                    modalAdicionar.style.display = 'block';
+                    console.log('ativo');
+                }
+            });
+        }
+
+        // Fechar o modal de adicionar curso
+        var modalAdicionar = document.getElementById('modalAdicionarP');
+        if (modalAdicionar) {
+            var fecharAdicionar = modalAdicionar.getElementsByClassName('fechar')[0];
+            if (fecharAdicionar) {
+                fecharAdicionar.addEventListener('click', function() {
+                    modalAdicionar.style.display = 'none';
+                });
+            }
+
+            // Fechar o modal de adicionar curso se o usuário clicar fora dele
+            window.addEventListener('click', function(event) {
+                if (event.target == modalAdicionar) {
+                    modalAdicionar.style.display = 'none';
+                }
+            });
+        }
+
+
+// MODAL ADD PRODUTO [FIM]
+    
+
+
     // Abrir o modal de editar perfil
     var abrirModalEditar = document.getElementById('abrirModalEditar');
     if (abrirModalEditar) {
@@ -60,14 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
- 
-
-
-
-
-
-
 
 
 // modal user

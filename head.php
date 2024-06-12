@@ -15,5 +15,7 @@
      <!--fontawesome-->
      <script src="https://kit.fontawesome.com/6c3bbfdabc.js" crossorigin="anonymous"> </script>
      <link rel="icon" type="image/png" href="./img/home-ic.png">
+      <!-- Incluir os arquivos do SweetAlert via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
