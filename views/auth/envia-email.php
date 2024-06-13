@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="PT-br">
 <head>
@@ -27,7 +30,40 @@
             <img src="" alt="" srcset="">
         </div>
     </div>
-    <form class="form" action="" method="POST">
+    <form class="form" action="../../controllers/userController.php" method="POST">
+    
+   <?php
+    // session_start();
+    // if (isset($_SESSION['success_message'])) {
+    //     echo '<div class="success-message">' . $_SESSION['success_message'] . '</div>';
+    //     unset($_SESSION['success_message']); // Remove a mensagem da sessão para não ser exibida novamente
+    // }
+    // if (isset($_SESSION['error_message'])) {
+    //     echo '<div class="error-message">' . $_SESSION['error_message'] . '</div>';
+    //     unset($_SESSION['error_message']); // Remove a mensagem da sessão para não ser exibida novamente
+    // }
+?> 
+
+          <!-- ERROR -->
+          <?php
+          // session_start();
+          if (isset($_SESSION['error-message'])): ?>
+              <div class="error-message">
+                  <?php echo $_SESSION['error-message']; unset($_SESSION['error-message']); ?>
+              </div>
+          <?php endif; ?>
+          <!-- ERROR -->
+
+
+          <!-- sucesso -->
+          <?php
+          if (isset($_SESSION['success-message'])): ?>
+              <div id="success-message" class="sucess-message">
+                  <?php echo $_SESSION['success-message']; unset($_SESSION['success-message']); ?>
+              </div>
+          <?php endif; ?>
+          <!-- sucesso -->
+
         <div class="icon-principal"><i class="bi bi-envelope-at-fill"></i>
         </div>
         <p class="legenda-h1">Verifique o seu e-mail!</p>
@@ -44,7 +80,8 @@
           <input type="text" class="input-codigo"
           id="cod" name="cod" placeholder="Digite o código aqui" maxlength="10">
         </div>
-        <button class="button-submit confirmar" onclick="block_codigo(event)">Enviar o Codigo</button>
+        <!-- <button class="button-submit confirmar" type="submit" name="esqueceuSenha" onclick="block_codigo(event)">Enviar o Codigo</button> -->
+        <button class="button-submit confirmar" type="submit" name="esqueceuSenha">Enviar o Codigo</button>
     </form>
 </body>
 </html>

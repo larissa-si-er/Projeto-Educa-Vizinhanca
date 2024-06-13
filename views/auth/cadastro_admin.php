@@ -32,7 +32,7 @@
             <img src="../img/undraw_Co_workers_re_1i6i.png" alt="">
         </div>
     <div class="box">
-        <form class="form" action="">
+        <form class="form" action="../../controllers/userController.php" method="post">
                 <div class="legenda">
                    <legend>Cadastre sua Instituição</legend>
                 </div>
@@ -59,7 +59,7 @@
 
                 <div class="inputbox ">
                     <label for="instituicao">Nome da Instituição: *</label>
-                    <input type="text" name="instituicao" id="instituicao" maxlength="60" required class="inputUserADM" oninput="clearError('instituicao')">
+                    <input type="text" name="nome_insti" id="instituicao" maxlength="60" required class="inputUserADM" oninput="clearError('instituicao')">
                     <span id="instituicao_error" class="error"></span> 
                 
                 </div>
@@ -72,13 +72,13 @@
 
                 <div class="inputbox">
                     <label for="datainstituicao" style="background-color: transparent;">Fundação:</label>
-                    <input type="date" id="datainstituicao" required class="inputUser"oninput="clearError('datainstituicao')"/>
+                    <input type="date" id="datainstituicao" name="data_fundacao" required class="inputUser"oninput="clearError('datainstituicao')"/>
                     <span id="datainstituicao_error" class="error"></span> 
                 </div>
 
                 <div class="inputbox ww">
                     <label id="cnpjLabel" for="cnpj">CNPJ: *</label>
-                    <input type="text" id="cnpj" placeholder="XX. XXX. XXX/XXXX-XX" required maxlength="14" inputmode="numeric" class="inputUser" oninput="formatCnpj(event), clearError('cnpj')" onblur="validarCNPJ(cnpj)"/>
+                    <input type="text" id="cnpj" name="cnpj" placeholder="XX. XXX. XXX/XXXX-XX" required maxlength="14" inputmode="numeric" class="inputUser" oninput="formatCnpj(event), clearError('cnpj')" onblur="validarCNPJ(cnpj)"/>
                     <span id="cnpj_error" class="error"></span>
                     <small class="small-required" id="erroCnpj"></small>
                 </div>
@@ -136,13 +136,13 @@
                 <br>
                 <div class="inputbox w20">
                     <label for="celular">Celular: *</label>
-                    <input type="text" id="celular" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{9}" required inputmode="numeric" onblur="validarCelular()" oninput="formatarTel(), clearError('celular')" maxlength="13" class="inputUser"/>
+                    <input type="text" id="celular" name="telefone_celular" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{9}" required inputmode="numeric" onblur="validarCelular()" oninput="formatarTel(), clearError('celular')" maxlength="13" class="inputUser"/>
                     <span id="celular_error" class="error"></span>
                 </div>
 
                 <div class="inputbox">
                     <label for="telefone">Telefone: *</label>
-                    <input type="text" id="telefone" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{8}" required inputmode="numeric" oninput="formatarTel(), clearError('telefone')"   maxlength="13" class="inputUser" />
+                    <input type="text" id="telefone" name="telefone_fixo" placeholder="(+55)XX-XXXXXXXX" pattern="\(\+\d{2}\)\d{2}-\d{8}" required inputmode="numeric" oninput="formatarTel(), clearError('telefone')"   maxlength="13" class="inputUser" />
                     <span id="telefone_error" class="error"></span>
                 </div>
                 <br>
@@ -151,49 +151,49 @@
 
                 <div class="inputbox">
                     <label for="cep">CEP: *</label>
-                    <input type="text" id="cep" required maxlength="8" inputmode="numeric" oninput=" clearError('cep'),formatarCEP()" onkeyup="ProcuraCEP()" class="inputUser" />
+                    <input type="text" id="cep" name="cep" required maxlength="8" inputmode="numeric" oninput=" clearError('cep'),formatarCEP()" onkeyup="ProcuraCEP()" class="inputUser" />
                     <span id="cep_error" class="error"></span>
                 </div>
 
 <!-- alteraçoes -->
                 <div class="inputbox w30">
                     <label for="cidade">Cidade: *</label>
-                    <input type="text"  id="cidade" required>
+                    <input type="text"  id="cidade" name="cidade" required>
                 </div>
 
                 <div class="inputbox">
                     <label for="state">Estado: *</label>
-                    <input type="text"  id="state" required>
+                    <input type="text"  id="state" name="state" required>
                 </div>
 <!-- alteraçoes -->
 
                 <div class="inputbox">
                     <label for="end" >Logradouro: *</label>
-                    <input type="text" id="end" placeholder="Rua" class="inputUser"  />
+                    <input type="text" id="end" name="logradouro" placeholder="Rua" class="inputUser"  />
                 </div>
 
                 <div class="inputbox w30">
                     <label for="bairro" >Bairro: *</label>
-                    <input type="text" id="bairro" class="inputUser"/>
+                    <input type="text" id="bairro" name="bairro" class="inputUser"/>
                 </div>
 
                 <div class="inputbox">
                     <label for="complemento">Número: *</label>
-                    <input type="text" id="complemento"  required class="inputUser" oninput="clearError('complemento')"/>
+                    <input type="text" id="complemento" name="num" required class="inputUser" oninput="clearError('complemento')"/>
                     <span id="complemento_error" class="error"></span>
                 </div>
 
                 <br>
                 <div class="inputbox">
                     <label id="labelUsuario" for="usuario">Usuário: *</label>
-                    <input type="text" id="usuario" maxlength="6" required class="inputUser" oninput="clearError('usuario')" onkeyup="validarLogin(this.value)"/>
+                    <input type="text" id="usuario" name="usuario" maxlength="6" required class="inputUser" oninput="clearError('usuario')" onkeyup="validarLogin(this.value)"/>
                     <span id="usuario_error" class="error"></span>
                     <small class="small-required" id="erroLogin"></small>
                 </div>
  
                 <div class="inputbox w20">
                     <label for="senha">Senha: *</label>
-                    <input type="password" id="senha" maxlength="8"  required class="inputUser" oninput="clearError('senha')" onkeyup="validarSenha(this.value)" />
+                    <input type="password" id="senha" name="senha" maxlength="8"  required class="inputUser" oninput="clearError('senha')" onkeyup="validarSenha(this.value)" />
                     <i class="bi bi-eye" id="btsenha"  onclick="mostrarSenha()"></i>
                     <span id="senha_error" class="error"></span> 
                     <small class="small-required" id="erroSenha"></small>
@@ -234,7 +234,7 @@
 <!-- ALTERAÇAO 25-04 -->
 
                 <div class="buttons">
-                    <button onclick="validate_cadTwo()">
+                    <button onclick="validate_cadTwo()" name="cadastrarInstituicao">
                         <span class="shadow"></span>
                         <span class="edge"></span>
                         <span class="front text"> Entrar

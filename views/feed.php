@@ -1,5 +1,5 @@
 <?php
-// require '../controllers/userController.php'; 
+require '../controllers/userController.php'; 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

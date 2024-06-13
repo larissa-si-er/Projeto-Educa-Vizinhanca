@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Jun-2024 às 05:22
+-- Tempo de geração: 14-Jun-2024 às 00:55
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -31,15 +31,17 @@ CREATE TABLE `administracao` (
   `id_admin` int(11) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `senha` varchar(255) NOT NULL
+  `senha` varchar(255) NOT NULL,
+  `reset_code` int(6) DEFAULT NULL,
+  `reset_code_expiry` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `administracao`
 --
 
-INSERT INTO `administracao` (`id_admin`, `usuario`, `email`, `senha`) VALUES
-(1, 'AdminT', 'AdminOne@gmail', 'senha_adm');
+INSERT INTO `administracao` (`id_admin`, `usuario`, `email`, `senha`, `reset_code`, `reset_code_expiry`) VALUES
+(1, 'AdminT', 'AdminOne@gmail', 'senha_adm', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -48,7 +50,7 @@ INSERT INTO `administracao` (`id_admin`, `usuario`, `email`, `senha`) VALUES
 --
 
 CREATE TABLE `aluno` (
-  `id_aluno` int(11) NOT NULL AUTO_INCREMENT,
+  `id_aluno` int(11) NOT NULL,
   `nome` varchar(100) DEFAULT NULL,
   `data_nasc` date DEFAULT NULL,
   `sexo` varchar(10) DEFAULT NULL,
@@ -58,24 +60,22 @@ CREATE TABLE `aluno` (
   `telefone_celular` varchar(20) DEFAULT NULL,
   `telefone_fixo` varchar(20) DEFAULT NULL,
   `usuario` varchar(100) DEFAULT NULL,
-  `senha` varchar(100) DEFAULT NULL,
+  `senha` varchar(255) DEFAULT NULL,
   `cep` varchar(10) NOT NULL,
   `registro` timestamp NOT NULL DEFAULT current_timestamp(),
   `auth_factor` varchar(50) NOT NULL,
   `auth_last` datetime DEFAULT NULL,
-  `auth_answer` varchar(255) DEFAULT NULL
+  `auth_answer` varchar(255) DEFAULT NULL,
+  `reset_pass_code` int(6) DEFAULT NULL,
+  `expiry_code` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `aluno`
 --
 
-INSERT INTO `aluno` (`id_aluno`, `nome`, `data_nasc`, `sexo`, `nome_materno`, `cpf`, `email`, `telefone_celular`, `telefone_fixo`, `usuario`, `senha`, `cep`, `registro`, `auth_factor`, `auth_last`, `auth_answer`) VALUES
-(0, 'Felipe Martins ', '2004-09-12', 'masculino', 'Jessica Martins', '414.565.786-18', 'fp@gmail', '(+55)13-111111111', '(+55)13-33333333', 'userfp', '$2y$10$Yd.AnpTnhffGm5k.8qbMkuBT/QOfOlPS99/V9GQ4WMjG/31Hroh2.', '17603-75', '2024-06-10 16:55:31', '', NULL, NULL),
-(1, 'teste', '2024-06-12', 'fem', 'silva', '111.111.111-11', 'teste@gmail', '+55(21)111111111', '+55(21)11111111', 'usuario', 'teste', '23540040', '2024-06-10 05:10:24', '', NULL, NULL),
-(2, 'Maria Clara Souza', '2001-01-01', 'feminino', 'Luana Souza', '881.346.431-24', 'Mclara@gmail.com', '(+55)21-555555555', '(+55)21-11111111', 'Mclara', '$2y$10$KJnrs5yumqdxCRhQhztrUe3BskUS7fK4ZZbqQmmdRh4cNEifMRvvO', '05453-90', '2024-06-10 10:16:27', '', NULL, NULL),
-(3, 'Gabriel Silveira', '1995-11-11', 'masculino', 'Mariana Teixeira', '714.447.939-34', 'GabSilva@gmail.com', '(+55)21-555555555', '(+55)21-11111111', 'GaSilv', '$2y$10$q/EK0JvKA/ZWtL6bsnCSf.i3u.0EDbG/9iB3IsQq2BORnLAcgJ1.u', '74555-51', '2024-06-11 00:51:15', '', NULL, NULL),
-(4, 'julia magalhaes', '2000-04-16', 'outro', 'Tereza Aguiar', '439.343.171-54', 'julia@gmail.com', '(+55)21-555555555', '(+55)21-11111111', 'juliaM', '$2y$10$OBdigGle/ZOiDYV4ePqCHO2.58A.N23l0OiY13Y3oOAmbdNcsd4QC', '14056-56', '2024-06-10 14:22:55', '', NULL, NULL);
+INSERT INTO `aluno` (`id_aluno`, `nome`, `data_nasc`, `sexo`, `nome_materno`, `cpf`, `email`, `telefone_celular`, `telefone_fixo`, `usuario`, `senha`, `cep`, `registro`, `auth_factor`, `auth_last`, `auth_answer`, `reset_pass_code`, `expiry_code`) VALUES
+(1, 'Maria Clara Souza', '2005-05-05', 'feminino', 'Luana Souza', '414.565.786-18', 'Mclara@gmail.com', '(+55)21-111111111', '(+55)21-33333333', 'Mclara', '$2y$10$yUN.yqGQMWWXFOII2NVNkeT7SIzOwGVcXQJzaG8cJE6Wg7SNlPF0i', '05453-900', '2024-06-12 16:10:47', '', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,6 @@ CREATE TABLE `aluno_curso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
-
 
 --
 -- Estrutura da tabela `carrinho`
@@ -188,10 +187,13 @@ CREATE TABLE `endereco` (
 
 INSERT INTO `endereco` (`cep`, `cidade`, `estado`, `logradouro`, `bairro`, `num`) VALUES
 ('05453-90', 'São Paulo', 'SP', 'Rua Doutor Luís Augusto de Queirós Aranha 173', 'Vila Madalena', '4'),
+('05453-900', 'São Paulo', 'SP', 'Rua Doutor Luís Augusto de Queirós Aranha 173', 'Vila Madalena', '12'),
+('07041-270', NULL, NULL, NULL, NULL, NULL),
 ('14056-56', 'Ribeirão Preto', 'SP', 'Rua Ozório Zambonini', 'Planalto Verde', '3'),
 ('17603-75', 'Tupã', 'SP', 'Rua Orestes Bianchi', 'Jardim Santa Adélia', '8'),
 ('23540040', 'rio', 'rio', 'centro', 'centro', '4'),
-('74555-51', 'Goiânia', 'GO', 'Rua T', 'Vila Ofugi', '11');
+('74555-51', 'Goiânia', 'GO', 'Rua T', 'Vila Ofugi', '11'),
+('74555-515', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -210,15 +212,22 @@ CREATE TABLE `instituicao` (
   `telefone_fixo` varchar(20) DEFAULT NULL,
   `cep` varchar(10) NOT NULL,
   `usuario` varchar(100) DEFAULT NULL,
-  `senha` varchar(100) DEFAULT NULL
+  `senha` varchar(100) DEFAULT NULL,
+  `registro` timestamp NOT NULL DEFAULT current_timestamp(),
+  `auth_factor` varchar(255) DEFAULT '',
+  `auth_last` timestamp NULL DEFAULT NULL,
+  `auth_answer` varchar(255) DEFAULT '',
+  `reset_code` int(6) DEFAULT NULL,
+  `reset_code_expiry` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `instituicao`
 --
 
-INSERT INTO `instituicao` (`id_instituicao`, `nome`, `nome_insti`, `email`, `data_fundacao`, `cnpj`, `telefone_celular`, `telefone_fixo`, `cep`, `usuario`, `senha`) VALUES
-(1, 'instituição One', 'Teste', 'InstituiçãoOne@gmail', '0000-00-00', '11111111111111', '+55(21)111111111', '+55(21)11111111', '23540040', 'instest', 'senha_inst');
+INSERT INTO `instituicao` (`id_instituicao`, `nome`, `nome_insti`, `email`, `data_fundacao`, `cnpj`, `telefone_celular`, `telefone_fixo`, `cep`, `usuario`, `senha`, `registro`, `auth_factor`, `auth_last`, `auth_answer`, `reset_code`, `reset_code_expiry`) VALUES
+(6, 'Gabriel Silveira', 'ufrj', 'GabSilva@gmail.com', '1999-11-11', '83.566.446/000', '(+55)55-555555555', '(+55)55-55555555', '74555-515', 'UfrjGb', '$2y$10$lH8D/B385obtlCl6yOKQmOHh59sLtK9rVQIl8Tw1SGJjYh2lmQ6Je', '2024-06-12 16:37:38', '', NULL, '', 460443, '2024-06-13 08:55:16'),
+(7, 'Gabriel Gomes', 'bradesco', 'bradesco@gmail.com', '1999-11-11', '34.221.954/000', '(+55)55-555555555', '(+55)55-55555555', '07041-270', 'brades', '$2y$10$9QSHYTBxIylAcVdM/znYDe0ceWC.w7/xpPtY6hig1jlKQNI2iqmxa', '2024-06-12 16:44:15', '', NULL, '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -234,7 +243,8 @@ CREATE TABLE `produto` (
   `quantidade_estoque` int(11) NOT NULL,
   `imagem` varchar(255) DEFAULT NULL,
   `categoria` varchar(100) NOT NULL,
-  `cor` varchar(50) NOT NULL
+  `cor` varchar(50) NOT NULL,
+  `is_lancamento` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -264,7 +274,7 @@ ALTER TABLE `administracao`
 --
 ALTER TABLE `aluno`
   ADD PRIMARY KEY (`id_aluno`),
-  ADD KEY `cep` (`cep`);
+  ADD KEY `fk_cep` (`cep`);
 
 --
 -- Índices para tabela `aluno_curso`
@@ -272,12 +282,6 @@ ALTER TABLE `aluno`
 ALTER TABLE `aluno_curso`
   ADD PRIMARY KEY (`id_aluno`,`id_curso`),
   ADD KEY `id_curso` (`id_curso`);
-
---
--- Índices para tabela `antigo_endereco`
---
-ALTER TABLE `antigo_endereco`
-  ADD PRIMARY KEY (`cep`);
 
 --
 -- Índices para tabela `carrinho`
@@ -357,6 +361,12 @@ ALTER TABLE `administracao`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de tabela `aluno`
+--
+ALTER TABLE `aluno`
+  MODIFY `id_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
@@ -378,7 +388,7 @@ ALTER TABLE `curtida`
 -- AUTO_INCREMENT de tabela `instituicao`
 --
 ALTER TABLE `instituicao`
-  MODIFY `id_instituicao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_instituicao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
@@ -400,7 +410,7 @@ ALTER TABLE `salvo`
 -- Limitadores para a tabela `aluno`
 --
 ALTER TABLE `aluno`
-  ADD CONSTRAINT `aluno_fk_endereco` FOREIGN KEY (`cep`) REFERENCES `endereco` (`cep`);
+  ADD CONSTRAINT `fk_cep` FOREIGN KEY (`cep`) REFERENCES `endereco` (`cep`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `carrinho`
@@ -410,33 +420,12 @@ ALTER TABLE `carrinho`
   ADD CONSTRAINT `carrinho_ibfk_3` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`) ON DELETE CASCADE;
 
 --
--- Limitadores para a tabela `comentario`
---
-ALTER TABLE `comentario`
-  ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE,
-  ADD CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE;
-
---
 -- Limitadores para a tabela `curso_admin_instituicao`
 --
 ALTER TABLE `curso_admin_instituicao`
   ADD CONSTRAINT `curso_admin_instituicao_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE,
   ADD CONSTRAINT `curso_admin_instituicao_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `administracao` (`id_admin`) ON DELETE CASCADE,
   ADD CONSTRAINT `curso_admin_instituicao_ibfk_3` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao` (`id_instituicao`) ON DELETE CASCADE;
-
---
--- Limitadores para a tabela `curtida`
---
-ALTER TABLE `curtida`
-  ADD CONSTRAINT `curtida_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE,
-  ADD CONSTRAINT `curtida_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE;
-
---
--- Limitadores para a tabela `salvo`
---
-ALTER TABLE `salvo`
-  ADD CONSTRAINT `salvo_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`) ON DELETE CASCADE,
-  ADD CONSTRAINT `salvo_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

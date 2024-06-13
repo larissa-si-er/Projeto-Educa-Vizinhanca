@@ -200,7 +200,7 @@ session_start();
                     </div>
 
                     <div class="buttons">
-                        <button onclick="validate()"  name="cadastrar">
+                        <button onclick="validate()"  name="cadastrarAluno">
                             <span class="shadow"></span>
                             <span class="edge"></span>
                             <span class="front text"> Entrar
