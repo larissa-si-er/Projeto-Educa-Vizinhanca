@@ -104,10 +104,17 @@
     </div>
 </div>
 
-    <!--script busca-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!--script busca-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
+    function formatDateTime(dateTimeStr) {
+        const [datePart, timePart] = dateTimeStr.split(' ');
+        const [year, month, day] = datePart.split('-');
+        const [hour, minute] = timePart.split(':');
+        return `${day}/${month}/${year} ${hour}:${minute}`;
+    }
+
     $('#searchInput').keyup(function(){
         var searchTerm = $(this).val();
 
@@ -116,12 +123,30 @@ $(document).ready(function(){
             type: 'POST',
             data: {termo: searchTerm}, 
             success: function(response){
-                $('#instiTable tbody').html(response); 
+                const jsonData = JSON.parse(response);
+                $('#instiTable tbody').html("");
+                jsonData.forEach(log => {
+                    const formattedDate = formatDateTime(log.date);
+                    const row = `
+                        <tr>
+                            <td>${log.id}</td>
+                            <td>${log.name}</td>
+                            <td>${log.phone}</td>
+                            <td>${log.cep}</td>
+                            <td>${log.complement}</td>
+                            <td>${log.number}</td>
+                            <td>${log.email}</td>
+                            <td>${log.cnpj}</td>
+                            <td class="actions">Ações</td>
+                        </tr>
+                    `;
+                    $('#instiTable tbody').append(row);
+                });
             }
         });
     });
 });
-</script>                         
+</script>
 
 
 

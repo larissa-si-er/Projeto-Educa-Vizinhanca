@@ -28,7 +28,7 @@ session_start();
   <ul>
     <li>
     <i class="fa-solid fa-arrow-left" style="margin-top: 0px; display: inline-block;"></i>
-    <a href="../../index.php" style="display: inline-block; vertical-align: top;">Voltar</a>
+    <a href="../feed.php" style="display: inline-block; vertical-align: top;">Voltar</a>
   </ul>
   </div>
   </div>
@@ -202,29 +202,31 @@ session_start();
         </svg>
       </div>
         </label>
-
          <label for="foto">Foto do Produto:</label>
          <input type="file" id="fotoProduto" name="imagem" accept="image/*">
          
         <button type="submit" class="adicionar">Adicionar</button>
+        </form>
     </form>
   </div>
 </div>
+
+
   <!--modal adicionar curso-->
   <button class="button" id="abrirModalAdicionar" title="Adicionar Curso" style="cursor: pointer;">Adicionar Curso<i class="fa-regular fa-square-plus"></i></button>
     <div id="modalAdicionar" class="modal">
         <div class="modal-content">
             <span class="fechar">&times;</span>
             <h2>Adicionar Curso</h2>
-    <form action="#" id="formCurso" action="formulario_add_curso.php" method="post">
+    <form action="../../controllers/curso_control.php" id="formCurso" method="post">
         <label for="titulo">Título do Curso:</label>
-        <input type="text" id="nome_curso" name="titulo" required>
+        <input type="text" id="nome_curso" name="nome_curso" required>
         
         <label for="descricao">Descrição:</label>
         <textarea id="descricao" name="descricao" rows="4" required></textarea>
         
         <label for="area">Área do Curso:</label>
-        <input type="text" id="areacurso" name="area" required>
+        <input type="text" id="areacurso" name="areacurso" required>
        
         <label for="tipo">Tipo do curso:</label>
         <select id="tipocurso" name="tipocurso" required>
@@ -239,7 +241,7 @@ session_start();
         </select>
 
         <label for="vagas">Quantidade de Vagas:</label>
-        <input type="number" id="quantidadevagas" name="vagas" min="0" required>
+        <input type="number" id="quantidadevagas" name="quantidadevagas" min="0" required>
         
         <label for="duracao">Duração:</label>
         <input type="text" id="duracao" name="duracao" required>
@@ -252,19 +254,19 @@ session_start();
         </select>
         
         <label for="local">Local:</label>
-        <input type="text" id="localidade" name="local" required>
+        <input type="text" id="localidade" name="localidade" required>
         
         <label for="link">Link do Site:</label>
-        <input type="url" id="linksite" name="link" placeholder="https://example.com" required>
+        <input type="url" id="linksite" name="linksite" placeholder="https://example.com" required>
         
         <label for="inicio">Início das Inscrições:</label>
-        <input type="date" id="inicioinscricoes" name="inicio" required>
+        <input type="date" id="inicioinscricoes" name="inicioinscricoes" required>
         
         <label for="termino">Término das Inscrições:</label>
-        <input type="date" id="terminoinscricoes" name="termino" required>
+        <input type="date" id="terminoinscricoes" name="terminoinscricoes" required>
          
          <label for="foto">Foto do Curso:</label>
-         <input type="file" id="fotocurso" name="foto" accept="image/*">
+         <input type="file" id="fotocurso" name="fotocurso" accept="image/*">
          
         <button type="submit" class="adicionar">Adicionar</button>
     </form>
@@ -1029,7 +1031,6 @@ if (isset($_SESSION['error_message'])) {
       Swal.fire({
           icon: 'success',
           title: 'Adicionado com Sucesso!',
-          text: '{$_SESSION['error_message']}',
           showConfirmButton: false,
           timer: 1800 
       }).then((result) => {
@@ -1040,3 +1041,4 @@ if (isset($_SESSION['error_message'])) {
   unset($_SESSION['error_message']); 
 }
 ?>
+
