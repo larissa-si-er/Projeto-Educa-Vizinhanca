@@ -1,6 +1,23 @@
 <?php
-require '../controllers/userController.php'; 
+// require '../controllers/userController.php'; 
 ?>
+
+<?php
+session_start();
+
+// Verifica se o usuário não está logado
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // Redireciona para a página de login
+    header('Location: ../views/auth/login.php');
+    exit();
+}
+
+$primeiroNome = $_SESSION['first_name'] ?? '';
+
+// var_dump($_SESSION);
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -30,33 +47,70 @@ require '../controllers/userController.php';
                         <input placeholder="Busque aqui seus cursos no site." type="search" class="input">
                     </div>
 
-<div class="block-user">
-<i class="bi bi-x sidebarClose"></i>
-    <ul class="user-ul" onclick="openModal()">
-        <li class="user-li">
-            <p id="user">
-                <i class="fas fa-user-circle"></i>
-                Usuário
-                <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
-            </p>
-            <!-- modal user -->
-            <div id="myModal" class="modal-user">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div class="modal-content-user">
-                    <p><strong>User:</strong> Admin</p>
-                    <p><strong>Email:</strong> Admin@example.com</p>
-                    <p><strong>Senha:</strong> *********</p>
-                    <p>
-                        <button id="bnt-user">
-                            <a href="./admin/areaadm.php">Meu perfil</a>
-                        </button>
-                        <button id="bnt-sair"> <a href="">sair</a></button>
-                    </p>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+                    <div class="block-user">
+                        <i class="bi bi-x sidebarClose"></i>
+                            <ul class="user-ul" onclick="openModal()">
+                                <li class="user-li">
+                                    <p id="user">
+                                        <i class="fas fa-user-circle"></i>
+                                        <!-- Usuário -->
+                                        <?php echo htmlspecialchars($primeiroNome); ?> <!-- Exibe o primeiro nome do usuário -->
+                                        <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
+                                    </p>
+                                </li>
+                            </ul>
+                    </div>
+                    <!-- <div id="myModal" class="modal-user">
+                                    <span class="close closePerfil" onclick="closeModal()">&times;</span>
+                                    <div class="modal-content-user">
+                                        <p><strong>User:</strong> Admin</p>
+                                        <p><strong>Email:</strong> Admin@example.com</p>
+                                        <p><strong>Senha:</strong> *********</p>
+                                        <p>
+                                            <button id="bnt-user">
+                                                <a href="./admin/areaadm.php">Meu perfil</a>
+                                            </button>
+                                            <button id="bnt-sair"> <a href="">sair</a></button>
+                                        </p>
+                                    </div>
+                    </div> -->
+
+                    <!-- Modal -->
+                    <div id="myModal" class="modal-user">
+                        <span class="close closePerfil" onclick="closeModal()">&times;</span>
+                        <div class="modal-content-user">
+                            <!-- PHP para exibir informações do usuário se estiver logado -->
+                            <?php
+
+                            // Verifica se o usuário está logado
+                            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['user_data'])) {
+                                $user = $_SESSION['user_data'];
+                                echo '<p><strong>Tipo de usuário:</strong> ' . htmlspecialchars($_SESSION['user_type']) . '</p>';
+                                echo '<p><strong>User:</strong> ' . htmlspecialchars($user['usuario']) . '</p>';
+                                echo '<p><strong>Email:</strong> ' . htmlspecialchars($user['email']) . '</p>';
+                                echo '<p><strong>Senha:</strong> *********</p>';
+                            } else {
+                                // Usuário não está logado
+                                echo '<p><strong>User:</strong> Não logado</p>';
+                                echo '<p><strong>Email:</strong> Não logado</p>';
+                            }
+                            ?>
+                            <p>
+                                <!-- Botão para acessar o perfil -->
+                                <button id="bnt-user">
+                                    <a href="./admin/areaadm.php">Meu perfil</a>
+                                </button>
+                                <!-- Formulário para realizar o logout -->
+                                <form action="../controllers/userController.php" method="post">
+                                    <input type="hidden" name="logout">
+                                    <button type="submit" id="bnt-sair">Sair</button>
+                                </form>
+                            </p>
+                        </div>
+                    </div>
+
+
+
                     <div class="user-mobile">
                        <i class="bi bi-person-square"></i>
                     </div>
@@ -85,46 +139,49 @@ require '../controllers/userController.php';
                                             </a>
                                         </li>
                             </ul>
+                    </div>
                 </div>
                       
             </nav>
             <div id="filter-modal" class="modal-filter">
-    <div class="modal-content">
-        <h3><i class="bi bi-sliders2"></i> Filtro</h3>
-        <span class="close">&times;</span>
-        <label for="area-select">Selecione a área:</label>
-        <select id="area-select">
-            <option value="todos">Todos</option>
-            <option value="desenvolvimento-web">Desenvolvimento Web</option>
-            <option value="desenvolvimento-ti">Desenvolvimento T.I</option>
-            <option value="marketing">Marketing</option>
-            <option value="direito">Direito</option>
-            <option value="empreendedorismo">Empreendedorismo</option>
-            <option value="pedagogia">Pedagogia</option>
-        </select>
+                <div class="modal-content">
+                    <span class="close closeFilter">&times;</span>
+                    <h3><i class="bi bi-sliders2"></i> Filtro</h3>
+                    <label for="area-select">Selecione a área:</label>
+                    <select id="area-select">
+                        <option value="todos">Todos</option>
+                        <option value="desenvolvimento-web">Desenvolvimento Web</option>
+                        <option value="desenvolvimento-ti">Desenvolvimento T.I</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="direito">Direito</option>
+                        <option value="empreendedorismo">Empreendedorismo</option>
+                        <option value="pedagogia">Pedagogia</option>
+                    </select>
 
-        <label for="modalidade-select">Selecione a modalidade:</label>
-        <select id="modalidade-select">
-            <option value="todos">Todos</option>
-            <option value="online">Online</option>
-            <option value="presencial">Presencial</option>
-        </select>
+                    <label for="modalidade-select">Selecione a modalidade:</label>
+                    <select id="modalidade-select">
+                        <option value="todos">Todos</option>
+                        <option value="online">Online</option>
+                        <option value="presencial">Presencial</option>
+                    </select>
 
-        <label for="regiao-select">Selecione a região:</label>
-        <select id="regiao-select">
-            <option value="todos">Todos</option>
-            <option value="rj">RJ</option>
-            <option value="sp">SP</option>
-            <option value="mg">MG</option>
-            <!-- Adicione mais opções conforme necessário -->
-        </select>
-        <button id="filter-button">Filtrar</button>
-    </div>
-</div>
-<div class="no-results">Nenhum curso encontrado.</div>
-        </header>
+                    <label for="regiao-select">Selecione a região:</label>
+                    <select id="regiao-select">
+                        <option value="todos">Todos</option>
+                        <option value="rj">RJ</option>
+                        <option value="sp">SP</option>
+                        <option value="mg">MG</option>
+                        <!-- Adicione mais opções conforme necessário -->
+                    </select>
+                    <button id="filter-button">Filtrar</button>
+                    <div class="no-results">Nenhum curso encontrado.</div>
+                </div>
+            </div>
+       </header>
 <br>
 
+
+<!-- BODY [INICIO] -->
 <div class="fundo_tela-interna">
     <div class="title-main">
         <img src="./img/gif-main.gif" alt="" srcset="">

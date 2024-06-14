@@ -29,35 +29,89 @@ class User {
     //     return false;
     // }
 
+
+
+    // public function login($username) {
+    //     $user_types = ['aluno', 'instituicao', 'administracao'];
+
+    //     foreach ($user_types as $type) {
+    //         $sql = "SELECT * FROM $type WHERE email = :username OR usuario = :username";
+    //         // echo "SQL: " . $sql . "<br>";
+    //         $stmt = $this->conn->prepare($sql);
+    //         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    //         $stmt->execute();
+    //         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //         if ($result) {
+    //             // echo "User data: <br>";
+    //             // var_dump($result);
+    //             // echo "<br>";
+
+    //             // data e hora atuais - login
+    //             $sql_update = "UPDATE aluno SET registro = CURRENT_TIMESTAMP WHERE id_aluno = :aluno_id";
+    //             $stmt_update = $this->conn->prepare($sql_update);
+    //             $stmt_update->bindParam(':aluno_id', $result['id_aluno'], PDO::PARAM_INT);
+    //             $stmt_update->execute();  
+                
+                
+    //             return array('tipo' => $type, 'dados' => $result);
+  
+    //         }
+    //     }
+
+    //     return false;
+    // }
+
+
     public function login($username) {
         $user_types = ['aluno', 'instituicao', 'administracao'];
 
         foreach ($user_types as $type) {
             $sql = "SELECT * FROM $type WHERE email = :username OR usuario = :username";
-            // echo "SQL: " . $sql . "<br>";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
-                // echo "User data: <br>";
-                // var_dump($result);
-                // echo "<br>";
-                // data e hora atuais - login
-                $sql_update = "UPDATE aluno SET registro = CURRENT_TIMESTAMP WHERE id_aluno = :aluno_id";
+                // Atualiza a data e hora do login
+                $userIdField = $type == 'aluno' ? 'id_aluno' : ($type == 'instituicao' ? 'id_instituicao' : 'id_admin');
+                $sql_update = "UPDATE $type SET registro = CURRENT_TIMESTAMP WHERE $userIdField = :id";
                 $stmt_update = $this->conn->prepare($sql_update);
-                $stmt_update->bindParam(':aluno_id', $result['id_aluno'], PDO::PARAM_INT);
-                $stmt_update->execute();  
-                
-                
+                $stmt_update->bindParam(':id', $result[$userIdField], PDO::PARAM_INT);
+                $stmt_update->execute();
+
+                // Armazena informações na sessão
+                $_SESSION['loggedin'] = true;
+                $_SESSION['user_type'] = $type;
+                $_SESSION['user_data'] = $result;
+                // $_SESSION['username'] = $username; // ou $result['usuario']
+                // $_SESSION['user_email'] = $result['email'];
+                // $_SESSION['last_login'] = $result['registro'];
+
                 return array('tipo' => $type, 'dados' => $result);
-  
             }
         }
-
-        return false;
+        return false; // Retorna falso se o login falhar
     }
+
+    // public function logout() {
+    //     // Destrói todas as variáveis de sessão
+    //     $_SESSION = array();
+    //     // Se desejado, destrói o cookie de sessão também
+    //     if (ini_get("session.use_cookies")) {
+    //         $params = session_get_cookie_params();
+    //         setcookie(session_name(), '', time() - 42000,
+    //             $params["path"], $params["domain"],
+    //             $params["secure"], $params["httponly"]
+    //         );
+    //     }
+    //     // Finalmente, destrói a sessão
+    //     session_destroy();
+    // }
+
+
+
 
 
     public function cadastrarAluno($alunoData) {
@@ -193,7 +247,9 @@ class User {
     }
 
 
+   
     
+// ----------------------OUTROS RELACIONADOS A LOGIN----------------------------
 
     public function gerarCodigoRedefinicaoSenha($email) {
         try {
@@ -220,7 +276,7 @@ class User {
                     if ($this->enviarEmailRedefinicaoSenha($email, $resetCode)) {
                         return true;
                     } else {
-                        $_SESSION['error_message'] = 'Erro ao enviar e-mail.';
+                        $_SESSION['error_message'] = 'Erro ao enviar e-mail.'; 
                         return false;
                     }
                 }

@@ -105,15 +105,33 @@ function openModal() {
     document.getElementById('myModal').style.display = 'block';
 }
 
-function closeModal() {
-    document.getElementById('myModal').style.display = 'none';
-}
+// function closeModal() {
+//     document.getElementById('myModal').style.display = 'none';
+// }
 
-window.onclick = function(event) {
-    if (event.target == document.getElementById('myModal')) {
-        document.getElementById('myModal').style.display = 'none';
+// window.onclick = function(event) {
+//     if (event.target == document.getElementById('myModal')) {
+//         document.getElementById('myModal').style.display = 'none';
+//     }
+// }
+
+
+    // Function to close the modal
+    function closeModal() {
+        document.querySelector('.modal-user').style.display = 'none';
+        console.log('Modal closed by clicking on the close button');
     }
-}
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        var modal = document.getElementById('myModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+            console.log('Modal closed by clicking outside');
+        }
+    }
+    
+
 /*filtro feed*/
 function filtrarCursos() {
     var area = document.getElementById('area-select').value;
@@ -151,10 +169,16 @@ document.getElementById('filter-icon').addEventListener('click', function() {
     modal.style.display = 'block';
 });
 
-document.querySelector('.close').addEventListener('click', function() {
+document.querySelector('.closeFilter').addEventListener('click', function() {
     var modal = document.getElementById('filter-modal');
+    console.log('Botão fechar clicado');
     modal.style.display = 'none';
+    console.log('Modal fechado');
 });
+
+
+
+
 
 document.getElementById('area-select').addEventListener('change', function() {
     filtrarCursos();

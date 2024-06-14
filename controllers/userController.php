@@ -2,6 +2,8 @@
 include_once('../models/conexao.php'); 
 include_once('../models/users.php');
 
+// session_start();
+
 // Verifica se o usuário está logado
 // User::verificaLogin();
 
@@ -67,7 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 verificarCodigo($user);
             } elseif (isset($_POST['redefinirSenha'])) {
                 redefinirSenha($user);
-            }
+            } 
+            elseif (isset($_POST['logout'])) {
+            // Função de logout
+            logout();
+        }
         
 
 } 
@@ -83,44 +89,40 @@ else
     exit();
 }
 
-function login($user) {
-    session_start();
 
-    if (isset($_SESSION['usuario']) && isset($_SESSION['senha'])) {
-        echo "Sessao: " . $_SESSION['usuario'] . "<br>" . "Sessao: " . $_SESSION['senha'];
-    } else {
-        echo "Variáveis de sessão não estão definidas.";
-    }
+
+
+function login($user) {
+    // session_start(); // Inicia a sessão
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit']) && !empty($_POST['user']) && !empty($_POST['password'])) {
         $username = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        $result = $user->login($username, $password);
+        $result = $user->login($username);
 
         if ($result) {
             // Verifica se a senha fornecida corresponde à senha criptografada no banco de dados
-            echo "Senha fornecida: " . $password . "<br>";
-            echo "Senha hash no banco de dados: " . $result['dados']['senha'] . "<br>";
-
-
             if (password_verify($password, $result['dados']['senha'])) {
                 // Autenticação bem-sucedida
-                echo "Bem-vindo, " . $result['dados']['nome'] . ", " . $result['tipo'] ."!";
-                // Redirecionar para o painel apropriado com base no tipo de usuário
-                // header('Location: ../views/' . $result['tipo'] . '/dashboard.php');
-                // exit();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['user_type'] = $result['tipo'];
+                $_SESSION['user_data'] = $result['dados'];
 
-                header('Location: ../views/dash.php');
 
-                // armazena o usuário na sessão
-                $_SESSION['usuario'] = $username;
-                $_SESSION['senha'] = $password;
+                // Obtém o primeiro nome do usuário
+                $primeiroNome = getFirstName($result['dados']['nome']);
 
-                header('Location: ../views/auth/auth.php');
-                // header('Location: ../views/feed.php');
+                // Obtém o primeiro nome do usuário
+                $primeiroNome = getFirstName($result['dados']['nome']);
+                $_SESSION['first_name'] = $primeiroNome;
+
+
+
+                // echo "Bem-vindo, " . $result['dados']['nome'] . ", " . $result['tipo'] . "!";
+
+                header('Location: ../views/feed.php');
                 exit();
-
             } else {
                 // Senha incorreta
                 $_SESSION['login_error'] = 'Credenciais inválidas. Tente novamente.';
@@ -140,6 +142,89 @@ function login($user) {
         exit();
     }
 }
+
+
+function logout() {
+    // session_start(); // Inicia a sessão se ainda não estiver iniciada
+
+    // Remove todas as variáveis de sessão
+    $_SESSION = array();
+
+    // Se necessário, destrói a sessão
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        session_destroy();
+    }
+
+    // Redireciona para a página de login após o logout
+    header('Location: ../views/auth/login.php');
+    exit();
+}
+
+// Função para obter o primeiro nome a partir de um nome completo
+function getFirstName($fullName) {
+    $parts = explode(' ', $fullName);
+    return $parts[0]; // Retorna o primeiro nome
+}
+
+
+
+// function login($user) {
+//     session_start();
+
+//     if (isset($_SESSION['usuario']) && isset($_SESSION['senha'])) {
+//         echo "Sessao: " . $_SESSION['usuario'] . "<br>" . "Sessao: " . $_SESSION['senha'];
+//     } else {
+//         echo "Variáveis de sessão não estão definidas.";
+//     }
+
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit']) && !empty($_POST['user']) && !empty($_POST['password'])) {
+//         $username = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+//         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+//         $result = $user->login($username, $password);
+
+//         if ($result) {
+//             // Verifica se a senha fornecida corresponde à senha criptografada no banco de dados
+//             echo "Senha fornecida: " . $password . "<br>";
+//             echo "Senha hash no banco de dados: " . $result['dados']['senha'] . "<br>";
+
+
+//             if (password_verify($password, $result['dados']['senha'])) {
+//                 // Autenticação bem-sucedida
+//                 echo "Bem-vindo, " . $result['dados']['nome'] . ", " . $result['tipo'] ."!";
+//                 // Redirecionar para o painel apropriado com base no tipo de usuário
+//                 // header('Location: ../views/' . $result['tipo'] . '/dashboard.php');
+//                 // exit();
+
+//                 header('Location: ../views/dash.php');
+
+//                 // armazena o usuário na sessão
+//                 $_SESSION['usuario'] = $username;
+//                 $_SESSION['senha'] = $password;
+
+//                 header('Location: ../views/auth/auth.php');
+//                 // header('Location: ../views/feed.php');
+//                 exit();
+
+//             } else {
+//                 // Senha incorreta
+//                 $_SESSION['login_error'] = 'Credenciais inválidas. Tente novamente.';
+//                 header('Location: ../views/auth/login.php');
+//                 exit();
+//             }
+//         } else {
+//             // Usuário não encontrado
+//             $_SESSION['login_error'] = 'Usuário não encontrado.';
+//             header('Location: ../views/auth/login.php');
+//             exit();
+//         }
+//     } else {
+//         // Se o método de solicitação não for POST ou se os campos estiverem vazios
+//         $_SESSION['login_error'] = 'Erro ao logar. Por favor, preencha todos os campos.';
+//         header('Location: ../views/auth/login.php');
+//         exit();
+//     }
+// }
 
 function cadastrarAluno($user) {
     include_once('../models/conexao.php'); 
