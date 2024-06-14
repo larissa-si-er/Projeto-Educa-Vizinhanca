@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Define a mensagem de feedback na sessão
         session_start();
-        $_SESSION['error_message'] = 'A conta já existe.';
+        $_SESSION['error_message'] = '';
         
         // Redireciona para a página de administração
         header("Location: ../views/admin/areaadm.php");
@@ -69,5 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit(); // Certifique-se de sair após o redirecionamento
     }
 }
-?>
+
+// IMAGEM LOGICA
+
 

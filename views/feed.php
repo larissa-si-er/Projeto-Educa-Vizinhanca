@@ -1,5 +1,10 @@
 <?php
 // require '../controllers/userController.php'; 
+<<<<<<< HEAD
+=======
+
+include '../controllers/curso_control.php'; 
+>>>>>>> c393f403248ec9932fb46988929fecf4ad510ce3
 ?>
 
 <?php
@@ -40,13 +45,14 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                 <div class="nav-bar">
                     <i class="bi bi-list sidebarOpen"></i>
                     
-                    <span class="logo"><a href="#"><img src="./img/Home-removebg-preview.png" alt=""></a></span>
+                    <span class="logo"><a href=""><img src="./img/Home-removebg-preview.png" alt=""></a></span>
 
                     <div class="group">
                         <i class="fa-solid fa-magnifying-glass" id="search"></i>
                         <input placeholder="Busque aqui seus cursos no site." type="search" class="input">
                     </div>
 
+<<<<<<< HEAD
                     <div class="block-user">
                         <i class="bi bi-x sidebarClose"></i>
                             <ul class="user-ul" onclick="openModal()">
@@ -111,6 +117,35 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 
 
 
+=======
+<div class="block-user">
+<i class="bi bi-x sidebarClose"></i>
+    <ul class="user-ul" onclick="openModal()">
+        <li class="user-li">
+            <p id="user">
+                <i class="fas fa-user-circle"></i>
+                Usuário
+                <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
+            </p>
+            <!-- modal user -->
+            <div id="myModal" class="modal-user">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="modal-content-user">
+                    <p><strong>User:</strong> Admin</p>
+                    <p><strong>Email:</strong> Admin@example.com</p>
+                    <p><strong>Senha:</strong> *********</p>
+                    <p>
+                        <button id="bnt-user">
+                            <a href="./admin/areaadm.php">Meu perfil</a>
+                        </button>
+                        <button id="bnt-sair"> <a href="../../index.php">sair</a></button>
+                    </p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+>>>>>>> c393f403248ec9932fb46988929fecf4ad510ce3
                     <div class="user-mobile">
                        <i class="bi bi-person-square"></i>
                     </div>
@@ -143,6 +178,9 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                 </div>
                       
             </nav>
+
+      
+
             <div id="filter-modal" class="modal-filter">
                 <div class="modal-content">
                     <span class="close closeFilter">&times;</span>
@@ -251,64 +289,13 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
             </div>
         </div>
 </div>
+
 <br>
 <br>
 <br>
 
 <div class="container">
-       <div class="curso" id="curso-list" data-area="desenvolvimento-web" data-regiao="rj">
-            <img src="./img/img curso 1.png" alt="Curso HTML e CSS" class="curso-img">
-            <h2>Aprenda HTML e CSS!</h2>
-            <p>Área: Desenvolvimento Web</p>
-            <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: Curso em Vídeo</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://www.cursoemvideo.com/matricula-gratis" target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>
-       </div>
-
-    
-        <div class="curso" id="curso-list" data-area="desenvolvimento-web" data-regiao="rj">
-                <img src="./img/imagem curso 2.png" alt="Curso HTML e CSS" class="curso-img">
-                <h2>JavaScript para Iniciantes</h2>
-               <p>Área: Desenvolvimento Web</p>
-               <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: Alura</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://www.alura.com.br/curso-online-javascritpt-orientacao-objetos" target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>
-        </div>
-        
-            <div class="curso" id="curso-list" data-area="desenvolvimento-web" data-regiao="sp">
-                    <img src="./img/imagem curso 3.png" alt="Curso HTML e CSS" class="curso-img">
-                    <h2>Aprenda Phyton!</h2>
-                     <p>Área: Desenvolvimento Web</p>
-                     <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: XPE</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://forms.xpeducacao.com.br/curso-gratuito-python-pre-inscricao/?gad_source=1&gclid=CjwKCAjwoa2xBhACEiwA1sb1BA3vTS0aKOJsC282bgj0_4gvB9YEYNl72Zeus2z3kqxQX93CmKq8kBoC1HUQAvD_BwE" target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>
-    </div>
-        
-        
+             
         <div class="curso" id="curso-list" data-area="desenvolvimento-web" data-regiao="sp">
                 <img src="./img/imagem curso 4.png" alt="Curso HTML e CSS" class="curso-img">
                     <h2>Desenvolvimentode Jogos</h2>
@@ -360,8 +347,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
             </div>
         </div>
         </div>
-        
-                    
+                
 
             <div class="curso" id="curso-list" data-area="marketing" data-regiao="sp">
                 <img src="./img/imagem 7.png" alt="Curso HTML e CSS" class="curso-img">
@@ -380,7 +366,6 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>
         </div>
         
-
             <div class="curso" id="curso-list" data-area="marketing" data-regiao="rj">
                 <img src="./img/imagem curso 8.png" alt="Curso HTML e CSS" class="curso-img">
                     <h2>Volte a Empreender!</h2>
@@ -414,13 +399,33 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
             </div>
         </div>  
         </div> 
+    
+            <?php if (empty($cursos)): ?>
+        <p>Nenhum curso disponível no momento.</p>
+    <?php else: ?>
+        <?php foreach ($cursos as $curso): ?>
+            <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
+                <img src="<?php echo htmlspecialchars($curso['fotocurso']); ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
+                <h2><?php echo htmlspecialchars($curso['nome_curso']); ?></h2>
+                <p>Área: <?php echo htmlspecialchars($curso['areacurso']); ?></p>
+                <div class="curso-content">
+                    <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
+                    <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
+                    <div class="curso-buttons">
+                        <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
+                        <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
+                        <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
+                        <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
+                        <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+
 </div> 
-
-
             
-            
-
-             
     <script src="./js/script.js"></script>
     <script src="./js/modal.js"></script>
     </main>

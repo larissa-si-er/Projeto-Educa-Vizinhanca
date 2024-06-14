@@ -68,17 +68,16 @@
   
   <div class="main-container">
     <div class="log-container">
- 
-        <h2>Controle de aluno</h2>
+        <h2>Controle de Aluno</h2>
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Pesquise aqui.">
             <div class="button-pdf" data-tooltip="Baixar">
-            <div class="button-wrapper">
-               <div class="text">Download</div>
-                <span class="icon">
-                <a href="../views/admin/relatorios/pdfaluno.php"><i class="fa-solid fa-file-arrow-down" style="color:#fff; font-size:20px;"></i></a>
-                </span>
+                <div class="button-wrapper">
+                    <div class="text">Download</div>
+                    <span class="icon">
+                        <a href="../views/admin/relatorios/pdfaluno.php"><i class="fa-solid fa-file-arrow-down" style="color:#fff; font-size:20px;"></i></a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -95,7 +94,7 @@
                     <th>Email</th>
                     <th>Telefone Celular</th>
                     <th>Telefone Fixo</th>
-                    <th>Usuario </th>
+                    <th>Usuario</th>
                     <th>CEP</th>
                     <th class="actions">Ações</th>
                 </tr>
@@ -110,6 +109,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
+    function formatDate(dateStr) {
+        const [year, month, day] = dateStr.split('-');
+        return `${day}/${month}/${year}`;
+    }
+
     $('#searchInput').keyup(function(){
         var searchTerm = $(this).val();
 
@@ -118,7 +122,28 @@ $(document).ready(function(){
             type: 'POST',
             data: {termo: searchTerm},
             success: function(response){
-                $('#alunosTable tbody').html(response);
+                const jsonData = JSON.parse(response);
+                $('#alunosTable tbody').html("");
+                jsonData.forEach(aluno => {
+                    const formattedDate = formatDate(aluno.data_nasc);
+                    const row = `
+                        <tr>
+                            <td>${aluno.id}</td>
+                            <td>${aluno.nome}</td>
+                            <td>${formattedDate}</td>
+                            <td>${aluno.sexo}</td>
+                            <td>${aluno.nome_materno}</td>
+                            <td>${aluno.cpf}</td>
+                            <td>${aluno.email}</td>
+                            <td>${aluno.telefone_celular}</td>
+                            <td>${aluno.telefone_fixo}</td>
+                            <td>${aluno.usuario}</td>
+                            <td>${aluno.cep}</td>
+                            <td class="actions">Ações</td>
+                        </tr>
+                    `;
+                    $('#alunosTable tbody').append(row);
+                });
             }
         });
     });

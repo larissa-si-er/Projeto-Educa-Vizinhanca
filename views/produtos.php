@@ -172,25 +172,25 @@
                 <div class="card card1-destaque">
                     <img class="card-img" src="./img/prod1-destaque.png" alt="#">
                     <h5 class="title-card-a">Garrafa flowers</h5>
-                    <a class="a-card" href="#">Veja aqui</a>
+                    <a class="a-card" href="#news">Veja aqui</a>
                 </div>
         
                 <div class="card card2-destaque">
                     <img class="card-img img2" src="./img/prod4-destaque.png" alt="#">
                     <h5 class="title-card-a">Caderno Básico</h5>
-                    <a class="a-card" href="#">Veja aqui</a>
+                    <a class="a-card" href="#news">Veja aqui</a>
                 </div>
         
                 <div class="card card3-destaque">
                     <img class="card-img img3" src="./img/prod3-destaque.png" alt="#">
                     <h5 class="title-card-a">Caderno Agronomia</h5>
-                    <a class="a-card" href="#">Veja aqui</a>
+                    <a class="a-card" href="#news">Veja aqui</a>
                 </div>
         
                 <div class="card card4-destaque">
                     <img class="card-img img4" src="./img/prod2-destaque.png" alt="#">
                     <h5 class="title-card-a">Garrafas EV</h5>
-                    <a class="a-card" href="#">Veja aqui</a>
+                    <a class="a-card" href="#news">Veja aqui</a>
                 </div>
         
             </div>
@@ -287,14 +287,15 @@
     <div id="produtos">
         <!-- Os produtos serão exibidos aqui dinamicamente -->
         <?php include '../controllers/produtos_control.php'; ?>
+        
     <!-- Seção "CONFIRA NOSSOS LANÇAMENTOS" -->
 <section class="second">
-    <h3 class="title">CONFIRA NOSSOS LANÇAMENTOS RECENTES</h3>
+    <h3 class="title" id="news">CONFIRA NOSSOS LANÇAMENTOS RECENTES</h3>
     <div class="linha1"></div>
     <div class="linha2"></div>
     <div class="cards">
         <?php if (empty($lancamentos)): ?>
-            <p>Nenhum lançamento disponível no momento.</p>
+            <p>Nenhum lançamento <b>recente</b> disponível no momento.</p>
         <?php else: ?>
             <?php 
             $classes = ['card1-destaque', 'card2-destaque', 'card3-destaque', 'card4-destaque'];
@@ -317,7 +318,7 @@
         <div class="row">
             <div class="cards-GG">
                 <?php if (empty($produtos)): ?>
-                    <p>Nenhum produto disponível no momento.</p>
+                    <p>Nenhum produto <b>recente</b> disponível no momento.</p>
                 <?php else: ?>
                     <?php foreach ($produtos as $produto): ?>
                         <div class="card-GG img-prod-teste">

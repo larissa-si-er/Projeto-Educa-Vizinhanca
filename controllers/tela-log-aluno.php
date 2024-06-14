@@ -109,53 +109,60 @@
 </div>
 
 
-    <script >
-    document.addEventListener("DOMContentLoaded", function() {
-    const searchButton = document.getElementById("search-button");
-    const showAllButton = document.getElementById("show-all-button");
-    const searchInput = document.getElementById("search-input");
-    const logEntries = document.getElementById("log-entries");
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchButton = document.getElementById("search-button");
+            const showAllButton = document.getElementById("show-all-button");
+            const searchInput = document.getElementById("search-input");
+            const logEntries = document.getElementById("log-entries");
 
-    const logs = [
-        { date: "2024-06-01 12:30", name: "João Silva", cpf: "123.456.789-00", authFactor: "CEP" },
-        { date: "2024-06-02 08:45", name: "Maria Oliveira", cpf: "987.654.321-00", authFactor: "Nome materno" },
-        // Adicione mais registros conforme necessário
-    ];
+            const logs = [
+                { date: "2024-06-01 12:30", name: "João Silva", cpf: "123.456.789-00", authFactor: "CEP" },
+                { date: "2024-06-02 08:45", name: "Maria Oliveira", cpf: "987.654.321-00", authFactor: "Nome materno" },
+                // Adicione mais registros conforme necessário
+            ];
 
-    function renderLogs(filteredLogs) {
-        logEntries.innerHTML = "";
-        filteredLogs.forEach(log => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td data-label="Data e Hora">${log.date}</td>
-                <td data-label="Nome">${log.name}</td>
-                <td data-label="CPF">${log.cpf}</td>
-                <td data-label="Fator de Autenticação">${log.authFactor}</td>
-            `;
-            logEntries.appendChild(row);
+            function formatDateTime(dateTimeStr) {
+                const [datePart, timePart] = dateTimeStr.split(' ');
+                const [year, month, day] = datePart.split('-');
+                const [hour, minute] = timePart.split(':');
+                return `${day}/${month}/${year} ${hour}:${minute}`;
+            }
+
+            function renderLogs(filteredLogs) {
+                logEntries.innerHTML = "";
+                filteredLogs.forEach(log => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td data-label="Data e Hora">${formatDateTime(log.date)}</td>
+                        <td data-label="Nome">${log.name}</td>
+                        <td data-label="CPF">${log.cpf}</td>
+                        <td data-label="Fator de Autenticação">${log.authFactor}</td>
+                    `;
+                    logEntries.appendChild(row);
+                });
+            }
+
+            function searchLogs(query) {
+                const filteredLogs = logs.filter(log => 
+                    log.name.toLowerCase().includes(query.toLowerCase()) || 
+                    log.cpf.includes(query)
+                );
+                renderLogs(filteredLogs);
+            }
+
+            searchButton.addEventListener("click", function() {
+                const query = searchInput.value;
+                searchLogs(query);
+            });
+
+            showAllButton.addEventListener("click", function() {
+                renderLogs(logs);
+            });
+
+            // Render all logs initially
+            renderLogs(logs);
         });
-    }
-
-    function searchLogs(query) {
-        const filteredLogs = logs.filter(log => 
-            log.name.toLowerCase().includes(query.toLowerCase()) || 
-            log.cpf.includes(query)
-        );
-        renderLogs(filteredLogs);
-    }
-
-    searchButton.addEventListener("click", function() {
-        const query = searchInput.value;
-        searchLogs(query);
-    });
-
-    showAllButton.addEventListener("click", function() {
-        renderLogs(logs);
-    });
-
-    // Render all logs initially
-    renderLogs(logs);
-});
-</script>
+    </script>
 </body>
 </html>
