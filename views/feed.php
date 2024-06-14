@@ -1,10 +1,6 @@
 <?php
 // require '../controllers/userController.php'; 
-<<<<<<< HEAD
-=======
-
 include '../controllers/curso_control.php'; 
->>>>>>> c393f403248ec9932fb46988929fecf4ad510ce3
 ?>
 
 <?php
@@ -52,7 +48,6 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                         <input placeholder="Busque aqui seus cursos no site." type="search" class="input">
                     </div>
 
-<<<<<<< HEAD
                     <div class="block-user">
                         <i class="bi bi-x sidebarClose"></i>
                             <ul class="user-ul" onclick="openModal()">
@@ -117,35 +112,6 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 
 
 
-=======
-<div class="block-user">
-<i class="bi bi-x sidebarClose"></i>
-    <ul class="user-ul" onclick="openModal()">
-        <li class="user-li">
-            <p id="user">
-                <i class="fas fa-user-circle"></i>
-                Usuário
-                <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
-            </p>
-            <!-- modal user -->
-            <div id="myModal" class="modal-user">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div class="modal-content-user">
-                    <p><strong>User:</strong> Admin</p>
-                    <p><strong>Email:</strong> Admin@example.com</p>
-                    <p><strong>Senha:</strong> *********</p>
-                    <p>
-                        <button id="bnt-user">
-                            <a href="./admin/areaadm.php">Meu perfil</a>
-                        </button>
-                        <button id="bnt-sair"> <a href="../../index.php">sair</a></button>
-                    </p>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
->>>>>>> c393f403248ec9932fb46988929fecf4ad510ce3
                     <div class="user-mobile">
                        <i class="bi bi-person-square"></i>
                     </div>
