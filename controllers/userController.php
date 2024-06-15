@@ -21,19 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<script>alert('Tentativa de LOGIN detectada');</script>";
 
         login($user);
-        // verificaLogin(); 
+        } elseif (isset($_POST['submit-auth'])){
+            
+            $resposta = htmlspecialchars($_POST['answer-auth']);
+            $campo_correto = htmlspecialchars($_POST['campo-correto']);
+            
+            // Chamada da função para processar a autenticação de dois fatores
+            verificarAutenticacao($resposta, $campo_correto);
 
-    // } elseif (isset($_POST['cadastrar'])) {
-    //     // Verifica se o formulário de cadastro foi enviado
-    //     $cadastro_sucesso = cadastrarAluno($user);
-    //     if ($cadastro_sucesso) {
-    //         // Cadastro realizado com sucesso
-    //         echo "<script>alert('Cadastro realizado com sucesso.');</script>";
-    //     } else {
-    //         // Erro ao cadastrar
-    //         header('Location: ../views/error.php');
-    //     }
-    // }
+            
+
         } elseif (isset($_POST['cadastrarAluno'])) {
             // Verifica se o formulário de cadastro de aluno foi enviado
             $cadastro_sucesso = cadastrarAluno($user);
@@ -89,6 +86,15 @@ else
     exit();
 }
 
+// } else {
+//     // Gera a pergunta de autenticação quando a página é carregada
+//     list($pergunta, $campo_correto) = gerarPerguntaAutenticacao($db);
+//     $_SESSION['pergunta'] = $pergunta;
+//     $_SESSION['campo_correto'] = $campo_correto;
+//     header("Location: auth.php");
+//     exit();
+// }
+
 
 
 
@@ -121,7 +127,8 @@ function login($user) {
 
                 // echo "Bem-vindo, " . $result['dados']['nome'] . ", " . $result['tipo'] . "!";
 
-                header('Location: ../views/feed.php');
+                // header('Location: ../views/feed.php');
+                header('Location: ../views/auth/auth.php');
                 exit();
             } else {
                 // Senha incorreta
@@ -160,7 +167,239 @@ function logout() {
     exit();
 }
 
-// Função para obter o primeiro nome a partir de um nome completo
+// Função para obter o auth_factor e gerar a pergunta de autenticação
+// function gerarPerguntaAutenticacao($db) {
+//     if (!isset($_SESSION['usuario'])) {
+//         // Usuário não está logado, redirecionar para página de login
+//         $_SESSION['auth_error'] = "Usuário não está logado.";
+//         header("Location: login.php");
+//         exit();
+//     }
+
+//     $usuario = $_SESSION['usuario']; // Supondo que você tenha armazenado o usuário na sessão
+
+//     // Busca o auth_factor do usuário no banco de dados
+//     $sql = "SELECT auth_factor FROM aluno WHERE usuario = ?";
+//     $stmt = $db->prepare($sql);
+//     $stmt->bind_param("s", $usuario);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+
+//     if ($result->num_rows === 1) {
+//         $row = $result->fetch_assoc();
+//         $auth_factor = $row['auth_factor'];
+//     } else {
+//         // Usuário não encontrado ou múltiplos usuários encontrados (situação inválida)
+//         $_SESSION['auth_error'] = "Erro ao carregar fator de autenticação.";
+//         header("Location: auth.php");
+//         exit();
+//     }
+
+//     $stmt->close();
+
+//     if (!isset($auth_factor)) {
+//         // Auth_factor não foi encontrado no banco de dados
+//         $_SESSION['auth_error'] = "Erro ao carregar fator de autenticação.";
+//         header("Location: auth.php");
+//         exit();
+//     }
+
+//     if (isset($_SESSION['user_data']['auth_factor'])) {
+//         $auth_factor = $_SESSION['user_data']['auth_factor'];
+
+//         // Determina a pergunta com base no auth_factor
+//         switch ($auth_factor) {
+//             case 'cep':
+//                 $_SESSION['pergunta'] = "Qual é o seu CEP?";
+//                 $_SESSION['campo_correto'] = 'cep';
+//                 break;
+//             case 'data_nasc':
+//                 $_SESSION['pergunta'] = "Qual é a sua data de nascimento?";
+//                 $_SESSION['campo_correto'] = 'data_nasc';
+//                 break;
+//             case 'nome_materno':
+//                 $_SESSION['pergunta'] = "Qual é o nome de solteira da sua mãe?";
+//                 $_SESSION['campo_correto'] = 'nome_materno';
+//                 break;
+//             default:
+//                 $_SESSION['auth_error'] = "Fator de autenticação desconhecido.";
+//                 header("Location: ../views/auth/login.php");
+//                 exit();
+//                 break;
+//     }
+
+//     // return [$pergunta, $campo_correto];
+// }
+// }
+
+// // Função para autenticação de dois fatores
+// function verificarAutenticacao($db, $resposta, $campo_correto) {
+//     if (!isset($_SESSION['usuario'])) {
+//         // Usuário não está logado, redirecionar para página de login
+//         $_SESSION['auth_error'] = "Usuário não está logado.";
+//         echo "Usuário não está logado.";
+
+//         // header("Location: ../views/auth/login.php");
+//         exit();
+//     }
+
+//     $usuario = $_SESSION['usuario']; // Supondo que você tenha armazenado o usuário na sessão
+
+//     // Verifica se a resposta do usuário corresponde ao campo correto
+//     $sql_verificacao = "SELECT $campo_correto FROM aluno WHERE usuario = ? AND $campo_correto = ?";
+//     $stmt_verificacao = $db->prepare($sql_verificacao);
+//     $stmt_verificacao->bind_param("ss", $usuario, $resposta);
+//     $stmt_verificacao->execute();
+//     $stmt_verificacao->store_result();
+
+//     if ($stmt_verificacao->num_rows > 0) {
+//         // Resposta correta, pode redirecionar para alguma página de sucesso
+//         $_SESSION['auth_success'] = true;
+//         header("Location: sucesso.php");
+//         exit();
+//     } else {
+//         // Resposta incorreta, incrementa o contador de tentativas na sessão
+//         if (!isset($_SESSION['tentativas'])) {
+//             $_SESSION['tentativas'] = 1;
+//         } else {
+//             $_SESSION['tentativas']++;
+//         }
+
+//         // Verifica se excedeu o número máximo de tentativas
+//         if ($_SESSION['tentativas'] >= 3) {
+//             // Exibe mensagem de erro e redireciona para o login
+//             $_SESSION['auth_error'] = "3 tentativas sem sucesso! Favor realizar Login novamente.";
+//             header("Location: login.php");
+//             exit();
+//         } else {
+//             // Ainda há tentativas restantes, redireciona de volta para o formulário de autenticação
+//             $_SESSION['auth_error'] = "Resposta incorreta. Tente novamente.";
+//             header("Location: auth.php");
+//             exit();
+//         }
+//     }
+// }
+function verificarAutenticacao($resposta, $campo_correto) {
+    if (!isset($_SESSION['user_data'])) {
+        header("Location: ../views/auth/auth.php");
+        exit;
+    }
+
+    // Inicializar tentativas de autenticação se não estiverem definidas
+    if (!isset($_SESSION['auth_attempts'])) {
+        $_SESSION['auth_attempts'] = 0;
+    }
+
+
+    $authFactor = $_SESSION['user_data']['auth_factor'];
+    $isValid = false;
+
+    // Validar a resposta com base no auth factor
+    switch ($authFactor) {
+        case 'cep':
+            if ($resposta === $_SESSION['user_data']['cep']) {
+                $isValid = true;
+            }
+            break;
+        case 'data_nasc':
+            // Converter a data do formato d-m-Y ou d/m/Y para Y-m-d
+            $dataFormatada = DateTime::createFromFormat('d/m/Y', $resposta) ?: DateTime::createFromFormat('d-m-Y', $resposta);
+            if ($dataFormatada && $dataFormatada->format('Y-m-d') === $_SESSION['user_data']['data_nasc']) {
+                $isValid = true;
+            }
+            break;
+        case 'nome_materno':
+            if (strcasecmp($resposta, $_SESSION['user_data']['nome_materno']) === 0) {
+                $isValid = true;
+            }
+            break;
+    }
+
+    if ($isValid) {
+        // Autenticação adicional bem-sucedida, redirecionar para feed.php
+        header("Location: ../views/feed.php");
+        exit;
+    } else {
+        // Incrementar tentativas de autenticação
+        $_SESSION['auth_attempts'] += 1;
+
+        if ($_SESSION['auth_attempts'] >= 3) {
+            // Autenticação falhou 3 vezes, encerrar sessão e redirecionar para login com mensagem de erro
+
+            $_SESSION['auth_attempts_exceeded'] = "Você errou a autenticação 3 vezes. Por favor, faça login novamente.";
+            session_unset();
+            session_destroy();
+            header("Location: ../views/auth/auth.php");
+            exit;
+        } else {
+            // Autenticação adicional falhou, redirecionar de volta para auth.php com mensagem de erro
+            $_SESSION['auth_error'] = "Resposta incorreta. Tentativa " . $_SESSION['auth_attempts'] . " de 3.";
+            header("Location: ../views/auth/auth.php");
+            exit;
+        }
+    }
+}
+
+
+
+
+
+// function processarAutenticacao($db, $usuario) {
+//     // Verifica se o usuário está logado
+//     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+//         // Redireciona para a página de login
+//         $_SESSION['auth_error'] = "Você precisa estar logado para acessar esta página.";
+//         header('Location: ../views/auth/login.php');
+//         exit();
+//     }
+
+//     // Busca o auth_factor do usuário no banco de dados
+//     $sql = "SELECT auth_factor FROM aluno WHERE usuario = ?";
+//     $stmt = $db->prepare($sql);
+//     $stmt->bind_param("s", $usuario);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+
+//     if ($result->num_rows === 1) {
+//         $row = $result->fetch_assoc();
+//         $auth_factor = $row['auth_factor'];
+
+//         // Determina a pergunta com base no auth_factor
+//         switch ($auth_factor) {
+//             case 'cep':
+//                 $_SESSION['pergunta'] = "Qual é o seu CEP?";
+//                 $_SESSION['campo_correto'] = 'cep';
+//                 break;
+//             case 'data_nasc':
+//                 $_SESSION['pergunta'] = "Qual é a sua data de nascimento?";
+//                 $_SESSION['campo_correto'] = 'data_nasc';
+//                 break;
+//             case 'nome_materno':
+//                 $_SESSION['pergunta'] = "Qual é o nome de solteira da sua mãe?";
+//                 $_SESSION['campo_correto'] = 'nome_materno';
+//                 break;
+//             default:
+//                 $_SESSION['auth_error'] = "Fator de autenticação desconhecido.";
+//                 header("Location: ../views/auth/login.php");
+//                 exit();
+//                 break;
+//         }
+//     } else {
+//         $_SESSION['auth_error'] = "Erro ao carregar fator de autenticação.";
+//         header("Location: ../views/auth/login.php");
+//         exit();
+//     }
+
+//     $stmt->close();
+// }
+
+
+
+
+
+
+
+
 function getFirstName($fullName) {
     $parts = explode(' ', $fullName);
     return $parts[0]; // Retorna o primeiro nome

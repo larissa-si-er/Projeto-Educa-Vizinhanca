@@ -254,7 +254,14 @@ body::after {
     font-size: 13px;
     border-bottom: 2px solid red;
 }
-
+.error_message {
+    background-color: #ffe3e387;
+    color: #cc0000;
+    padding: 10px;
+    text-align: center;
+    width: 60%;
+    font-size: 13px;
+}
 
 .sucess-message {
     background-color: #e8ffe3;

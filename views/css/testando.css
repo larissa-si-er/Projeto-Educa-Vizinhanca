@@ -200,7 +200,8 @@ ul.user-ul{
   display: none;
   position: absolute;
   z-index: 1;
-  width: 200px;
+  /* width: 200px; */
+  min-width: 200px;
   background-color: #fefefe;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding: 20px;

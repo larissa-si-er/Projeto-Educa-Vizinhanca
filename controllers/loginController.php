@@ -1,54 +1,56 @@
 <?php
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit']) && !empty($_POST['user']) && !empty($_POST['password'])) {
-    include_once('../models/conexao.php'); 
-    include_once('../models/users.php');
+// Inclui o arquivo de conexão
+require_once 'conexao.php';
 
-    $database = new conexao();
-    $db = $database->getConnection();
-
-    $user = new User($db);
-
-    $username = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    $result = $user->login($username, $password);
-
-    if ($result) {
-        // Verifica se a senha fornecida corresponde à senha criptografada no banco de dados
-        echo "Senha fornecida: " . $password . "<br>";
-        echo "Senha hash no banco de dados: " . $result['dados']['senha'] . "<br>";
-        if (password_verify($password, $result['dados']['senha'])) {
-            // Autenticação bem-sucedida
-            // echo "Bem-vindo, " . $result['tipo'] . "!";
-            // echo "<br>";
-            echo "Bem-vindo, " . $result['dados']['nome'] . ", " . $result['tipo'] ."!";
-            // var_dump($result['dados']);
-    
-            // Redirecionar para o painel apropriado com base no tipo de usuário
-            // header('Location: ../views/' . $result['tipo'] . '/dashboard.php');
-            // exit();
-        } else {
-            // Senha incorreta
-            $_SESSION['login_error'] = 'Credenciais inválidas. Tente novamente.';
-            header('Location: ../views/auth/login.php');
+// Verifica se o formulário foi submetido
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verifica se a resposta foi fornecida
+    if (isset($_POST['resposta']) && !empty($_POST['resposta'])) {
+        $resposta = $_POST['resposta'];
+        
+        // Busca no banco de dados pelo usuário logado
+        $usuario = $_SESSION['usuario']; // Supondo que você tenha armazenado o usuário na sessão
+        
+        $sql = "SELECT auth_factor, auth_answer FROM aluno WHERE usuario = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $usuario);
+        $stmt->execute();
+        $stmt->bind_result($auth_factor, $auth_answer);
+        $stmt->fetch();
+        $stmt->close();
+        
+        // Verifica se a resposta está correta
+        if ($resposta == $auth_answer) {
+            // Resposta correta, pode redirecionar para alguma página de sucesso
+            header("Location: sucesso.php");
             exit();
+        } else {
+            // Resposta incorreta, incrementa o contador de tentativas na sessão
+            if (!isset($_SESSION['tentativas'])) {
+                $_SESSION['tentativas'] = 1;
+            } else {
+                $_SESSION['tentativas']++;
+            }
+            
+            // Verifica se excedeu o número máximo de tentativas
+            if ($_SESSION['tentativas'] >= 3) {
+                // Exibe mensagem de erro e redireciona para o login
+                echo "3 tentativas sem sucesso! Favor realizar Login novamente.";
+                session_unset();
+                session_destroy();
+                header("Location: login.php");
+                exit();
+            } else {
+                // Ainda há tentativas restantes, pode redirecionar para a página atual
+                header("Location: formulario.php");
+                exit();
+            }
         }
     } else {
-        // Usuário não encontrado
-        $_SESSION['login_error'] = 'Usuário nao encontrado.';
-        echo "User not found!<br>";
-        header('Location: ../views/auth/login.php');
-        // echo "Username: " . $username . "<br>";
-        // echo "Password: " . $password . "<br>";
-        // header('Location: ../views/auth/login.php');
-        exit();
+        // Resposta não foi fornecida, deve exibir mensagem de erro
+        echo "A resposta deve ser preenchida.";
     }
-} else {
-    // Se o método de solicitação não for POST ou se os campos estiverem vazios
-    $_SESSION['login_error'] = 'Erro ao logar. Por favor, preencha todos os campos.';
-    header('Location: ../views/auth/login.php');
-    exit();
 }
 ?>

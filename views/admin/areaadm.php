@@ -183,7 +183,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         <div class="modal-content">
             <span class="fechar">&times;</span>
             <h2>Adicionar Produto</h2>
-      <form action="../../controllers/produtos_control.php" id="formProduto" method="post">
+      <form action="../../controllers/produtos_control.php" id="formProduto" method="post" enctype="multipart/form-data">
 
         <label for="titulo">Nome do Produto:</label>
         <input type="text" id="nome_produto" name="nome_produto" required>
@@ -225,8 +225,9 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </svg>
       </div>
         </label>
-         <label for="foto">Foto do Produto:</label>
-         <input type="file" id="fotoProduto" name="imagem" accept="image/*">
+         <label for="fotoProduto">Foto do Produto:</label>
+         <input type="file" id="fotoProduto" name="imagem" >
+         <!-- accept="image/*" -->
          
         <button type="submit" class="adicionar">Adicionar</button>
         </form>
