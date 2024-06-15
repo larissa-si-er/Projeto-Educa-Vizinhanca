@@ -367,8 +367,6 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>  
         </div> 
     
-        <br>
-
         <?php if (empty($cursos)): ?>
         <p>Nenhum curso disponível no momento.</p>
         <?php else: ?>
