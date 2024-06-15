@@ -113,21 +113,22 @@ font-family: "Poppins", sans-serif;
     display: none;
     position: absolute;
     z-index: 1;
-    width: 200px;
-    background-color: #fefefe;
+    width: 240px;
+    background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
     border-radius: 4px;
-    margin-top: -5px;
+    margin-top: 25px;
   }
-  .modal-user p{
+  .modal-content-user p{
     color: black;
     font-size: 15px;
+    font-weight: 300;
   }
   .modal-user a{
     color: #006278;
   }
-  #bnt-user, #bnt-sair, #filter-button{
+  #bnt-user, #bnt-sair{
     background-color: #74DCE6;
     border: none;
     padding: 10px 10px;
@@ -136,6 +137,7 @@ font-family: "Poppins", sans-serif;
     transition: background-color 0.3s ease;
     text-decoration: none;
     color: white;
+    margin-top: 5%;
     
   }
   #bnt-user a, #bnt-sair a{ text-decoration: none;}
@@ -162,13 +164,36 @@ font-family: "Poppins", sans-serif;
     box-shadow: 1px 1px 19px 0px rgba(159, 242, 255, 0.52);
     border: 1px solid #a9deff;
     cursor: pointer;
+    
   }
-  .bi-person-circle{
-    /* display: none; */
-    font-size: 1px;
-    /* color: #929296; */
-  }
-  .bi-person-circle::before {
+/* CAMPO USER MENU */
+li.user-li {
+  list-style: none;
+  height: 100%;
+  display: contents;
+}
+.user-li i{
+padding: 3px;
+}
+.user-li p{
+position: relative;
+text-decoration: none;
+font-weight:300;
+font-size: 18px;
+color: var(--text-color);
+color: white;
+
+}
+.user-li #modal{
+  color: #000000;
+}
+
+ul.user-ul{
+padding: 5px;
+}
+
+  
+  .fa-user-circle::before {
     font-size: 22px;
   }
   .bi-chevron-down::before {

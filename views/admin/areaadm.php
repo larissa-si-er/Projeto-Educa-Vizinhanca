@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+
 
 <?php
     require_once '../../head.php';
@@ -8,7 +6,21 @@ session_start();
     require_once '../../models/conexao.php';
 
 ?>  
+<?php
+session_start();
 
+// Verifica se o usuário não está logado
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // Redireciona para a página de login
+    header('Location: ../views/auth/login.php');
+    exit();
+}
+
+$primeiroNome = $_SESSION['first_name'] ?? '';
+
+// var_dump($_SESSION);
+
+?>
 <!-- Script [inicio] -->
 <script src="../js/modal.js"></script>
 <script src="../js/quant-prod.js"></script>
@@ -34,16 +46,27 @@ session_start();
   </div>
   <div class="bem_vindo">
     <h1>Bem Vindo!</h1>
-    <P>Área Administrador</P>
+    <P>Área do Administrador - Painel de Controle</P>
   </div>
 <div class="container" id="i-container" >
   <div class="div1">
     <h1>Seus dados abaixo</h1>
     <br>
-    <h3>User:</h3>
-    <h3>Email:</h3>
-    <h3>Senha:</h3>
-    <button id="vermais"><a href="#">Ver mais</a>
+    <?php
+
+        // Verifica se o usuário está logado
+       if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['user_data'])) {
+       $user = $_SESSION['user_data'];
+       echo '<p><strong>User:</strong> ' . htmlspecialchars($user['usuario']) . '</p>';
+       echo '<p><strong>Email:</strong> ' . htmlspecialchars($user['email']) . '</p>';
+       echo '<p><strong>Senha:</strong> *********</p>';
+        } else {
+          // Usuário não está logado
+           echo '<p><strong>User:</strong> Não logado</p>';
+           echo '<p><strong>Email:</strong> Não logado</p>';
+           }
+    ?>
+    <!--<button id="vermais"><a href="#">Ver mais</a>
                  <svg
                    xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -58,7 +81,7 @@ session_start();
                     d="M14 5l7 7m0 0l-7 7m7-7H3"
                     ></path>
                   </svg>
-              </button>
+              </button>-->
     <br>
     <div class="acoes">
   <ul>
@@ -71,7 +94,7 @@ session_start();
             <h2>Editar Perfil</h2>
             <form id="formCurso" action="formulario_editar_adm.php" method="post">
                 <label for="nome_adm">User:</label>
-                <input type="text" id="nome_adm" name="user" required>
+                <input type="text" id="usuario" name="user" required>
                 
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" rows="4" required></input>
@@ -79,7 +102,7 @@ session_start();
                 <label for="senha">Senha:</label>
                 <input type="text" id="senha" name="senha" required>
 
-                <button type="submit" class="adicionar">Editar</button>
+                <button type="submit" class="alterar">Salvar Alterações</button>
             </form>
         </div>
     </div>

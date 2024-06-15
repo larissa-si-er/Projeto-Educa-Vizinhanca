@@ -5,7 +5,7 @@ include_once '../../../models/conexao.php';
 $data_atual = date("d/m/Y");
 
 $query_aluno = "SELECT a.id_aluno, a.nome, a.data_nasc, a.sexo, a.nome_materno, a.cpf, a.email, 
-                a.telefone_celular, a.telefone_fixo, a.usuario, a.cep, e.uf, e.logradouro, e.bairro, e.numero
+                a.telefone_celular, a.telefone_fixo, a.usuario, a.cep, e.estado, e.logradouro, e.bairro, e.num
                 FROM aluno a
                 LEFT JOIN endereco e ON a.cep = e.cep";
 
@@ -41,10 +41,10 @@ while($row_aluno = $result_aluno->fetch(PDO::FETCH_ASSOC)){
     $dados .= "<strong>Telefone:</strong> $telefone_fixo <br>";
     $dados .= "<strong>Usuário:</strong> $usuario <br>";  
     $dados .= "<strong>CEP:</strong> $cep <br>"; 
-    $dados .= "<strong>UF:</strong> $uf <br>";
+    $dados .= "<strong>estado:</strong> $estado <br>";
     $dados .= "<strong>Logadouro:</strong> $logradouro <br>"; 
     $dados .= "<strong>Bairro:</strong> $bairro <br>";
-    $dados .= "<strong>Número:</strong> $numero <br>"; 
+    $dados .= "<strong>Número:</strong> $num <br>"; 
     $dados .= "<hr>";
 }
 $dados .= "<p id='data'>Data de Geração do Relatório: $data_atual</p>";

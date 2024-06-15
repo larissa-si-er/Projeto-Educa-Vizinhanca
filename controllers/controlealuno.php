@@ -23,7 +23,7 @@
                     <span class="logo"><a href="#"><img src="../views/img/Home-removebg-preview.png" alt=""></a></span> 
 
 <div class="block-user">
-<i class="bi bi-x sidebarClose"></i>
+<i class="bi bi-x sidebarClose" onclick="closeModal()"></i>
     <ul class="user-ul" onclick="openModal()">
         <li class="user-li">
             <p id="user">
@@ -35,9 +35,9 @@
             <div id="myModal" class="modal-user">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <div class="modal-content-user">
-                    <p><strong>User:</strong> Admin</p>
-                    <p><strong>Email:</strong> Admin@example.com</p>
-                    <p><strong>Senha:</strong> *********</p>
+                    <p id="modal"><strong>User:</strong> Admin</p>
+                    <p id="modal"><strong>Email:</strong> Admin@example.com</p>
+                    <p id="modal"><strong>Senha:</strong> *********</p>
                     <p>
                         <button id="bnt-user">
                             <!--erro-->

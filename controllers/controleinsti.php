@@ -35,9 +35,9 @@
             <div id="myModal" class="modal-user">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <div class="modal-content-user">
-                    <p><strong>User:</strong> Admin</p>
-                    <p><strong>Email:</strong> Admin@example.com</p>
-                    <p><strong>Senha:</strong> *********</p>
+                    <p id="modal"><strong>User:</strong> Admin</p>
+                    <p id="modal"><strong>Email:</strong> Admin@example.com</p>
+                    <p id="modal"><strong>Senha:</strong> *********</p>
                     <p>
                         <button id="bnt-user">
                             <!--erro-->
@@ -105,16 +105,10 @@
 </div>
 
  <!--script busca-->
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
-    function formatDateTime(dateTimeStr) {
-        const [datePart, timePart] = dateTimeStr.split(' ');
-        const [year, month, day] = datePart.split('-');
-        const [hour, minute] = timePart.split(':');
-        return `${day}/${month}/${year} ${hour}:${minute}`;
-    }
-
     $('#searchInput').keyup(function(){
         var searchTerm = $(this).val();
 
@@ -123,30 +117,13 @@ $(document).ready(function(){
             type: 'POST',
             data: {termo: searchTerm}, 
             success: function(response){
-                const jsonData = JSON.parse(response);
-                $('#instiTable tbody').html("");
-                jsonData.forEach(log => {
-                    const formattedDate = formatDateTime(log.date);
-                    const row = `
-                        <tr>
-                            <td>${log.id}</td>
-                            <td>${log.name}</td>
-                            <td>${log.phone}</td>
-                            <td>${log.cep}</td>
-                            <td>${log.complement}</td>
-                            <td>${log.number}</td>
-                            <td>${log.email}</td>
-                            <td>${log.cnpj}</td>
-                            <td class="actions">Ações</td>
-                        </tr>
-                    `;
-                    $('#instiTable tbody').append(row);
-                });
+                $('#instiTable tbody').html(response); 
             }
         });
     });
 });
-</script>
+</script>                         
+
 
 
 
