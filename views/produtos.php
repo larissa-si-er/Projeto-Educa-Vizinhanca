@@ -316,14 +316,14 @@
         <h3 class="title title-produtos">PRODUTOS RECENTEMENTE DISPONÍVEIS</h3>
     
         <div class="row">
-            <div class="cards-GG">
+            <!-- <div class="cards-GG">
                 <?php if (empty($produtos)): ?>
                     <p>Nenhum produto <b>recente</b> disponível no momento.</p>
                 <?php else: ?>
                     <?php foreach ($produtos as $produto): ?>
                         <div class="card-GG img-prod-teste">
                             <a class="link-prod" href="./subtelas/subProd1.php">
-                                <img class="card-GG-img" src="<?php echo htmlspecialchars($produto['imagem_url']); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
+                                <img class="card-GG-img" src="<?php echo htmlspecialchars($produto['imagem']); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
                             </a>
                             <h5 class="title-card-GG"><?php echo htmlspecialchars($produto['nome_produto']); ?></h5>
                             <div class="footer-card-GG">
@@ -333,7 +333,32 @@
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
+            </div> -->
+
+            <div class="row">
+                    <div class="cards-GG">
+                    <?php if (empty($produtos)): ?>
+                        <p>Nenhum produto <b>recente</b> disponível no momento.</p>
+                    <?php else: ?>
+                        <?php foreach ($produtos as $produto): ?>
+                            <div class="card-GG img-prod-teste">
+                                <a class="link-prod" href="./subtelas/subProd1.php">
+                                    
+                                    <?php var_dump($produto['imagem']);
+ ?>
+                                    <img class="card-GG-img" src="<?php echo htmlspecialchars('/fotos-banco/' . $produto['imagem']); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
+                                </a>
+                                <h5 class="title-card-GG"><?php echo htmlspecialchars($produto['nome_produto']); ?></h5>
+                                <div class="footer-card-GG">
+                                    <p class="preco-card-GG">R$<?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
+                                    <button class="add-carrinho"><i class="bi bi-cart-plus-fill"></i></button>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
             </div>
+        </div>
         </div>
     </section>
 

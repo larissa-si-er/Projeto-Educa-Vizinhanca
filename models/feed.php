@@ -1,11 +1,12 @@
 <?php
-require_once('../models/conexao.php'); // Arquivo de configuração do banco de dados
+// models/curso.php
+
+require_once('../models/conexao.php');
 
 class Curso {
     private $conn;
 
-    public function __construct() {
-        global $conn;
+    public function __construct($conn) {
         $this->conn = $conn;
     }
 

@@ -1,6 +1,7 @@
 <?php
 // require '../controllers/userController.php'; 
 include '../controllers/curso_control.php'; 
+include '../controllers/feedController.php';
 ?>
 
 <?php
@@ -366,27 +367,29 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>  
         </div> 
     
-            <?php if (empty($cursos)): ?>
+        <br>
+
+        <?php if (empty($cursos)): ?>
         <p>Nenhum curso disponível no momento.</p>
-    <?php else: ?>
-        <?php foreach ($cursos as $curso): ?>
-            <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
-                <img src="<?php echo htmlspecialchars($curso['fotocurso']); ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
-                <h2><?php echo htmlspecialchars($curso['nome_curso']); ?></h2>
-                <p>Área: <?php echo htmlspecialchars($curso['areacurso']); ?></p>
-                <div class="curso-content">
-                    <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
-                    <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
-                    <div class="curso-buttons">
-                        <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
-                        <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                        <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                        <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                        <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
+        <?php else: ?>
+            <?php foreach ($cursos as $curso): ?>
+                <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
+                    <img src="<?php echo htmlspecialchars($curso['fotocurso']); ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
+                    <h2><?php echo htmlspecialchars($curso['nome_curso']); ?></h2>
+                    <p>Área: <?php echo htmlspecialchars($curso['areacurso']); ?></p>
+                    <div class="curso-content">
+                        <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
+                        <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
+                        <div class="curso-buttons">
+                            <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
+                            <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
+                            <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
+                            <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
+                            <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
     <?php endif; ?>
 
 
