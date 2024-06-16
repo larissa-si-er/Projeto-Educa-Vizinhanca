@@ -15,7 +15,21 @@
 </head>
 
 <body>
+<?php
+session_start();
 
+// Verifica se o usuário não está logado
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // Redireciona para a página de login
+    header('Location: ../views/auth/login.php');
+    exit();
+}
+
+$primeiroNome = $_SESSION['first_name'] ?? '';
+
+// var_dump($_SESSION);
+
+?>
 <header>
             <nav>
                 <div class="nav-bar">
@@ -28,17 +42,27 @@
         <li class="user-li">
             <p id="user">
                 <i class="fas fa-user-circle"></i>
-                Usuário
+                <?php echo htmlspecialchars($primeiroNome); ?>
                 <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
             </p>
             <!-- modal user -->
             <div id="myModal" class="modal-user">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <div class="modal-content-user">
-                    <p id="modal"><strong>User:</strong> Admin</p>
-                    <p id="modal"><strong>Email:</strong> Admin@example.com</p>
-                    <p id="modal"><strong>Senha:</strong> *********</p>
-                    <p>
+                <?php
+
+                    // Verifica se o usuário está logado
+                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['user_data'])) {
+                        $user = $_SESSION['user_data'];
+                        echo '<p id="modal"><strong>User:</strong> ' . htmlspecialchars($user['usuario']) . '</p>';
+                        echo '<p id="modal"><strong>Email:</strong> ' . htmlspecialchars($user['email']) . '</p>';
+                        echo '<p id="modal"><strong>Senha:</strong> *********</p>';
+                    } else {
+                      // Usuário não está logado
+                      echo '<p><strong>User:</strong> Não logado</p>';
+                      echo '<p><strong>Email:</strong> Não logado</p>';
+                    }
+                ?>
                         <button id="bnt-user">
                             <!--erro-->
                             <a href="../views/admin/areaadm.php">Meu perfil</a>
@@ -69,7 +93,7 @@
   <div class="main-container">
     <div class="log-container">
  
-        <h2>Controle de instituições</h2>
+    <h2>Controle de instituições</h2>
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Pesquise aqui.">
@@ -89,11 +113,10 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Telefone</th>
-                <th>Cep</th>
-                <th>Complemento</th>
-                <th>Número</th>
+                <th>Celular</th>
                 <th>Email</th>
                 <th>CNPJ</th>
+                <th>Cep</th>
                 <th class="actions">Ações</th>
             </tr>
         </thead>
@@ -108,20 +131,37 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function(){
-    $('#searchInput').keyup(function(){
+$(document).ready(function() {
+    $('#searchInput').keyup(function() {
         var searchTerm = $(this).val();
 
         $.ajax({
-            url: 'buscar_insti.php', 
+            url: 'buscar_insti.php',
             type: 'POST',
-            data: {termo: searchTerm}, 
-            success: function(response){
-                $('#instiTable tbody').html(response); 
+            data: { termo: searchTerm },
+            success: function(response) {
+                $('#instiTable tbody').html(response);
+                addViewDetailsEvent();
             }
         });
     });
+
+    function addViewDetailsEvent() {
+        document.querySelectorAll('.view-details').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var id = this.getAttribute('data-id');
+                var details = document.getElementById('details-' + id);
+                if (details.style.display === 'none' || details.style.display === '') {
+                    details.style.display = 'table-row';
+                } else {
+                    details.style.display = 'none';
+                }
+            });
+        });
+    }
 });
+
+
 </script>                         
 
 

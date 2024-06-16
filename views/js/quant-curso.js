@@ -1,4 +1,3 @@
-// Função para buscar a quantidade de cursos do servidor e atualizar o card
 function atualizarQuantidadeCursos() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -10,13 +9,12 @@ function atualizarQuantidadeCursos() {
             }
         }
     };
-    xhttp.open("GET", "quant_curso.php", true);
+    xhttp.open("GET", "../controllers/quant_curso.php", true);
     xhttp.send();
 }
 
 // Atualizar a quantidade de cursos inicialmente
 atualizarQuantidadeCursos();
 
-// Atualizar a quantidade de cursos a cada 5 segundos (ou qualquer intervalo desejado)
-setInterval(atualizarQuantidadeCursos, 5000); // 5000 milissegundos = 5 segundosjado)
-    setInterval(atualizarQuantidadeCursos, 5000); // 5000 milissegundos = 5 segundos
+// Atualizar a quantidade de cursos a cada 5 segundos
+setInterval(atualizarQuantidadeCursos, 5000);

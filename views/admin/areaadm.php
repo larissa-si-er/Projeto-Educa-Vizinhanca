@@ -57,9 +57,9 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         // Verifica se o usuário está logado
        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['user_data'])) {
        $user = $_SESSION['user_data'];
-       echo '<p><strong>User:</strong> ' . htmlspecialchars($user['usuario']) . '</p>';
-       echo '<p><strong>Email:</strong> ' . htmlspecialchars($user['email']) . '</p>';
-       echo '<p><strong>Senha:</strong> *********</p>';
+       echo '<p>User: ' . htmlspecialchars($user['usuario']) . '</p>';
+       echo '<p>Email: ' . htmlspecialchars($user['email']) . '</p>';
+       echo '<p>Senha: *********</p>';
         } else {
           // Usuário não está logado
            echo '<p><strong>User:</strong> Não logado</p>';
@@ -143,24 +143,15 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 <div class="card-body-prod">
     <h1 class="card-number-prod" id="quantidadeCursos">Carregando...</h1>
     <p class="card-products">Cursos</p>
-    <button id="vermais"><a href="cursosaddadm.php">Ver mais</a>
-                 <svg
-                   xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="4"
-                  >
-                    <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
-                  </svg>
-              </button>
-    
+    <button id="vermais">
+        <a href="cursosaddadm.php">Ver mais</a>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+    </button>
 </div>
+<script src="../js/quant-curso.js"></script>
+
     </div>
 </div>
    <!-- <div class="card">

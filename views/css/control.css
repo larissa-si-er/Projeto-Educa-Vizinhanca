@@ -113,7 +113,7 @@ font-family: "Poppins", sans-serif;
     display: none;
     position: absolute;
     z-index: 1;
-    width: 240px;
+    width: 300px;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
@@ -1099,6 +1099,16 @@ padding: 5px;
   }
   .actions {
     text-align: center;
+}
+.view-details {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007BFF;
+}
+
+.view-details i {
+  font-size: 18px;
 }
 
 #actionsdelete{

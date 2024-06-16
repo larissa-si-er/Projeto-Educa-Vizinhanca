@@ -5,7 +5,9 @@ include_once '../../../models/conexao.php';
 
 $data_atual = date("d/m/Y");
 
-$query_instituicao = "SELECT  nome, telefone, cep, email, cnpj FROM instituicao";
+$query_instituicao = "SELECT  i.nome, i.nome_insti, i.telefone_fixo, i.telefone_celular, i.email, i.cnpj,  i.cep, e.estado, e.logradouro, e.bairro, e.num
+                FROM instituicao i
+                LEFT JOIN endereco e ON i.cep = e.cep";
 $result_instituicao = $conn->prepare($query_instituicao);
 $result_instituicao->execute(); 
 
@@ -24,16 +26,21 @@ $dados .= "#data { font-size: 12px; text-align: center;}";
 $dados .= "</style>";
 $dados .= "</head>";
 $dados .= "<body>";
-$dados .= "<img src='http://localhost/Projeto-Educa-Vizinhanca/img/imgpdf.jpg'><br>";
+$dados .= "<img src='http://localhost/Projeto-Educa-Vizinhanca/views/img/imgpdf.jpg'><br>";
 $dados .= "<h3>Relatório de Instituições</h3>";
 while($row_instituicao = $result_instituicao->fetch(PDO::FETCH_ASSOC)){
     //var_dump($row_instituicao);
     extract($row_instituicao);
     $dados .= "<p><strong>Instituição:</strong> $nome <br>";
-    $dados .= "<strong>Telefone:</strong> $telefone <br>";
-    $dados .= "<strong>CEP:</strong> $cep <br>";
+    $dados .= "<strong>Telefone:</strong> $telefone_fixo <br>";
+    $dados .= "<strong>Celular:</strong> $telefone_celular<br>";
     $dados .= "<strong>Email:</strong> $email </p>";
-    $dados .= "<strong>CNPJ:</strong> $cnpj </p>";
+    $dados .= "<strong>CNPJ:</strong> $cnpj <br>";
+    $dados .= "<strong>CEP:</strong> $cep <br>";
+    $dados .= "<strong>Estado:</strong> $estado <br>";
+    $dados .= "<strong>Logadouro:</strong> $logradouro <br>"; 
+    $dados .= "<strong>Bairro:</strong> $bairro <br>";
+    $dados .= "<strong>Número:</strong> $num <br>"; 
     $dados .= "<hr>";
 }
 $dados .= "<p id='data'>Data de Geração do Relatório: $data_atual</p>";
