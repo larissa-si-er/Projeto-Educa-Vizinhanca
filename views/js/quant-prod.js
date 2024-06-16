@@ -1,16 +1,14 @@
-// Função para buscar a quantidade de produtos do servidor e atualizar o card
+// quant-prod.js
 function atualizarQuantidadeProdutos() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                document.getElementById("quantidadeProdutos").innerHTML = this.responseText;
-            } else {
-                document.getElementById("quantidadeProdutos").innerHTML = "0";
-            }
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("quantidadeProdutos").innerHTML = this.responseText;
+        } else {
+            document.getElementById("quantidadeProdutos").innerHTML = "0";
         }
     };
-    xhttp.open("GET", "quant_prod.php", true);
+    xhttp.open("GET", "quant-prod.php", true);
     xhttp.send();
 }
 

@@ -1,21 +1,21 @@
-// Função para atualizar a quantidade de cursos do servidor e atualizar o card
+
+
+// quant-prod.js
 function atualizarQuantidadeCursos() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                document.getElementById("quantidadeCursos").innerHTML = this.responseText;
-            } else {
-                document.getElementById("quantidadeCursos").innerHTML = "0";
-            }
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("quantidadeCursos").innerHTML = this.responseText;
+        } else {
+            document.getElementById("quantidadeCursos").innerHTML = "0";
         }
     };
-    xhttp.open("GET", "../controllers/quant_curso.php", true);
+    xhttp.open("GET", "quant-curso.php", true);
     xhttp.send();
 }
 
-// Atualizar a quantidade de cursos inicialmente
+// Atualizar a quantidade de produtos inicialmente
 atualizarQuantidadeCursos();
 
-// Atualizar a quantidade de cursos a cada 5 segundos
+// Atualizar a quantidade de produtos a cada 5 segundos
 setInterval(atualizarQuantidadeCursos, 5000);

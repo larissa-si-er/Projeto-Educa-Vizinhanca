@@ -108,10 +108,17 @@ document.addEventListener('DOMContentLoaded', addViewDetailsEvent);
             <span class="fechar">&times;</span>
             <h2>Editar Perfil</h2>
             <form id="formCurso" action="formulario_editar_adm.php" method="post">
-                <label for="nome_aluno">Nome:</label>
-                <input type="text" id="nome_adm" name="user" required>
+
+                <label for="user">User:</label>
+                <input type="text" id="user" name="user" required>
                 
                 <label for="nome_aluno">Login:</label>
+                <input type="text" id="nome_adm" name="user" required>
+
+                <label for="senha">Senha:</label>
+                <input type="text" id="senha" name="senha" required>
+
+                <label for="nome_aluno">Nome:</label>
                 <input type="text" id="nome_adm" name="user" required>
 
                 <label for="data_nascimento">Data de Nascimento:</label>
@@ -127,32 +134,30 @@ document.addEventListener('DOMContentLoaded', addViewDetailsEvent);
                 <label for="nome_aluno">Nome Materno:</label>
                 <input type="text" id="nome_adm" name="user" required>
 
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cPF" name="cPF" required>
+
+                <label for="telefone_fixo">Celular:</label>
+                <input type="text" id="telefone_fixo" name="telefone" required>
+
                 <label for="telefone_fixo">Telefone Fixo:</label>
                 <input type="text" id="telefone_fixo" name="telefone" required>
-
-                <label for="telefone_fixo">Telefone Celular:</label>
-                <input type="text" id="telefone_fixo" name="telefone" required>
                 
-                <label for="endereco">Endereço:</label>
-                <input type="text" id="endereco" name="endereco" required>
 
-                <label for="cnpj">CNPJ:</label>
-                <input type="text" id="cnpj" name="cnpj" required>
-
-                <label for="cnpj">CEP:</label>
+                <label for="cep">CEP:</label>
                 <input type="text" id="cep" name="cep" required>
 
-                <label for="nome_aluno">Complemento:</label>
-                <input type="text" id="nome_adm" name="user" required>
+                <label for="logradouro">Logradouro:</label>
+                <input type="text" id="logradouro" name="logradouro" required>
 
-                <label for="nome_aluno">Número Casa:</label>
-                <input type="text" id="nome_adm" name="user" required>
+                <label for="bairro">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" required>
 
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email"  required></input>
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado"  required></input>
                 
-                <label for="senha">Senha:</label>
-                <input type="text" id="senha" name="senha" required>
+                <label for="numero">Número:</label>
+                <input type="text" id="numero" name="numero" required>
                 <button type="submit" class="adicionar">Adicionar</button>
             </form>
         </div>
