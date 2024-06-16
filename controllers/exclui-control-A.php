@@ -24,12 +24,11 @@ try {
         header('Location: controlealuno.php');
         exit;
     } else {
-        // Redireciona para página de erro com mensagem específica
-        header('Location: ../views/error.php?msg=Erro ao excluir registro');
+        // Redireciona para alguma página de erro ou tratamento específico
+        header('Location: ../views/error.php');
         exit;
     }
 } catch (PDOException $e) {
-    // Exibe mensagem de erro detalhada
     echo "Erro ao excluir registro: " . $e->getMessage();
 }
 ?>

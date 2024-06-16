@@ -1,3 +1,4 @@
+// Função para atualizar a quantidade de cursos do servidor e atualizar o card
 function atualizarQuantidadeCursos() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {

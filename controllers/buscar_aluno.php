@@ -4,7 +4,8 @@ include '../models/conexao.php';
 if (isset($_POST['termo'])) {
     $termo = $_POST['termo'];
 
-    $query = "SELECT a.id_aluno, a.nome, a.data_nasc, a.sexo, a.nome_materno, a.cpf, a.email, a.telefone_celular, a.telefone_fixo, e.estado, e.logradouro, e.bairro, e.num
+    $query = "SELECT a.id_aluno, a.nome, a.data_nasc, a.sexo, a.nome_materno, a.cpf, a.email, a.telefone_celular, a.telefone_fixo,
+                     e.cep, e.estado, e.logradouro, e.bairro, e.num
               FROM aluno a
               INNER JOIN endereco e ON a.cep = e.cep
               WHERE a.nome LIKE :termo 
@@ -46,20 +47,17 @@ if (isset($_POST['termo'])) {
                         Número: {$linha['num']}
                       </td>";
                 echo "<td>
-                        <button id='actionseditar' title='Editar'>
-                            <a href='editar.php?id={$linha['id_aluno']}'><i class='fa-solid fa-pen-to-square' style='font-size: 18px; color:#fff;'></i></a>
-                        </button>
                         <button id='actionsdelete' title='Excluir'>
-                            <a href='controllers/excluir-control.php?action=excluir&id={$linha['id_aluno']}'><i class='fa-solid fa-trash' style='font-size: 17px; color:#fff;'></i></a>
+                            <a href='exclui-control-A.php?action=excluir&id={$linha['id_aluno']}'><i class='fa-solid fa-trash' style='font-size: 17px; color:#fff;'></i></a>
                         </button>
                       </td>";
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='9'>Nenhum resultado encontrado.</td></tr>";
+            echo "<tr><td colspan='11'>Nenhum resultado encontrado.</td></tr>";
         }
     } catch (PDOException $e) {
-        echo "<tr><td colspan='9'>Erro ao executar a consulta SQL: " . $e->getMessage() . "</td></tr>";
+        echo "<tr><td colspan='11'>Erro ao executar a consulta SQL: " . $e->getMessage() . "</td></tr>";
     }
 }
 ?>

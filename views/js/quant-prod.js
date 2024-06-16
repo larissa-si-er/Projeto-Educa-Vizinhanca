@@ -17,6 +17,5 @@ function atualizarQuantidadeProdutos() {
 // Atualizar a quantidade de produtos inicialmente
 atualizarQuantidadeProdutos();
 
- 
-
-
+// Atualizar a quantidade de produtos a cada 5 segundos
+setInterval(atualizarQuantidadeProdutos, 5000);

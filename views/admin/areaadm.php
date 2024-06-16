@@ -26,6 +26,12 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 <script src="../js/quant-prod.js"></script>
 <script src="../js/quant-curso.js"></script>
 <script src="../js/produtos.js"></script>
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.js"></script>
 <!-- Script [fim] -->
     
   <!-- Exibição do feedback, se houver -->
@@ -94,13 +100,13 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
             <h2>Editar Perfil</h2>
             <form id="formCurso" action="formulario_editar_adm.php" method="post">
                 <label for="nome_adm">User:</label>
-                <input type="text" id="usuario" name="user" required>
+                <input type="text" id="usuario" name="user" value="<?php echo isset($usuario) ? $usuario : ''; ?>"required>
                 
                 <label for="email">Email:</label>
-                <input type="text" id="email" name="email" rows="4" required></input>
+                <input type="text" id="email" name="email" rows="4" value="<?php echo isset($email) ? $email : ''; ?>"required></input>
                 
                 <label for="senha">Senha:</label>
-                <input type="text" id="senha" name="senha" required>
+                <input type="text" id="senha" name="senha" value="<?php echo isset($senha) ? $senha : ''; ?>" required>
 
                 <button type="submit" class="alterar">Salvar Alterações</button>
             </form>
@@ -111,49 +117,70 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
   </ul>
 </div>
     <br>
+    <script>
+    $(document).ready(function() {
+            // Exibe o modal de edição ao clicar no botão
+            $('#abrirModalEditar').click(function() {
+                $('#modalEditar').modal('show');
+            });
+
+            // Verifica se houve sucesso ao submeter o formulário
+            <?php if (!empty($mensagemSucesso)) : ?>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: '<?php echo addslashes($mensagemSucesso); ?>',
+                    showConfirmButton: false,
+                    timer: 2000 // Fecha automaticamente após 2 segundos
+                }).then((result) => {
+                    // Redireciona para outra página após a mensagem de sucesso (opcional)
+                    window.location.href = "areaadm.php";
+                });
+            <?php endif; ?>
+
+            // Verifica se houve erro ao submeter o formulário
+            <?php if (!empty($mensagemErro)) : ?>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: '<?php echo addslashes($mensagemErro); ?>',
+                    showConfirmButton: false,
+                    timer: 3000 // Fecha automaticamente após 3 segundos
+                });
+            <?php endif; ?>
+        });
+    </script>
     
     <!--cursos_add-->
     <h1>Adicionados</h1><br>
-    <div class="prod-container">
+<div class="prod-container">
     <div class="card_quant_prod">
-      <div class="card-header-prod"></div>
+        <div class="card-header-prod"></div>
         <div class="card-body-prod">
-          <h1 class="card-number-prod" id="quantidadeProdutos">Carregando...</h1>
+            <h1 class="card-number-prod" id="quantidadeProdutos">Carregando...</h1>
             <p class="card-products">Produtos </p>
-              <button id="vermais"><a href="">Ver mais</a>
-                 <svg
-                   xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="4"
-                  >
-                    <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
-                  </svg>
-              </button>
-         </div>
+            <button id="vermais"><a href="">Ver mais</a>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </button>
+        </div>
     </div>
     <div class="card_quant_prod">
-    <div class="card-header-prod"></div>
-<div class="card-body-prod">
-    <h1 class="card-number-prod" id="quantidadeCursos">Carregando...</h1>
-    <p class="card-products">Cursos</p>
-    <button id="vermais">
-        <a href="cursosaddadm.php">Ver mais</a>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-        </svg>
-    </button>
+        <div class="card-header-prod"></div>
+        <div class="card-body-prod">
+            <h1 class="card-number-prod" id="quantidadeCursos">Carregando...</h1>
+            <p class="card-products">Cursos</p>
+            <button id="vermais"><a href="cursosaddadm.php">Ver mais</a>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
 </div>
 <script src="../js/quant-curso.js"></script>
-
-    </div>
-</div>
+<script src="../js/quant-prod.js"></script>
    <!-- <div class="card">
       <h3 class="card__title"><i class="fa-solid fa-graduation-cap"></i></h3>
       <p class="card__content"><a href="cursosaddadm.php" >Veja seus cursos adicionados na plataforma aqui.</a></p>
