@@ -202,3 +202,21 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 }
+
+
+// MODAL FEED (CONFIGURAÇOES)
+function toggleMenu() {
+    var menu = document.getElementById("dropdownMenu");
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+
+document.addEventListener('click', function(event) {
+    var isClickInside = document.querySelector('.control-config').contains(event.target);
+    if (!isClickInside) {
+        document.getElementById("dropdownMenu").style.display = "none";
+    }
+});

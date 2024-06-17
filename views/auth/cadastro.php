@@ -178,7 +178,7 @@ session_start();
                     </div>
 
 
-                    <div class="captcha-container">
+                    <!-- <div class="captcha-container">
                         <h2 class="title-captcha">Marque a caixa abaixo se você não é um robô:</h2>
                         <div id="captcha" class="captcha">
                             <div class="content-captcha">
@@ -197,7 +197,7 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="buttons">
                         <button onclick="validate()"  name="cadastrarAluno">

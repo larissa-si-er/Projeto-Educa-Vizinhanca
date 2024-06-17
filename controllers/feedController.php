@@ -3,7 +3,7 @@
 
 // session_start();
 require_once('../models/conexao.php');
-require_once('../models/feed.php');
+require_once('../models/feedModels.php');
 // require_once('../models/curso.php');
 
 // Criar uma instância da classe Curso

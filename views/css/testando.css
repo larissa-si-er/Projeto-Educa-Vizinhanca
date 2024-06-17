@@ -332,6 +332,66 @@ ul.user-ul{
   opacity: 0.6;
 }
 
+
+
+/* BOTAO DE MAIS CONFIGURAÇOES */
+.control-config{
+  justify-content: end;
+  display: flex;
+  cursor: pointer;
+  font-size: 25px;
+}
+.control-config:active{
+  color: rgb(129, 232, 253);
+}
+
+.control-config {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -7px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: -6px 6px 20px -1px rgb(0 0 0 / 42%);
+  z-index: 1;
+  /* border: 1px solid gray; */
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 18px;
+  border-bottom: 0.5px solid #8080801f;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+.editar:hover, .outro:hover{
+  color: #00abc5;
+}
+.delet:hover{
+  color: rgb(175, 0, 0);
+}
+
+.bi-trash3-fill::before {
+  content: "\f78a";
+  margin-left: 32%;
+}
+.bi-pencil-square::before {
+  content: "\f4ca";
+  margin-left: 40%;
+}
+
+
 @-webkit-keyframes shine {
   0% {
     left: -100px;
@@ -1248,4 +1308,33 @@ img.img-top3{
     }
   }
 
+/* ALTERAÇOES CAMS 16/06 */
+/* telas menores que 576px */
+@media only screen and (max-width: 575px) {
+  .curso {
+    width: 85%;
+    margin-bottom: 16px; 
+  }
+  .curso-img {
+    width: 85%; 
+    margin-bottom: 16px; 
+ }
+ img.img-top3{
+  width: 50px;
+  height: auto;
+  position: relative;
+  position: absolute;
+  margin-left: -20%;
+  margin-right: 50%;
+}
 
+}
+  
+/*  telas de 376px de largura */
+@media only screen and (max-width: 376px) {
+  .container {
+    gap: 8px; 
+    padding: 8px; 
+  }
+
+}

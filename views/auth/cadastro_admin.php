@@ -208,9 +208,7 @@
                     <small class="small-required" id="erroTwoSenha"></small> 
                 </div>
 
-<!-- ALTERAÇAO 25-04 -->
-
-                <div class="captcha-container">
+                <!-- <div class="captcha-container">
                     <h2 class="title-captcha">Marque a caixa abaixo se você não é um robô:</h2>
                     <div id="captcha" class="captcha">
                         <div class="content-captcha">
@@ -229,9 +227,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-<!-- ALTERAÇAO 25-04 -->
+                </div> -->
 
                 <div class="buttons">
                     <button onclick="validate_cadTwo()" name="cadastrarInstituicao">

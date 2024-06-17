@@ -7,14 +7,17 @@ include '../controllers/feedController.php';
 <?php
 session_start();
 
-// Verifica se o usuário não está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // Redireciona para a página de login
     header('Location: ../views/auth/login.php');
     exit();
 }
 
+if ($_SESSION['user_type'] === 'administracao') {
+    $_SESSION['first_name'] = 'Adm';
+} 
+
 $primeiroNome = $_SESSION['first_name'] ?? '';
+
 
 // var_dump($_SESSION);
 
@@ -56,27 +59,12 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                                     <p id="user">
                                         <i class="fas fa-user-circle"></i>
                                         <!-- Usuário -->
-                                        <?php echo htmlspecialchars($primeiroNome); ?> <!-- Exibe o primeiro nome do usuário -->
+                                        <?php echo htmlspecialchars($primeiroNome) ?? 'adm'; ?> 
                                         <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
                                     </p>
                                 </li>
                             </ul>
                     </div>
-                    <!-- <div id="myModal" class="modal-user">
-                                    <span class="close closePerfil" onclick="closeModal()">&times;</span>
-                                    <div class="modal-content-user">
-                                        <p><strong>User:</strong> Admin</p>
-                                        <p><strong>Email:</strong> Admin@example.com</p>
-                                        <p><strong>Senha:</strong> *********</p>
-                                        <p>
-                                            <button id="bnt-user">
-                                                <a href="./admin/areaadm.php">Meu perfil</a>
-                                            </button>
-                                            <button id="bnt-sair"> <a href="">sair</a></button>
-                                        </p>
-                                    </div>
-                    </div> -->
-
                     <!-- Modal -->
                     <div id="myModal" class="modal-user">
                         <span class="close closePerfil" onclick="closeModal()">&times;</span>
@@ -131,7 +119,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                                         </li>
                                         <li>
                                             <a href="./admin/areaadm.php" title="Controle">
-                                                <i class="bi bi-bar-chart-line-fill"></i><span>Controle</span>
+                                                <i class="bi bi-bar-chart-line-fill"></i><span>Configurações</span>
                                             </a>
                                         </li>
                                         <li>
@@ -264,6 +252,17 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 <div class="container">
              
         <div class="curso" id="curso-list" data-area="desenvolvimento-web" data-regiao="sp">
+                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                <div class="control-config" onclick="toggleMenu()">
+                  <i class="bi bi-three-dots"></i>
+                     <div class="dropdown-menu" id="dropdownMenu">
+                         <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
+                         <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
+                         <a href="#outra-acao" class="outro">Outra ação</a>
+                     </div>
+                </div>
+                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+
                 <img src="./img/imagem curso 4.png" alt="Curso HTML e CSS" class="curso-img">
                     <h2>Desenvolvimentode Jogos</h2>
                   <p>Área: Desenvolvimento T.I</P>
@@ -281,6 +280,11 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>
 
        <div class="curso" id="curso-list" data-area="marketing" data-regiao="rj">
+                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                <div class="control-config">
+                  <i class="bi bi-three-dots"></i>
+                </div>
+                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
             <img src="./img/imagem curso 5.png" alt="Curso HTML e CSS" class="curso-img">
             <h2>Marketing Digital</h2>
             <p>Área: Marketing</p>

@@ -66,6 +66,22 @@ session_start();
               </div>
           <?php endif; ?>
           <!-- sucesso -->
+
+          <!-- sucesso senha -->
+          <?php if (isset($_SESSION['success-message'])): ?>
+              <script>
+                  Swal.fire({
+                  icon: 'success',
+                  title: 'Sucesso',
+                  text: '<?php echo $_SESSION['success-message']; ?>',
+                  showConfirmButton: false,
+                  timer: 3000
+                 });
+             </script>
+             <?php unset($_SESSION['success-message']); ?>
+          <?php endif; ?>
+          <!-- sucesso senha -->
+
           
 
         <div class="flex-row">
