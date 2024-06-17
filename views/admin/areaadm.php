@@ -243,8 +243,8 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </svg>
       </div>
         </label>
-         <label for="fotoProduto">Foto do Produto:</label>
-         <input type="file" id="fotoProduto" name="imagem" >
+         <label for="imagem">Foto do Produto:</label>
+         <input  type="file" id="imagem" name="imagem" >
          <!-- accept="image/*" -->
          
         <button type="submit" class="adicionar">Adicionar</button>

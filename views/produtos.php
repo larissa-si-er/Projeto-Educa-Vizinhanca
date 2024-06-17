@@ -287,79 +287,39 @@
     <div id="produtos">
         <!-- Os produtos serão exibidos aqui dinamicamente -->
         <?php include '../controllers/produtos_control.php'; ?>
-        
-    <!-- Seção "CONFIRA NOSSOS LANÇAMENTOS" -->
-<section class="second">
-    <h3 class="title" id="news">CONFIRA NOSSOS LANÇAMENTOS RECENTES</h3>
-    <div class="linha1"></div>
-    <div class="linha2"></div>
-    <div class="cards">
-        <?php if (empty($lancamentos)): ?>
-            <p>Nenhum lançamento <b>recente</b> disponível no momento.</p>
-        <?php else: ?>
-            <?php 
-            $classes = ['card1-destaque', 'card2-destaque', 'card3-destaque', 'card4-destaque'];
-            foreach ($lancamentos as $index => $lancamento): 
-                $class = $classes[$index % count($classes)];
-            ?>
-                <div class="card <?php echo $class; ?>">
-                    <img class="card-img" src="<?php echo htmlspecialchars($lancamento['imagem_url']); ?>" alt="<?php echo htmlspecialchars($lancamento['nome_produto']); ?>">
-                    <h5 class="title-card-a"><?php echo htmlspecialchars($lancamento['nome_produto']); ?></h5>
-                    <a class="a-card" href="#">Veja aqui</a>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
-</section>
 
     <section class="third">
         <h3 class="title title-produtos">PRODUTOS RECENTEMENTE DISPONÍVEIS</h3>
-    
-        <div class="row">
-            <!-- <div class="cards-GG">
-                <?php if (empty($produtos)): ?>
-                    <p>Nenhum produto <b>recente</b> disponível no momento.</p>
-                <?php else: ?>
-                    <?php foreach ($produtos as $produto): ?>
-                        <div class="card-GG img-prod-teste">
-                            <a class="link-prod" href="./subtelas/subProd1.php">
-                                <img class="card-GG-img" src="<?php echo htmlspecialchars($produto['imagem']); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
-                            </a>
-                            <h5 class="title-card-GG"><?php echo htmlspecialchars($produto['nome_produto']); ?></h5>
-                            <div class="footer-card-GG">
-                                <p class="preco-card-GG">R$<?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
-                                <button class="add-carrinho"><i class="bi bi-cart-plus-fill"></i></button>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div> -->
-
             <div class="row">
-                    <div class="cards-GG">
-                    <?php if (empty($produtos)): ?>
-                        <p>Nenhum produto <b>recente</b> disponível no momento.</p>
-                    <?php else: ?>
-                        <?php foreach ($produtos as $produto): ?>
-                            <div class="card-GG img-prod-teste">
-                                <a class="link-prod" href="./subtelas/subProd1.php">
-                                    
-                                    <?php var_dump($produto['imagem']);
- ?>
-                                    <img class="card-GG-img" src="<?php echo htmlspecialchars('/fotos-banco/' . $produto['imagem']); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
-                                </a>
-                                <h5 class="title-card-GG"><?php echo htmlspecialchars($produto['nome_produto']); ?></h5>
-                                <div class="footer-card-GG">
-                                    <p class="preco-card-GG">R$<?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
-                                    <button class="add-carrinho"><i class="bi bi-cart-plus-fill"></i></button>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-            </div>
+        <div class="cards-GG">
+            <?php if (empty($produtos)): ?>
+                <p>Nenhum produto <b>recente</b> disponível no momento.</p>
+            <?php else: ?>
+                <?php foreach ($produtos as $produto): ?>
+                    <div class="card-GG img-prod-teste">
+                        <a class="link-prod" href="./subtelas/subProdBC.php">
+                        <?php
+                        $imagemPath = '/../views/fotos-banco/' . $produto['imagem'];
+                        if (file_exists(__DIR__ . '/../' . $imagemPath)): ?>
+                            <img class="card-GG-img" src="<?php echo htmlspecialchars($imagemPath); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
+                        <?php else: ?>
+                            <img class="card-GG-img" src="/views/banco-img/sem_foto.png" alt="Imagem não disponível">
+                        <?php endif; ?>
+                        </a>
+                        <h5 class="title-card-GG"><?php echo htmlspecialchars($produto['nome_produto']); ?></h5>
+                        <div class="footer-card-GG">
+                            <p class="preco-card-GG">R$<?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
+                            <button class="add-carrinho"><i class="bi bi-cart-plus-fill"></i></button>
+                        </div>
+                    </div>
+        
+            <?php endforeach; ?>
+            <?php endif; ?>
         </div>
+
         </div>
+
+        
     </section>
 
     
