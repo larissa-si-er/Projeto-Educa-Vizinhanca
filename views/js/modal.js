@@ -105,31 +105,19 @@ function openModal() {
     document.getElementById('myModal').style.display = 'block';
 }
 
-// function closeModal() {
-//     document.getElementById('myModal').style.display = 'none';
-// }
+function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
+}
 
-// window.onclick = function(event) {
-//     if (event.target == document.getElementById('myModal')) {
-//         document.getElementById('myModal').style.display = 'none';
-//     }
-// }
-
-
-    // Function to close the modal
-    function closeModal() {
-        document.querySelector('.modal-user').style.display = 'none';
-        console.log('Modal closed by clicking on the close button');
+window.onclick = function(event) {
+    if (event.target == document.getElementById('myModal')) {
+        document.getElementById('myModal').style.display = 'none';
     }
+}
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        var modal = document.getElementById('myModal');
-        if (event.target == modal) {
-            modal.style.display = 'none';
-            console.log('Modal closed by clicking outside');
-        }
-    }
+// Adiciona um evento de clique para o ícone de fechar
+document.querySelector('.sidebarClose').addEventListener('click', closeModal);
+
     
 
 /*filtro feed*/

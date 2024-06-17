@@ -1176,23 +1176,31 @@ cursor: pointer;
             content: attr(data-label);
             font-weight: bold;
         }
+        .view-details {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #007BFF;
+          }
+          
+          .view-details i {
+            font-size: 18px;
+          }
         .actions a {
             display: block;
             margin-bottom: 5px; 
         }
     
         td:nth-of-type(1)::before { content: "ID"; }
-        td:nth-of-type(2)::before { content: "Nome"; }
-        td:nth-of-type(3)::before { content: "Data de Nasc"; }
-        td:nth-of-type(4)::before { content: "Sexo"; }
-        td:nth-of-type(5)::before { content: "Nome Materno"; }
-        td:nth-of-type(6)::before { content: "CPF"; }
-        td:nth-of-type(7)::before { content: "Email"; }
-        td:nth-of-type(8)::before { content: "Celular"; }
+        td:nth-of-type(2)::before { content: "Istituição"; }
+        td:nth-of-type(3)::before { content: "Telefone"; }
+        td:nth-of-type(4)::before { content: "Celular"; }
+        td:nth-of-type(5)::before { content: "Email"; }
+        td:nth-of-type(6)::before { content: "CNPJ"; }
+        td:nth-of-type(7)::before { content: "CEP"; }
+        td:nth-of-type(8)::before { content: "Ações"; }
         td:nth-of-type(9)::before { content: "Telefone fixo"; }
-        td:nth-of-type(10)::before { content: "Usuario"; }
-        td:nth-of-type(11)::before { content: "CEP"; }
-        td:nth-of-type(12)::before { content: "Ações"; }
+    
 
           /* Define a quebra de palavras para o campo de e-mail */
     td:nth-of-type(7), td:nth-of-type(7)::before {
