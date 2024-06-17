@@ -289,7 +289,7 @@
         <?php include '../controllers/produtos_control.php'; ?>
 
     <section class="third">
-        <h3 class="title title-produtos">PRODUTOS RECENTEMENTE DISPONÍVEIS</h3>
+        <h3 class="title title-produtos" id="news">PRODUTOS RECENTEMENTE DISPONÍVEIS</h3>
             <div class="row">
         <div class="cards-GG">
             <?php if (empty($produtos)): ?>
@@ -300,10 +300,10 @@
                         <a class="link-prod" href="./subtelas/subProdBC.php">
                         <?php
                         $imagemPath = '/../views/fotos-banco/' . $produto['imagem'];
-                        if (file_exists(__DIR__ . '/../' . $imagemPath)): ?>
+                        if (file_exists(__DIR__  . $imagemPath)): ?>
                             <img class="card-GG-img" src="<?php echo htmlspecialchars($imagemPath); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
                         <?php else: ?>
-                            <img class="card-GG-img" src="/views/banco-img/sem_foto.png" alt="Imagem não disponível">
+                            <img class="card-GG-img" src="/views/fotos-banco/sem_foto.png" alt="Imagem não disponível">
                         <?php endif; ?>
                         </a>
                         <h5 class="title-card-GG"><?php echo htmlspecialchars($produto['nome_produto']); ?></h5>

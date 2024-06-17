@@ -27,11 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome_original = $foto_original['name'];
         $destino = gerarNomeArquivoUnico($nome_original);
         $caminho_destino = __DIR__ . "/../views/fotos-banco/" . $destino;
-
+        
         // Cria o diretório se não existir
-        if (!is_dir(__DIR__ . "/../views/fotos-banco/")) {
-            mkdir(__DIR__ . "/../views/fotos-banco/", 0777, true);
-        }
+        // if (!is_dir(__DIR__ . "/../views/fotos-banco/")) {
+        //     mkdir(__DIR__ . "/../views/fotos-banco/", 0777, true);
+        // }
 
         // Move o arquivo para o destino
         if (move_uploaded_file($origem, $caminho_destino)) {
