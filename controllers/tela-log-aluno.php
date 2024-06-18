@@ -105,13 +105,12 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
   </div>
   </div>
   
-<div class="main-container">
+  <div class="main-container">
     <div class="log-container">
-    <i class="fa-solid fa-user-shield"></i>
+        <i class="fa-solid fa-user-shield"></i>
         <h2>Registros de Login</h2>
-        
         <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Buscar por CPF ou nome ">
+            <input type="text" id="search-input" placeholder="Buscar por CPF ou nome">
             <button id="search-button">Buscar</button>
             <button id="show-all-button">Mostrar Todos</button>
         </div>
@@ -131,61 +130,87 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
     </div>
 </div>
 
-
 <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const searchButton = document.getElementById("search-button");
-            const showAllButton = document.getElementById("show-all-button");
-            const searchInput = document.getElementById("search-input");
-            const logEntries = document.getElementById("log-entries");
+document.addEventListener('DOMContentLoaded', function() {
+    // Função para buscar os dados
+    function fetchData() {
+        fetch('fetch_data.php')
+            .then(response => response.json())
+            .then(data => {
+                let tableBody = document.getElementById('log-entries');
+                tableBody.innerHTML = ''; // Limpar o corpo da tabela
 
-            const logs = [
-                { date: "2024-06-01 12:30", name: "João Silva", cpf: "123.456.789-00", authFactor: "CEP" },
-                { date: "2024-06-02 08:45", name: "Maria Oliveira", cpf: "987.654.321-00", authFactor: "Nome materno" },
-                // Adicione mais registros conforme necessário
-            ];
+                data.forEach(entry => {
+                    let row = document.createElement('tr');
 
-            function formatDateTime(dateTimeStr) {
-                const [datePart, timePart] = dateTimeStr.split(' ');
-                const [year, month, day] = datePart.split('-');
-                const [hour, minute] = timePart.split(':');
-                return `${day}/${month}/${year} ${hour}:${minute}`;
-            }
+                    // Formatação da data
+                    let dateCell = document.createElement('td');
+                    dateCell.textContent = formatarData(entry.registro); // Chamada para a função de formatação
+                    row.appendChild(dateCell);
 
-            function renderLogs(filteredLogs) {
-                logEntries.innerHTML = "";
-                filteredLogs.forEach(log => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td data-label="Data e Hora">${formatDateTime(log.date)}</td>
-                        <td data-label="Nome">${log.name}</td>
-                        <td data-label="CPF">${log.cpf}</td>
-                        <td data-label="Fator de Autenticação">${log.authFactor}</td>
-                    `;
-                    logEntries.appendChild(row);
+                    let nameCell = document.createElement('td');
+                    nameCell.textContent = entry.nome;
+                    row.appendChild(nameCell);
+
+                    let cpfCell = document.createElement('td');
+                    cpfCell.textContent = entry.cpf;
+                    row.appendChild(cpfCell);
+
+                    let authFactorCell = document.createElement('td');
+                    authFactorCell.textContent = entry.auth_factor;
+                    row.appendChild(authFactorCell);
+
+                    tableBody.appendChild(row);
                 });
+            })
+            .catch(error => console.error('Erro:', error));
+    }
+
+    // Função para formatar a data
+    function formatarData(data) {
+        if (!data) return 'N/A'; // Caso a data seja nula ou indefinida
+
+        // Criando um objeto Date com a string da data
+        let dataFormatada = new Date(data);
+
+        // Formatação da data no formato desejado (dia/mês/ano hora:minuto:segundo)
+        let dia = dataFormatada.getDate().toString().padStart(2, '0');
+        let mes = (dataFormatada.getMonth() + 1).toString().padStart(2, '0'); // Mês começa do zero
+        let ano = dataFormatada.getFullYear();
+        let horas = dataFormatada.getHours().toString().padStart(2, '0');
+        let minutos = dataFormatada.getMinutes().toString().padStart(2, '0');
+        let segundos = dataFormatada.getSeconds().toString().padStart(2, '0');
+
+        return `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+    }
+
+    // Buscar dados ao carregar a página
+    fetchData();
+
+    // Evento de clique para o botão de busca
+    document.getElementById('search-button').addEventListener('click', function() {
+        let query = document.getElementById('search-input').value.toLowerCase();
+        let tableBody = document.getElementById('log-entries');
+        let rows = tableBody.getElementsByTagName('tr');
+
+        Array.from(rows).forEach(row => {
+            let nameCell = row.cells[1].textContent.toLowerCase();
+            let cnpjCell = row.cells[2].textContent.toLowerCase();
+
+            if (nameCell.includes(query) || cnpjCell.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
             }
-
-            function searchLogs(query) {
-                const filteredLogs = logs.filter(log => 
-                    log.name.toLowerCase().includes(query.toLowerCase()) || 
-                    log.cpf.includes(query)
-                );
-                renderLogs(filteredLogs);
-            }
-
-            searchButton.addEventListener("click", function() {
-                const query = searchInput.value;
-                searchLogs(query);
-            });
-
-            showAllButton.addEventListener("click", function() {
-                renderLogs(logs);
-            });
-
-            // Render all logs initially
-            renderLogs(logs);
         });
-    </script>
-</body>
+    });
+
+    // Evento de clique para o botão "Mostrar Todos"
+    document.getElementById('show-all-button').addEventListener('click', function() {
+        fetchData();
+        document.getElementById('search-input').value = '';
+    });
+});
+</script>
+
 </html>
