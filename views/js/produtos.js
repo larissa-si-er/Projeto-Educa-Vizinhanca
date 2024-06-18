@@ -63,3 +63,99 @@ function abrirCarrinho(){
             }
         });
     }
+
+// CARINHO
+document.addEventListener("DOMContentLoaded", () => {
+    // Elementos do DOM
+    const modal = document.getElementById("janela-modal1");
+    const fecharBtn = document.getElementById("fechar1");
+    const itensCarrinhoContainer = document.getElementById("itens-carrinho");
+    const totalElement = document.getElementById("preco-total");
+    const qtdeItensElement = document.querySelector(".qtde-itens");
+
+    // Array para armazenar itens do carrinho
+    let carrinho = [];
+
+    // Event listeners para cada botão "Adicionar ao Carrinho"
+    document.querySelectorAll(".add-carrinho").forEach(button => {
+        button.addEventListener("click", (event) => {
+            // Encontrar o card do produto pai
+            const produtoCard = event.target.closest(".card-GG");
+            const nomeProduto = produtoCard.querySelector(".title-card-GG").innerText;
+            const precoProduto = parseFloat(produtoCard.querySelector(".preco-card-GG").innerText.replace("R$", "").replace(",", "."));
+            
+            // Verificar se o produto já está no carrinho
+            const produtoNoCarrinho = carrinho.find(item => item.nome === nomeProduto);
+            
+            // Se já estiver no carrinho, aumentar a quantidade; senão, adicioná-lo
+            if (produtoNoCarrinho) {
+                produtoNoCarrinho.quantidade += 1;
+            } else {
+                carrinho.push({ nome: nomeProduto, preco: precoProduto, quantidade: 1 });
+            }
+
+            // Atualizar o carrinho e abrir o modal
+            atualizarCarrinho();
+            abrirModal();
+        });
+    });
+
+    // Event listener para fechar o modal
+    fecharBtn.addEventListener("click", () => {
+        fecharModal();
+    });
+
+    // Função para atualizar o conteúdo do carrinho no modal
+    function atualizarCarrinho() {
+        itensCarrinhoContainer.innerHTML = "";
+        let total = 0;
+
+        // Percorrer todos os itens no carrinho
+        carrinho.forEach(item => {
+            const itemElement = document.createElement("div");
+            itemElement.classList.add("item-carrinho");
+            itemElement.innerHTML = `
+                <span class="nome-produto">${item.nome}</span>
+                <div class="controle-quantidade">
+                    <button class="diminuir-quantidade">-</button>
+                    <span class="quantidade">${item.quantidade}</span>
+                    <button class="aumentar-quantidade">+</button>
+                </div>
+                <span class="preco-produto">R$${(item.preco * item.quantidade).toFixed(2).replace(".", ",")}</span>
+            `;
+
+            // Event listener para diminuir a quantidade do item
+            itemElement.querySelector(".diminuir-quantidade").addEventListener("click", () => {
+                item.quantidade -= 1;
+                if (item.quantidade === 0) {
+                    carrinho = carrinho.filter(carrinhoItem => carrinhoItem !== item);
+                }
+                atualizarCarrinho();
+            });
+
+            // Event listener para aumentar a quantidade do item
+            itemElement.querySelector(".aumentar-quantidade").addEventListener("click", () => {
+                item.quantidade += 1;
+                atualizarCarrinho();
+            });
+
+            // Adicionar o elemento do item ao container de itens do carrinho
+            itensCarrinhoContainer.appendChild(itemElement);
+            total += item.preco * item.quantidade;
+        });
+
+        // Atualizar o total e a quantidade de itens no modal
+        totalElement.innerText = `R$${total.toFixed(2).replace(".", ",")}`;
+        qtdeItensElement.innerText = `Seu carrinho tem ${carrinho.length} itens`;
+    }
+
+    // Função para abrir o modal
+    function abrirModal() {
+        modal.style.display = "block";
+    }
+
+    // Função para fechar o modal
+    function fecharModal() {
+        modal.style.display = "none";
+    }
+});

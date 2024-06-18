@@ -293,7 +293,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
             <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
             <div class="curso-buttons">
                 <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/marketing-digital-para-sua-empresa-equipe-comercial,12e7125576a4e710VgnVCM100000d701210aRCRD"target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
+                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir" data-id-aluno="1" data-id-curso="1"></i>
                 <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
                 <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
                 <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
@@ -371,16 +371,22 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>  
         </div> 
     
-        <?php if (empty($cursos)): ?>
-        <p>Nenhum curso disponível no momento.</p>
+                <?php if (empty($cursos)): ?>
+            <p>Nenhum curso disponível no momento.</p>
         <?php else: ?>
             <?php foreach ($cursos as $curso): ?>
                 <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
-                    <img src="<?php echo htmlspecialchars($curso['fotocurso']); ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
+                    <?php
+                    // Constrói o caminho completo para a imagem
+                    $caminhoImagem = '/../views/fotos-banco/' . htmlspecialchars($curso['fotocurso']);
+                    ?>
+                    <img src="<?php echo $caminhoImagem; ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
                     <h2><?php echo htmlspecialchars($curso['nome_curso']); ?></h2>
                     <p>Área: <?php echo htmlspecialchars($curso['areacurso']); ?></p>
                     <div class="curso-content">
-                        <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
+                    <?php if (isset($curso['instituicao'])): ?>
+                     <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
+                        <?php endif; ?>
                         <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
                         <div class="curso-buttons">
                             <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
@@ -392,8 +398,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                     </div>
                 </div>
             <?php endforeach; ?>
-    <?php endif; ?>
-
+        <?php endif; ?>
 
 </div> 
             

@@ -752,6 +752,61 @@ button.add-carrinho{
     cursor: pointer;
    }
 
+   /* Estilos para os itens dentro do carrinho */
+.itens-carrinho {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 10px;
+    padding-right: 10px;
+    margin-right: 35px; /* Ajustando margem à direita */
+
+}
+
+.item-carrinho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.nome-produto {
+    flex: 1;
+}
+
+.controle-quantidade {
+    display: flex;
+    align-items: center;
+}
+
+.diminuir-quantidade, .aumentar-quantidade {
+    padding: 5px 10px;
+    background-color: #00c8db;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 0.8rem;
+    transition: background-color 0.3s ease;
+    margin-right: 17px; /* Ajustando margem à direita */
+}
+
+.diminuir-quantidade:hover, .aumentar-quantidade:hover {
+    background-color: #26ddee;
+    
+}
+
+.quantidade {
+    padding: 0 10px;
+    font-size: 1rem;
+}
+
+.preco-produto {
+    font-size: 1rem;
+    margin-right: 5px; /* Ajustando margem à direita */
+    font-weight: bold;
+}
 /* ////////// MODAL CARRINHO /////////// [fim] */
 
 

@@ -149,3 +149,30 @@ faqs.forEach(faq => {
 });
 
 // FAQ - [FIM]
+
+
+// LIKE
+document.addEventListener('DOMContentLoaded', function() {
+    var botoesCurtir = document.querySelectorAll('.botao-curtir');
+    
+    botoesCurtir.forEach(function(botao) {
+        botao.addEventListener('click', function() {
+            var idAluno = this.getAttribute('data-id-aluno');
+            var idCurso = this.getAttribute('data-id-curso');
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'curso_control.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {                        // Aqui você pode adicionar mais ações se necessário, como atualizar a interface
+                    } else {
+                        alert('Erro ao curtir o curso. Tente novamente mais tarde.');
+                        console.error(xhr.status);
+                    }
+                }
+            };
+            xhr.send('id_aluno=' + encodeURIComponent(idAluno) + '&id_curso=' + encodeURIComponent(idCurso));
+        });
+    });
+});
