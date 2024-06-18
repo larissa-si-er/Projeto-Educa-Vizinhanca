@@ -94,17 +94,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 //------------------------------------------ like -----------------------------------------------------
 
-   // Prepara a query SQL
-   $sql = "INSERT INTO curtida (id_aluno, id_curso, date_time) 
-   VALUES (:id_aluno, :id_curso, CURRENT_TIMESTAMP)";
-
-// Prepara a declaração SQL usando PDO
-$stmt = $conn->prepare($sql);
-// Atribui os valores aos parâmetros da declaração
-$stmt->bindParam(':id_aluno', $id_aluno, PDO::PARAM_INT);
-$stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
-
-// Fecha a conexão com o banco de dados
-$conn = null;
 ?>
 

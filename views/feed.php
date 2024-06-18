@@ -1,11 +1,14 @@
 <?php
-// require '../controllers/userController.php'; 
-include '../controllers/curso_control.php'; 
+// require '../controllers/userController.php';
+include '../controllers/curso_control.php';
 // include '../controllers/feedController.php';
+
 ?>
 
 <?php
+
 session_start();
+
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: ../views/auth/login.php');
@@ -14,7 +17,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 if ($_SESSION['user_type'] === 'administracao') {
     $_SESSION['first_name'] = 'Adm';
-} 
+}
 
 $primeiroNome = $_SESSION['first_name'] ?? '';
 
@@ -27,18 +30,15 @@ function getSettingsLink($userType) {
         case 'instituicao':
             return './instituicao/areainsti.php';
         default:
-            return '#'; 
+            return '#';
     }
 }
 
-// Recuperar todos os cursos do banco de dados
-$sql = "SELECT id_curso, nome_curso, fotocurso, areacurso, localidade, linksite, formato FROM curso";
-$stmt = $conn->query($sql);
-$cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ $sql = "SELECT id_curso, nome_curso, fotocurso, areacurso, localidade, linksite, formato FROM curso";
+ $stmt = $conn->query($sql);
+ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-// var_dump($_SESSION);
+//  var_dump($_SESSION);
 
 ?>
 
@@ -63,7 +63,7 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <nav>
                 <div class="nav-bar">
                     <i class="bi bi-list sidebarOpen"></i>
-                    
+
                     <span class="logo"><a href=""><img src="./img/Home-removebg-preview.png" alt=""></a></span>
 
                     <div class="group">
@@ -78,7 +78,7 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <p id="user">
                                         <i class="fas fa-user-circle"></i>
                                         <!-- Usuário -->
-                                        <?php echo htmlspecialchars($primeiroNome) ?? 'adm'; ?> 
+                                        <?php echo htmlspecialchars($primeiroNome) ?? 'adm'; ?>
                                         <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
                                     </p>
                                 </li>
@@ -137,7 +137,7 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                        <i class="bi bi-person-square"></i>
                     </div>
                 </div>
-               
+
                <div class="menu-geral">
 
                     <div class="menu">
@@ -156,7 +156,7 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         </li>
                                         <li>
                                             <!-- <a href="./produtos-interno.php">  -->
-                                            <a href="./produtos.php"> 
+                                            <a href="./produtos.php">
                                                <i class="bi bi-handbag-fill"></i>
                                                Produtos
                                             </a>
@@ -164,10 +164,10 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </ul>
                     </div>
                 </div>
-                      
+
             </nav>
 
-      
+
 
             <div id="filter-modal" class="modal-filter">
                 <div class="modal-content">
@@ -272,7 +272,7 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <img class="pic-card-tops" src="./img/imagem curso 3.png" alt="Curso Python">
             <div class="curso-content content-cardTop">
                 <h2>Curso de Python</h2>
-                <p>Instituição: XPE <br>                                   
+                <p>Instituição: XPE <br>
                  Aprenda Python para análise de dados e desenvolvimento web.</p>
             </div>
         </div>
@@ -283,199 +283,19 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <br>
 
 <div class="container">
-             
-        <div class="curso" id="curso-list"  data-curso-id="1" data-area="desenvolvimento-web" data-regiao="sp">
-             <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
-             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                   <div class="control-config" onclick="toggleMenu(this)">
-                      <i class="bi bi-three-dots"></i>
-                      <div class="dropdown-menu" id="dropdownMenu">
-                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
-                            <a href=""  onclick="confirmDelete(<?php echo $curso['id_curso']; ?>)"class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
-                            <a href="#outra-acao" class="outro">Outra ação</a>
-                      </div>
-                   </div>
-             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-             <?php endif; ?>
 
-                <img src="./img/imagem curso 4.png" alt="Curso HTML e CSS" class="curso-img">
-                    <h2>Desenvolvimentode Jogos</h2>
-                  <p>Área: Desenvolvimento T.I</P>
-                  <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: CDPI</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://cpdi.org.br/projeto/alem-de-jogar-eu-faco-jogos/"target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>
-        </div>
 
-       <div class="curso" id="curso-list" data-area="marketing" data-regiao="rj">
-          <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
-          <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                   <div class="control-config" onclick="toggleMenu(this)">
-                      <i class="bi bi-three-dots"></i>
-                      <div class="dropdown-menu" id="dropdownMenu">
-                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
-                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
-                            <a href="#outra-acao" class="outro">Outra ação</a>
-                      </div>
-                   </div>
-             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-             <?php endif; ?>
-            <img src="./img/imagem curso 5.png" alt="Curso HTML e CSS" class="curso-img">
-            <h2>Marketing Digital</h2>
-            <p>Área: Marketing</p>
-            <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: SEBRAE</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/marketing-digital-para-sua-empresa-equipe-comercial,12e7125576a4e710VgnVCM100000d701210aRCRD"target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir" data-id-aluno="1" data-id-curso="1"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>
-        </div>
-        
-
-        <div class="curso" id="curso-list" data-area="direito" data-regiao="mg">
-            <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
-             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                   <div class="control-config" onclick="toggleMenu(this)">
-                      <i class="bi bi-three-dots"></i>
-                      <div class="dropdown-menu" id="dropdownMenu">
-                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
-                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
-                            <a href="#outra-acao" class="outro">Outra ação</a>
-                      </div>
-                   </div>
-             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-             <?php endif; ?>
-                    <img src="./img/imagem curso 6.png" alt="Curso HTML e CSS" class="curso-img">
-                    <h2>Legislação e Negócios no Audiovisual</h2>
-            <p>Área: Direito</p>
-            <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: SEBRAE</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/legislacao-e-negocios,20d5baa60fd5d710VgnVCM100000d701210aRCRD"target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>
-        </div>
-                
-
-        <div class="curso" id="curso-list" data-area="marketing" data-regiao="sp">
-            <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
-             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                   <div class="control-config" onclick="toggleMenu(this)">
-                      <i class="bi bi-three-dots"></i>
-                      <div class="dropdown-menu" id="dropdownMenu">
-                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
-                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
-                            <a href="#outra-acao" class="outro">Outra ação</a>
-                      </div>
-                   </div>
-             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-             <?php endif; ?>
-                <img src="./img/imagem 7.png" alt="Curso HTML e CSS" class="curso-img">
-                    <h2>Preço de Vendas para Beleza</h2>
-            <p>Área: Empreendedorismo e  Estética</p>
-            <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: SEBRAE</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/preco-de-vendas-para-beleza,85bb36435d608810VgnVCM1000001b00320aRCRD"target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>
-        </div>
-        
-        <div class="curso" id="curso-list" data-area="marketing" data-regiao="rj">
-            <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
-             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                   <div class="control-config" onclick="toggleMenu(this)">
-                      <i class="bi bi-three-dots"></i>
-                      <div class="dropdown-menu" id="dropdownMenu">
-                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
-                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
-                            <a href="#outra-acao" class="outro">Outra ação</a>
-                      </div>
-                   </div>
-             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-             <?php endif; ?>
-                <img src="./img/imagem curso 8.png" alt="Curso HTML e CSS" class="curso-img">
-                    <h2>Volte a Empreender!</h2>
-            <p>Área: Empreendedorismo</p>
-            <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: SEBRAE</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/volte-a-empreender,67b2adea33c4c710VgnVCM100000d701210aRCRD"target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>
-        </div>
-            
-        <div class="curso" id="curso-list" data-area="pedagogia" data-regiao="sp">
-            <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
-             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                   <div class="control-config" onclick="toggleMenu(this)">
-                      <i class="bi bi-three-dots"></i>
-                      <div class="dropdown-menu" id="dropdownMenu">
-                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
-                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
-                            <a href="#outra-acao" class="outro">Outra ação</a>
-                      </div>
-                   </div>
-             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-             <?php endif; ?>
-                <img src="./img/imagem curso 9.png" alt="Curso HTML e CSS" class="curso-img">
-                <h2>Formação pedagógica </h2>
-                <p>Área: curso pedagógico</p>
-                <div class="curso-content">
-            <p class="instituicao"><i class="bi bi-building"></i>Instituição: SEBRAE</p>
-            <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: Online</p>
-            <div class="curso-buttons">
-                <a href="https://sebrae.com.br/sites/PortalSebrae/cursosonline/formacao-pedagogica,55ee16d291e4d710VgnVCM100000d701210aRCRD"target="_blank" class="botao-acessar">Acessar</a>
-                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
-                <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
-                <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
-            </div>
-        </div>  
-        </div> 
-    
                 <?php if (empty($cursos)): ?>
             <p>Nenhum curso disponível no momento.</p>
         <?php else: ?>
-            <?php foreach ($cursos as $curso): 
+            <?php foreach ($cursos as $curso):
                     // echo "<pre>";
                     // var_dump($curso);
-                    // echo "</pre>";    
+                    // echo "</pre>";
             ?>
-                
+
                 <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
-                    <?php
-                    // Constrói o caminho completo para a imagem
-                    $caminhoImagem = '/../views/fotos-banco/' . htmlspecialchars($curso['fotocurso']);
-                    ?>
-                    <img src="<?php echo $caminhoImagem; ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
+               
                 <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
 
                 <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
@@ -489,7 +309,7 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div> -->
                <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
 
-               
+
             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
             <div class="control-config" onclick="toggleMenu(this)">
                     <i class="bi bi-three-dots"></i>
@@ -505,14 +325,21 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <input type="hidden" name="id_curso" value="<?php echo htmlspecialchars($curso['id_curso']); ?>">
                         <button type="submit" onclick="confirmDeletion(<?php echo htmlspecialchars($curso['id_curso']); ?>)">Deletar <i class="bi bi-trash3-fill"></i></button>
                         </form>
-                        
+
                         <a href="#outra-acao" class="outro">Outra ação</a>
                     </div>
                 </div>
             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
 
+                     <!-- IMAGEM -->
+                   <?php
+                    $caminhoImagem = '/../views/fotos-banco/' . htmlspecialchars($curso['fotocurso']);
+                    ?>
+                    <img src="<?php echo $caminhoImagem; ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
+                    <!-- FIM IMAGEM -->
+
                <?php endif; ?>
-                    <img src="<?php echo htmlspecialchars($curso['fotocurso']); ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
+
                     <h2><?php echo htmlspecialchars($curso['nome_curso']); ?></h2>
                     <p>Área: <?php echo htmlspecialchars($curso['areacurso']); ?></p>
                     <div class="curso-content">
@@ -532,7 +359,7 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         <?php endif; ?>
 
-</div> 
+</div>
 
 <!-- FEEDBACKS -->
 <?php
@@ -558,10 +385,10 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         unset($_SESSION['error_message']);
     }
     ?>
-            
+
     <script src="./js/script.js"></script>
     <script src="./js/modal.js"></script>
     </main>
 </body>
-    
+
 </html>
