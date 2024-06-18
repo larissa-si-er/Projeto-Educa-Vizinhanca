@@ -4,7 +4,7 @@
 
 
 // Seleciona os cursos do banco de dados
-$sql = "SELECT nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso FROM curso";
+$sql = "SELECT nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao FROM curso";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -16,7 +16,6 @@ if ($cursos === false) {
 
 // Verifica se o formulário foi submetido para inserção de um novo curso
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     // Recupera os dados do formulário
     $titulo = $_POST['nome_curso'];
     $descricao = $_POST['descricao'];
@@ -30,15 +29,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $link = $_POST['linksite'];
     $inicio = $_POST['inicioinscricoes'];
     $termino = $_POST['terminoinscricoes'];
-    $foto = $_POST['fotocurso'];
+    $instituicao = $_POST['instituicao']; // Adiciona esta linha para recuperar a instituição
 
-    try {
+    // Processamento do upload da imagem
+    $foto = $_FILES['fotocurso'];
+
+    // Verifica se foi enviado um arquivo
+    if ($foto['error'] === UPLOAD_ERR_OK) {
+        $nomeArquivo = $foto['name'];
+        $caminhoTemp = $foto['tmp_name'];
+
+        // Diretório para salvar a imagem
+        $diretorioSalvar = '/../views/fotos-banco/';
+
+        // Move o arquivo para o diretório desejado
+        if (move_uploaded_file($caminhoTemp, __DIR__ . $diretorioSalvar . $nomeArquivo)) {
         // Prepara a instrução SQL para inserção
-        $sql = "INSERT INTO curso (id_curso, nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso) 
-                VALUES (DEFAULT, :titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :foto)";
+        $sql = "INSERT INTO curso (nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao) 
+        VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao)";
         $stmt = $conn->prepare($sql);
 
-        // Bind dos parâmetros
+        // Bind dos parâmetros, incluindo instituicao
         $stmt->bindParam(':titulo', $titulo);
         $stmt->bindParam(':descricao', $descricao);
         $stmt->bindParam(':area', $area);
@@ -51,27 +62,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':link', $link);
         $stmt->bindParam(':inicio', $inicio);
         $stmt->bindParam(':termino', $termino);
-        $stmt->bindParam(':foto', $foto);
+        $stmt->bindParam(':nomeArquivo', $nomeArquivo);
+        $stmt->bindParam(':instituicao', $instituicao); // Adiciona esta linha para o bind do instituicao
 
-        // Executa a instrução
-        $stmt->execute();
-
-        // Define a mensagem de feedback na sessão
+            // Executa a instrução
+            if ($stmt->execute()) {
+                // Define a mensagem de feedback na sessão
+                session_start();
+                $_SESSION['success_message'] = 'Curso inserido com sucesso.';
+            } else {
+                // Em caso de erro na execução da consulta
+                session_start();
+                $_SESSION['error_message'] = "Erro ao inserir o curso.";
+            }
+        } else {
+            // Em caso de erro ao mover o arquivo
+            session_start();
+            $_SESSION['error_message'] = "Erro ao fazer o upload da imagem.";
+        }
+    } else {
+        // Em caso de erro no envio do arquivo
         session_start();
-        $_SESSION['error_message'] = 'Curso inserido com sucesso.';
-        
-        // Redireciona para a página de administração
-        header("Location: ../views/admin/areaadm.php");
-        exit(); // Certifique-se de sair após o redirecionamento
-    } catch (PDOException $e) {
-        // Em caso de erro, definir a mensagem de erro na sessão
-        session_start();
-        $_SESSION['error_message'] = "Erro ao inserir o curso: " . $e->getMessage();
-        
-        // Redireciona para a página de administração
-        header("Location: ../views/admin/areaadm.php");
-        exit(); // Certifique-se de sair após o redirecionamento
+        $_SESSION['error_message'] = "Erro ao enviar o arquivo.";
     }
+
+    // Redireciona para a página de administração
+    header("Location: ../views/admin/areaadm.php");
+    exit(); // Certifique-se de sair após o redirecionamento
 }
 
+
+//------------------------------------------ like -----------------------------------------------------
+
+   // Prepara a query SQL
+   $sql = "INSERT INTO curtida (id_aluno, id_curso, date_time) 
+   VALUES (:id_aluno, :id_curso, CURRENT_TIMESTAMP)";
+
+// Prepara a declaração SQL usando PDO
+$stmt = $conn->prepare($sql);
+// Atribui os valores aos parâmetros da declaração
+$stmt->bindParam(':id_aluno', $id_aluno, PDO::PARAM_INT);
+$stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
+
+// Fecha a conexão com o banco de dados
+$conn = null;
 ?>
+

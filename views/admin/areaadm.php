@@ -259,12 +259,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         <div class="modal-content">
             <span class="fechar">&times;</span>
             <h2>Adicionar Curso</h2>
-    <form action="../../controllers/curso_control.php" id="formCurso" method="post">
-
-        <!-- Campo oculto para armazenar o ID do produto -->
-        <input type="hidden" name="id_curso" value="<?php echo $id_curso; ?>">
-
-
+    <form action="../../controllers/curso_control.php" id="formCurso" method="post" enctype="multipart/form-data">
         <label for="titulo">Título do Curso:</label>
         <input type="text" id="nome_curso" name="nome_curso" required>
         
@@ -305,6 +300,9 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         <label for="link">Link do Site:</label>
         <input type="url" id="linksite" name="linksite" placeholder="https://example.com" required>
         
+        <label for="instituicao">Instituição:</label>
+        <input type="text" id="instituicao" name="instituicao">
+
         <label for="inicio">Início das Inscrições:</label>
         <input type="date" id="inicioinscricoes" name="inicioinscricoes" required>
         
@@ -1092,7 +1090,7 @@ if (isset($_SESSION['error_message'])) {
           timer: 1800 
       }).then((result) => {
           // Redireciona para a página de visualização do produto cadastrado
-          window.location.href = '../produtos.php';
+          window.location.href = '#';
       });
   </script>";
   unset($_SESSION['error_message']); 

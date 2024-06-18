@@ -388,30 +388,30 @@
 
           
         <!-- //////////////////////// MODAL //////////////////////// -->
-
-            <DIV class="janela-modal1" id="janela-modal1">
-                    <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-1">
-                            <button class="fechar" id="fechar1"><i id="fechar1" class="bi bi-x-lg"></i></button>
-                            <h2>Meu carrinho</h2>  
-                            <p class="qtde-itens">Seu carrinho tem 0 itens</p>
-                            <div class="linha-modal1"></div>
-
-                            <div class="footer-carrinho">
-                                <div class="linha-modal2"></div>
-                                <div class="content-carrinho">
-                                    <p class="total">Total:</p>
-                                    <p class="preco">R$00,00</p>
-                                </div>
-
-                                <div class="div-finalizar"> 
-                                    <button class="finalizar" onclick="window.location.href ='./pagamento-1.php'">Finalizar compra</button>
-                                </div>
+            <!-- Modal do Carrinho -->
+            <div class="janela-modal1" id="janela-modal1">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-1">
+                        <button class="fechar" id="fechar1"><i id="fechar1" class="bi bi-x-lg"></i></button>
+                        <h2>Meu carrinho</h2>  
+                        <p class="qtde-itens">Seu carrinho tem 0 itens</p>
+                        <div class="linha-modal1"></div>
+                        <div class="itens-carrinho" id="itens-carrinho">
+                            <!-- Itens do carrinho serão adicionados aqui via JavaScript -->
+                        </div>
+                        <div class="footer-carrinho">
+                            <div class="linha-modal2"></div>
+                            <div class="content-carrinho">
+                                <p class="total">Total:</p>
+                                <p class="preco" id="preco-total">R$00,00</p>
                             </div>
-
+                            <div class="div-finalizar"> 
+                                <button class="finalizar" onclick="window.location.href ='./pagamento-1.php'">Finalizar compra</button>
+                            </div>
                         </div>
                     </div>
-            </DIV>
+                </div>
+            </div>
     </main>    
 
     <?php
