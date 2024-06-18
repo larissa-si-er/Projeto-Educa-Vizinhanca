@@ -1,17 +1,19 @@
-// Abre o modal ao clicar no botão "Adicionar Curso"
-document.getElementById('abrirModal').addEventListener('click', function() {
-    document.getElementById('modal').style.display = 'block';
-});
+// FEEDBACKS CONFIG
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+function confirmDeletion(id) {
+    Swal.fire({
+        title: 'Você tem certeza?',
+        text: 'Você não poderá reverter isso!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, deletar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + id).submit();
+        }
+    });
+}
 
-// Fecha o modal ao clicar no botão de fechar (X)
-document.getElementsByClassName('fechar')[0].addEventListener('click', function() {
-    document.getElementById('modal').style.display = 'none';
-});
-
-// Fecha o modal se o usuário clicar fora da área do modal
-window.addEventListener('click', function(event) {
-    var modal = document.getElementById('modal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-});

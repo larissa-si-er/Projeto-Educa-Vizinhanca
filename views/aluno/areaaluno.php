@@ -3,7 +3,7 @@ require_once '../../head.php';
 include_once '../menuinterno.php';
 require_once '../../models/conexao.php'; // Verifique o caminho correto aqui
 
-session_start();
+// session_start();
 
 // Verifica se o usuário não está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -26,7 +26,7 @@ $resultado = consultarAlunos($idAlunoLogado);
         <ul>
             <li>
                 <i class="fa-solid fa-arrow-left" style="margin-top: 0px; display: inline-block;"></i>
-                <a href="../../index.php" style="display: inline-block; vertical-align: top;">Voltar</a>
+                <a href="../feed.php" style="display: inline-block; vertical-align: top;">Voltar</a>
             </li>
         </ul>
     </div>
@@ -55,6 +55,7 @@ $resultado = consultarAlunos($idAlunoLogado);
 
                 // Detalhes a serem exibidos ao clicar em Ver mais
                 echo '<div id="details-' . $linha['id_aluno'] . '" style="display: none;">';
+                echo '<div class="sub-title-form"> <p>Informações Pessoais</p></div>';
                 echo '<p><strong>Nome:</strong> ' . htmlspecialchars($linha['nome']) . '</p>';
                 echo '<p><strong>Data de Nascimento:</strong> ' . htmlspecialchars($linha['data_nasc']) . '</p>';
                 echo '<p><strong>Sexo:</strong> ' . htmlspecialchars($linha['sexo']) . '</p>';
@@ -62,6 +63,7 @@ $resultado = consultarAlunos($idAlunoLogado);
                 echo '<p><strong>CPF:</strong> ' . htmlspecialchars($linha['cpf']) . '</p>';
                 echo '<p><strong>Telefone Celular:</strong> ' . htmlspecialchars($linha['telefone_celular']) . '</p>';
                 echo '<p><strong>Telefone Fixo:</strong> ' . htmlspecialchars($linha['telefone_fixo']) . '</p>';
+                echo '<div class="sub-title-form"> <p>Informações de endereço</p></div>';
                 echo '<p><strong>CEP:</strong> ' . htmlspecialchars($linha['cep']) . '</p>';
                 echo '<p><strong>Logradouro:</strong> ' . htmlspecialchars($linha['logradouro']) . '</p>';
                 echo '<p><strong>Bairro:</strong> ' . htmlspecialchars($linha['bairro']) . '</p>';
@@ -192,6 +194,12 @@ require_once '../../footer.php';
 
 
 <style>
+.sub-title-form{
+    font-weight: bold;
+    color: #007f9c;
+    margin-top: 3%;
+    margin-bottom: 1%;
+}
 /*modal*/
   #abrirModalEditar {
     border: none; 
@@ -382,6 +390,8 @@ box-shadow:  25px 25px 50px #d0d0d0,
   border: none;
   background: none;
   cursor: pointer;
+  margin-top: 6%;
+  margin-bottom: 7%;
 }
 
 #vermais {
@@ -395,6 +405,7 @@ box-shadow:  25px 25px 50px #d0d0d0,
   align-items: center;
   margin-top: 2%;
 }
+
 
 #vermais a {
   margin: 0;
@@ -424,6 +435,7 @@ box-shadow:  25px 25px 50px #d0d0d0,
   color: var(--hovered-color);
   overflow: hidden;
   transition: 0.3s ease-out;
+  
 }
 
 #vermais:hover::after {
@@ -555,5 +567,8 @@ box-shadow:  25px 25px 50px #d0d0d0,
   transition: all 0.3s ease;
 }
 
+#bnt-sair{
+  width: 19%;
+}
 
 </style>

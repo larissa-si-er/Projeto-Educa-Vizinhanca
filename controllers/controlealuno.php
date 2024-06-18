@@ -41,6 +41,9 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                             <?php echo htmlspecialchars($primeiroNome); ?>
                             <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
                         </p>
+                    </li>
+                </ul>
+            </div>
                         <!-- modal user -->
                         <div id="myModal" class="modal-user">
                             <span class="close" onclick="closeModal()">&times;</span>
@@ -59,12 +62,13 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                                 <button id="bnt-user">
                                     <a href="../views/admin/areaadm.php">Meu perfil</a>
                                 </button>
-                                <button id="bnt-sair"><a href="logout.php">sair</a></button>
+                                <form action="../controllers/userController.php" method="post">
+                                    <input type="hidden" name="logout">
+                                    <button type="submit" id="bnt-sair">Sair</button>
+                                </form>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </div>
+                        
             <div class="user-mobile">
                 <i class="bi bi-person-square"></i>
             </div>
@@ -125,11 +129,13 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 $(document).ready(function() {
     $('#searchInput').keyup(function() {
         var searchTerm = $(this).val();
+
         $.ajax({
             url: 'buscar_aluno.php',
             type: 'POST',
             data: { termo: searchTerm },
             success: function(response) {
+
                 $('#alunosTable tbody').html(response);
                 addViewDetailsEvent();
             }

@@ -1,7 +1,7 @@
 <?php
 // require '../controllers/userController.php'; 
 include '../controllers/curso_control.php'; 
-include '../controllers/feedController.php';
+// include '../controllers/feedController.php';
 ?>
 
 <?php
@@ -17,6 +17,25 @@ if ($_SESSION['user_type'] === 'administracao') {
 } 
 
 $primeiroNome = $_SESSION['first_name'] ?? '';
+
+function getSettingsLink($userType) {
+    switch ($userType) {
+        case 'administracao':
+            return './admin/areaadm.php';
+        case 'aluno':
+            return './aluno/areaaluno.php';
+        case 'instituicao':
+            return './instituicao/areainsti.php';
+        default:
+            return '#'; 
+    }
+}
+
+// Recuperar todos os cursos do banco de dados
+$sql = "SELECT id_curso, nome_curso, fotocurso, areacurso, localidade, linksite, formato FROM curso";
+$stmt = $conn->query($sql);
+$cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 
 // var_dump($_SESSION);
@@ -69,10 +88,8 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                     <div id="myModal" class="modal-user">
                         <span class="close closePerfil" onclick="closeModal()">&times;</span>
                         <div class="modal-content-user">
-                            <!-- PHP para exibir informações do usuário se estiver logado -->
                             <?php
 
-                            // Verifica se o usuário está logado
                             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['user_data'])) {
                                 $user = $_SESSION['user_data'];
                                 echo '<p><strong>Tipo de usuário:</strong> ' . htmlspecialchars($_SESSION['user_type']) . '</p>';
@@ -80,7 +97,6 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                                 echo '<p><strong>Email:</strong> ' . htmlspecialchars($user['email']) . '</p>';
                                 echo '<p><strong>Senha:</strong> *********</p>';
                             } else {
-                                // Usuário não está logado
                                 echo '<p><strong>User:</strong> Não logado</p>';
                                 echo '<p><strong>Email:</strong> Não logado</p>';
                             }
@@ -88,7 +104,23 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                             <p>
                                 <!-- Botão para acessar o perfil -->
                                 <button id="bnt-user">
-                                    <a href="./admin/areaadm.php">Meu perfil</a>
+                                <?php
+                                // Defina o link com base no tipo de usuário
+                                switch ($_SESSION['user_type']) {
+                                   case 'administracao':
+                                      echo '<a href="./admin/areaadm.php">Meu perfil</a>';
+                                      break;
+                                   case 'aluno':
+                                      echo '<a href="./aluno/areaaluno.php">Meu perfil</a>';
+                                      break;
+                                   case 'instituicao':
+                                      echo '<a href="./instituicao/areainsti.php">Meu perfil</a>';
+                                      break;
+                                   default:
+                                      echo '<a href="#">Meu perfil</a>'; // Pode adicionar um link padrão ou tratar outro caso
+                                      break;
+                                }
+                                ?>
                                 </button>
                                 <!-- Formulário para realizar o logout -->
                                 <form action="../controllers/userController.php" method="post">
@@ -118,11 +150,12 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                                            </a>
                                         </li>
                                         <li>
-                                            <a href="./admin/areaadm.php" title="Controle">
+                                            <a href="<?php echo getSettingsLink($_SESSION['user_type']); ?>" title="Controle">
                                                 <i class="bi bi-bar-chart-line-fill"></i><span>Configurações</span>
                                             </a>
                                         </li>
                                         <li>
+                                            <!-- <a href="./produtos-interno.php">  -->
                                             <a href="./produtos.php"> 
                                                <i class="bi bi-handbag-fill"></i>
                                                Produtos
@@ -251,17 +284,19 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 
 <div class="container">
              
-        <div class="curso" id="curso-list" data-area="desenvolvimento-web" data-regiao="sp">
-                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                <div class="control-config" onclick="toggleMenu()">
-                  <i class="bi bi-three-dots"></i>
-                     <div class="dropdown-menu" id="dropdownMenu">
-                         <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
-                         <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
-                         <a href="#outra-acao" class="outro">Outra ação</a>
-                     </div>
-                </div>
-                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+        <div class="curso" id="curso-list"  data-curso-id="1" data-area="desenvolvimento-web" data-regiao="sp">
+             <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
+             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                   <div class="control-config" onclick="toggleMenu(this)">
+                      <i class="bi bi-three-dots"></i>
+                      <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href=""  onclick="confirmDelete(<?php echo $curso['id_curso']; ?>)"class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
+                            <a href="#outra-acao" class="outro">Outra ação</a>
+                      </div>
+                   </div>
+             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+             <?php endif; ?>
 
                 <img src="./img/imagem curso 4.png" alt="Curso HTML e CSS" class="curso-img">
                     <h2>Desenvolvimentode Jogos</h2>
@@ -280,11 +315,18 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>
 
        <div class="curso" id="curso-list" data-area="marketing" data-regiao="rj">
-                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                <div class="control-config">
-                  <i class="bi bi-three-dots"></i>
-                </div>
-                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+          <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
+          <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                   <div class="control-config" onclick="toggleMenu(this)">
+                      <i class="bi bi-three-dots"></i>
+                      <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
+                            <a href="#outra-acao" class="outro">Outra ação</a>
+                      </div>
+                   </div>
+             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+             <?php endif; ?>
             <img src="./img/imagem curso 5.png" alt="Curso HTML e CSS" class="curso-img">
             <h2>Marketing Digital</h2>
             <p>Área: Marketing</p>
@@ -302,7 +344,19 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>
         
 
-            <div class="curso" id="curso-list" data-area="direito" data-regiao="mg">
+        <div class="curso" id="curso-list" data-area="direito" data-regiao="mg">
+            <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
+             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                   <div class="control-config" onclick="toggleMenu(this)">
+                      <i class="bi bi-three-dots"></i>
+                      <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
+                            <a href="#outra-acao" class="outro">Outra ação</a>
+                      </div>
+                   </div>
+             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+             <?php endif; ?>
                     <img src="./img/imagem curso 6.png" alt="Curso HTML e CSS" class="curso-img">
                     <h2>Legislação e Negócios no Audiovisual</h2>
             <p>Área: Direito</p>
@@ -320,7 +374,19 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>
                 
 
-            <div class="curso" id="curso-list" data-area="marketing" data-regiao="sp">
+        <div class="curso" id="curso-list" data-area="marketing" data-regiao="sp">
+            <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
+             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                   <div class="control-config" onclick="toggleMenu(this)">
+                      <i class="bi bi-three-dots"></i>
+                      <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
+                            <a href="#outra-acao" class="outro">Outra ação</a>
+                      </div>
+                   </div>
+             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+             <?php endif; ?>
                 <img src="./img/imagem 7.png" alt="Curso HTML e CSS" class="curso-img">
                     <h2>Preço de Vendas para Beleza</h2>
             <p>Área: Empreendedorismo e  Estética</p>
@@ -337,7 +403,19 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>
         </div>
         
-            <div class="curso" id="curso-list" data-area="marketing" data-regiao="rj">
+        <div class="curso" id="curso-list" data-area="marketing" data-regiao="rj">
+            <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
+             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                   <div class="control-config" onclick="toggleMenu(this)">
+                      <i class="bi bi-three-dots"></i>
+                      <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
+                            <a href="#outra-acao" class="outro">Outra ação</a>
+                      </div>
+                   </div>
+             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+             <?php endif; ?>
                 <img src="./img/imagem curso 8.png" alt="Curso HTML e CSS" class="curso-img">
                     <h2>Volte a Empreender!</h2>
             <p>Área: Empreendedorismo</p>
@@ -354,7 +432,19 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>
         </div>
             
-            <div class="curso" id="curso-list" data-area="pedagogia" data-regiao="sp">
+        <div class="curso" id="curso-list" data-area="pedagogia" data-regiao="sp">
+            <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
+             <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                   <div class="control-config" onclick="toggleMenu(this)">
+                      <i class="bi bi-three-dots"></i>
+                      <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="#deletar" class="delet">Deletar <i class="bi bi-trash3-fill"></i></a>
+                            <a href="#outra-acao" class="outro">Outra ação</a>
+                      </div>
+                   </div>
+             <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+             <?php endif; ?>
                 <img src="./img/imagem curso 9.png" alt="Curso HTML e CSS" class="curso-img">
                 <h2>Formação pedagógica </h2>
                 <p>Área: curso pedagógico</p>
@@ -371,11 +461,60 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         </div>  
         </div> 
     
+
+
+
+
+
+
+
+
         <?php if (empty($cursos)): ?>
         <p>Nenhum curso disponível no momento.</p>
         <?php else: ?>
-            <?php foreach ($cursos as $curso): ?>
+            <?php foreach ($cursos as $curso): 
+                    // echo "<pre>";
+                    // var_dump($curso);
+                    // echo "</pre>";    
+            ?>
+                
                 <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
+                <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
+
+                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                    <!-- <div class="control-config" onclick="toggleMenu(this)">
+                       <i class="bi bi-three-dots"></i>
+                       <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
+                            <a href="#deletar" class="delet" data-id="<?php echo $curso['id_curso']; ?>">Deletar <i class="bi bi-trash3-fill"></i></a>
+                            <a href="#outra-acao" class="outro">Outra ação</a>
+                       </div>
+                    </div> -->
+               <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+
+               
+            <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+            <div class="control-config" onclick="toggleMenu(this)">
+                    <i class="bi bi-three-dots"></i>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <!-- Formulário para editar curso -->
+                        <form action="../controllers/editar_curso.php" method="post" class="editar">
+                            <input type="hidden" name="id_curso" value="<?php echo $curso['id_curso']; ?>">
+                            <button type="submit">Editar <i class="bi bi-pencil-square"></i></button>
+                        </form>
+
+                        <!-- Formulário para deletar curso -->
+                        <form action="../controllers/deletar_curso.php" method="post" class="delet">
+                        <input type="hidden" name="id_curso" value="<?php echo htmlspecialchars($curso['id_curso']); ?>">
+                        <button type="submit" onclick="confirmDeletion(<?php echo htmlspecialchars($curso['id_curso']); ?>)">Deletar <i class="bi bi-trash3-fill"></i></button>
+                        </form>
+                        
+                        <a href="#outra-acao" class="outro">Outra ação</a>
+                    </div>
+                </div>
+            <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+
+               <?php endif; ?>
                     <img src="<?php echo htmlspecialchars($curso['fotocurso']); ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
                     <h2><?php echo htmlspecialchars($curso['nome_curso']); ?></h2>
                     <p>Área: <?php echo htmlspecialchars($curso['areacurso']); ?></p>
@@ -393,9 +532,32 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                 </div>
             <?php endforeach; ?>
     <?php endif; ?>
-
-
 </div> 
+
+<!-- FEEDBACKS -->
+<?php
+    if (isset($_SESSION['success_message'])) {
+        echo "<script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso',
+                    text: '" . $_SESSION['success_message'] . "',
+                });
+              </script>";
+        unset($_SESSION['success_message']);
+    }
+
+    if (isset($_SESSION['error_message'])) {
+        echo "<script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: '" . $_SESSION['error_message'] . "',
+                });
+              </script>";
+        unset($_SESSION['error_message']);
+    }
+    ?>
             
     <script src="./js/script.js"></script>
     <script src="./js/modal.js"></script>

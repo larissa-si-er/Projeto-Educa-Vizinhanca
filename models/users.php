@@ -50,6 +50,12 @@ class User {
         $index = array_rand($opcoes);
         return $opcoes[$index];
     }
+    private function gerarAuthFactorInstituicao() {
+        $opcoes = array('cep', 'data_fundacao', 'cnpj');
+        
+        $index = array_rand($opcoes);
+        return $opcoes[$index];
+    }
 
     public function cadastrarAluno($alunoData) {
 
@@ -157,8 +163,12 @@ class User {
             $stmtEndereco->bindParam(':num', $instituicaoData['num'], PDO::PARAM_STR);
             $stmtEndereco->execute();
 
+           // Gerar auth_factor aleatório
+           $auth_factor = $this->gerarAuthFactorInstituicao();
+
+
             // Tabela instituicao
-            $sql = "INSERT INTO instituicao (nome, nome_insti, email, data_fundacao, cnpj, telefone_celular, telefone_fixo, usuario, senha, cep, registro, auth_factor) VALUES (:nome, :nome_insti, :email, :data_fundacao, :cnpj, :telefone_celular, :telefone_fixo, :usuario, :senha, :cep, :registro, '')";
+            $sql = "INSERT INTO instituicao (nome, nome_insti, email, data_fundacao, cnpj, telefone_celular, telefone_fixo, usuario, senha, cep, registro, auth_factor) VALUES (:nome, :nome_insti, :email, :data_fundacao, :cnpj, :telefone_celular, :telefone_fixo, :usuario, :senha, :cep, :registro, :auth_factor)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':nome', $instituicaoData['nome'], PDO::PARAM_STR);
             $stmt->bindParam(':nome_insti', $instituicaoData['nome_insti'], PDO::PARAM_STR);
@@ -173,6 +183,7 @@ class User {
             date_default_timezone_set('America/Sao_Paulo');
             $registro = date('Y-m-d H:i:s');
             $stmt->bindParam(':registro', $registro);
+            $stmt->bindParam(':auth_factor', $auth_factor, PDO::PARAM_STR);
             $stmt->execute();
 
             // Commit da transação se tudo ocorrer bem

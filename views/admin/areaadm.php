@@ -7,11 +7,9 @@
 
 ?>  
 <?php
-session_start();
+// session_start();
 
-// Verifica se o usuário não está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // Redireciona para a página de login
     header('Location: ../views/auth/login.php');
     exit();
 }
@@ -261,6 +259,11 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
             <span class="fechar">&times;</span>
             <h2>Adicionar Curso</h2>
     <form action="../../controllers/curso_control.php" id="formCurso" method="post">
+
+        <!-- Campo oculto para armazenar o ID do produto -->
+        <input type="hidden" name="id_curso" value="<?php echo $id_curso; ?>">
+
+
         <label for="titulo">Título do Curso:</label>
         <input type="text" id="nome_curso" name="nome_curso" required>
         
@@ -1062,6 +1065,15 @@ box-shadow:  25px 25px 50px #d0d0d0,
     background: #63d7e4;
     box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent, 0 36px 0 -10px transparent, -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
   }
+}
+
+.alterar {
+    height: 40px;
+    border-radius: 6px;
+    background-color: #72dce5;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 
