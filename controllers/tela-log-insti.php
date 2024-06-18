@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: ../views/auth/login.php');
+    exit();
+}
+
+$primeiroNome = $_SESSION['first_name'] ?? '';
+
+?>  
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -19,32 +31,45 @@
         <div class="nav-bar">
             <i class="bi bi-list sidebarOpen"></i>
             <span class="logo"><a href="#"><img src="../views/img/Home-removebg-preview.png" alt=""></a></span>
+
             <div class="block-user">
                 <i class="bi bi-x sidebarClose"></i>
-                <ul class="user-ul" onclick="openModal()">
-                    <li class="user-li">
+                <ul class="user-ul user-ul-block" onclick="openModal()">
+                    <li class="user-li user-li-block">
                         <p id="user">
                             <i class="fas fa-user-circle"></i>
-                            Usuário
+                            <?php echo htmlspecialchars($primeiroNome); ?>
                             <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
                         </p>
-                        <div id="myModal" class="modal-user">
-                            <span class="close" onclick="closeModal()">&times;</span>
-                            <div class="modal-content-user">
-                                <p><strong>User:</strong> Admin</p>
-                                <p><strong>Email:</strong> Admin@example.com</p>
-                                <p><strong>Senha:</strong> *********</p>
-                                <p>
-                                    <button id="bnt-user">
-                                        <a href="../views/admin/areaadm.php">Meu perfil</a>
-                                    </button>
-                                    <button id="bnt-sair"><a href="">sair</a></button>
-                                </p>
-                            </div>
-                        </div>
+
                     </li>
                 </ul>
             </div>
+                        <!-- modal user -->
+                        <div id="myModal" class="modal-user">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <div class="modal-content-user">
+                                <?php
+                                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['user_data'])) {
+                                    $user = $_SESSION['user_data'];
+                                    echo '<p id="modal"><strong>User:</strong> ' . htmlspecialchars($user['usuario']) . '</p>';
+                                    echo '<p id="modal"><strong>Email:</strong> ' . htmlspecialchars($user['email']) . '</p>';
+                                    echo '<p id="modal"><strong>Senha:</strong> *********</p>';
+                                } else {
+                                    echo '<p><strong>User:</strong> Não logado</p>';
+                                    echo '<p><strong>Email:</strong> Não logado</p>';
+                                }
+                                ?>
+                                <button id="bnt-user">
+                                    <a href="../views/admin/areaadm.php">Meu perfil</a>
+                                </button>
+                                <form action="../controllers/userController.php" method="post">
+                                    <input type="hidden" name="logout">
+                                    <button type="submit" id="bnt-sair">Sair</button>
+                                </form>
+                            </div>
+                       </div>
+
             <div class="user-mobile">
                 <i class="bi bi-person-square"></i>
             </div>

@@ -28,6 +28,9 @@ nav .nav-bar{
   align-content: center;
   justify-content: center;
   align-items: center;
+  -webkit-box-shadow: 0px 12px 22px 0px rgba(0, 0, 0, 0.14);
+  box-shadow: 0px 12px 22px 0px rgb(0 0 0 / 5%);
+  background-color: white;
 }
 
 .menu {
@@ -174,28 +177,8 @@ nav img{
   height: 1rem;
  }
 
-/* CAMPO USER MENU */
-li.user-li {
-    list-style: none;
-    height: 100%;
-    display: contents;
-}
-.user-li i{
-  padding: 3px;
-}
-.user-li p{
-  position: relative;
-  text-decoration: none;
-  font-weight:300;
-  font-size: 18px;
-  color: var(--text-color);
-  color: white;
-  
-}
-ul.user-ul{
-  padding: 5px;
-}
-/*modal*/
+
+/*modal user*/
 .modal-user {
   display: none;
   position: absolute;
@@ -239,7 +222,27 @@ ul.user-ul{
   font-size: 20px;
   cursor: pointer;
 }
+/* CAMPO USER MENU */
+li.user-li {
+  list-style: none;
+  height: 100%;
+  display: contents;
+}
+.user-li i{
+padding: 3px;
+}
+.user-li p{
+position: relative;
+text-decoration: none;
+font-weight:300;
+font-size: 18px;
+color: var(--text-color);
+color: white;
 
+}
+ul.user-ul{
+padding: 5px;
+}
 /* CAMPO USER */
 .block-user {
   background-color: #e9fcff;
@@ -390,6 +393,88 @@ ul.user-ul{
   content: "\f4ca";
   margin-left: 40%;
 }
+
+
+
+/* BOTAO DE MAIS CONFIGURAÇÕES */
+
+.control-config:active {
+  color: rgb(129, 232, 253);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -7px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: -6px 6px 20px -1px rgb(0 0 0 / 42%);
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.dropdown-menu form, .dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 18px;
+  border-bottom: 0.5px solid #8080801f;
+}
+
+.dropdown-menu a:hover, .dropdown-menu button:hover, .editar:hover, .delet:hover {
+  background-color: #f1f1f1;
+}
+
+.editar button:hover, .outro:hover {
+  color: #00abc5;
+}
+
+.delet button:hover {
+  color: rgb(175, 0, 0);
+}
+
+.bi-trash3-fill::before {
+  content: "\f78a";
+  margin-left: 32%;
+}
+
+.bi-pencil-square::before {
+  content: "\f4ca";
+  margin-left: 40%;
+}
+
+/* Adiciona estilo para os botões */
+.editar button, .delet button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  display: flex;
+}
+
+/* Estilo para o item "Outra ação" */
+.outro {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+}
+
+.outro:hover {
+  background-color: #f1f1f1;
+}
+.bi-pencil-square::before {
+  margin-left: 44px;
+}
+.bi-trash3-fill::before{
+  margin-left: 33px;
+}
+
 
 
 @-webkit-keyframes shine {
@@ -622,6 +707,7 @@ input.input {
   margin: -1.9% 0px 5% 9%;
   z-index: 9999;
   position: fixed;
+  display: none;
 }
 /* aumentar e diminuir */
 .moreorless{
@@ -1337,4 +1423,12 @@ img.img-top3{
     padding: 8px; 
   }
 
+}
+
+.dropdown-menu {
+  display: none; /* Inicialmente oculto */
+}
+
+.dropdown-menu.show-menu {
+  display: block; /* Mostrar quando a classe show-menu está presente */
 }

@@ -1,63 +1,33 @@
 <?php
-// controllers/curso_control.php
+// feedController.php
 
-// session_start();
-require_once('../models/conexao.php');
-require_once('../models/feedModels.php');
-// require_once('../models/curso.php');
-
-// Criar uma instância da classe Curso
-$cursoModel = new Curso($conn);
-
-// Verifica se uma ação foi enviada pelo formulário
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['action'])) {
-        $action = $_POST['action'];
-        
-        switch ($action) {
-            case 'like':
-                if (isset($_POST['id_curso'])) {
-                    $id_aluno = $_SESSION['id_aluno']; // Supondo que você tenha o id do usuário na sessão
-                    $id_curso = $_POST['id_curso'];
-                    if ($cursoModel->like($id_aluno, $id_curso)) {
-                        echo 'Curso curtido com sucesso!';
-                    } else {
-                        echo 'Erro ao curtir o curso.';
-                    }
-                }
-                break;
-                
-            case 'comment':
-                if (isset($_POST['id_curso'], $_POST['comment_text'])) {
-                    $id_aluno = $_SESSION['id_aluno'];
-                    $id_curso = $_POST['id_curso'];
-                    $comment_text = $_POST['comment_text'];
-                    if ($cursoModel->comment($id_aluno, $id_curso, $comment_text)) {
-                        echo 'Comentário adicionado com sucesso!';
-                    } else {
-                        echo 'Erro ao adicionar o comentário.';
-                    }
-                }
-                break;
-                
-            case 'share':
-                if (isset($_POST['id_curso'])) {
-                    $id_aluno = $_SESSION['id_aluno'];
-                    $id_curso = $_POST['id_curso'];
-                    if ($cursoModel->share($id_aluno, $id_curso)) {
-                        echo 'Curso compartilhado com sucesso!';
-                    } else {
-                        echo 'Erro ao compartilhar o curso.';
-                    }
-                }
-                break;
-                
-            default:
-                echo 'Ação inválida.';
-                break;
-        }
+// Verificar se o método é DELETE e se o id_curso está presente na requisição
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['id_curso'])) {
+    // Simular conexão com o banco de dados
+    // Substitua isso com sua lógica de conexão real
+    $pdo = new PDO('mysql:host=localhost;dbname=seu_banco_de_dados', 'seu_usuario', 'sua_senha');
+    $id_curso = $_GET['id_curso'];
+    
+    // Exemplo de código para exclusão (substitua pelo seu código real)
+    $sql = "DELETE FROM cursos WHERE id_curso = :id_curso";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
+    
+    if ($stmt->execute()) {
+        // Exemplo de resposta JSON
+        header('Content-Type: application/json');
+        echo json_encode(['deleted' => true]);
+        exit;
     } else {
-        echo 'Nenhuma ação especificada.';
+        // Se houver um erro na exclusão, retorna um erro
+        http_response_code(500); // Erro interno do servidor
+        echo json_encode(['error' => 'Erro ao deletar o curso']);
+        exit;
     }
+} else {
+    // Se o método não for DELETE ou o id_curso não estiver presente, retorna um erro
+    http_response_code(400); // Requisição inválida
+    echo json_encode(['error' => 'Método não permitido ou id_curso não fornecido']);
+    exit;
 }
 ?>

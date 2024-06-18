@@ -11,6 +11,7 @@ font-family: "Poppins", sans-serif;
   overflow: hidden;
   padding-left: 12%;
   background-color: #63D7E4;
+  padding-top: 0.5%;
 }
 
 .meu_perfil ul {
@@ -108,149 +109,163 @@ font-family: "Poppins", sans-serif;
   }
   
 
-  /*modal*/
-  .modal-user {
-    display: none;
-    position: absolute;
-    z-index: 1;
-    width: 300px;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 4px;
-    margin-top: 25px;
-  }
-  .modal-content-user p{
-    color: black;
-    font-size: 15px;
-    font-weight: 300;
-  }
-  .modal-user a{
-    color: #006278;
-  }
-  #bnt-user, #bnt-sair{
-    background-color: #74DCE6;
-    border: none;
-    padding: 10px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    color: white;
-    margin-top: 5%;
-    
-  }
-  #bnt-user a, #bnt-sair a{ text-decoration: none;}
+  /*modal user*/
+.modal-user {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  /* width: 200px; */
+  min-width: 200px;
+  background-color: #fefefe;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 4px;
+  margin-top: -5px;
+  margin-top: 20%;
+  position: absolute;
+  right: 0;
+}
+.modal-user p{
+  color: black;
+  font-size: 15px;
+}
+.modal-user a{
+  color: #ffffff;
+}
+#bnt-user, #bnt-sair, #filter-button{
+  background-color: #74DCE6;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  color: white;
   
-  .close {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    color: #aaa;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  /* CAMPO USER */
-  .block-user {
-    background-color: #e9fcff;
-    height: 55%;
-    width: 15%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    -webkit-box-shadow: 1px 1px 19px 0px rgba(159, 242, 255, 0.52);
-    box-shadow: 1px 1px 19px 0px rgba(159, 242, 255, 0.52);
-    border: 1px solid #a9deff;
-    cursor: pointer;
-    
-  }
-/* CAMPO USER MENU */
-li.user-li {
+}
+#bnt-user a, #bnt-sair a{ text-decoration: none;}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+  /* CAMPO USER MENU */
+.block-user li.user-li {
   list-style: none;
   height: 100%;
   display: contents;
 }
-.user-li i{
+.block-user .user-li i{
 padding: 3px;
 }
-.user-li p{
+.block-user .user-li p{
 position: relative;
 text-decoration: none;
 font-weight:300;
 font-size: 18px;
 color: var(--text-color);
 color: white;
-
 }
-.user-li #modal{
-  color: #000000;
-}
-
-ul.user-ul{
+.block-user ul.user-ul{
 padding: 5px;
 }
+  /* CAMPO USER */
+.block-user {
+  background-color: #e9fcff;
+  height: 55%;
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  -webkit-box-shadow: 1px 1px 19px 0px rgba(159, 242, 255, 0.52);
+  box-shadow: 1px 1px 19px 0px rgba(159, 242, 255, 0.52);
+  border: 1px solid #a9deff;
+  cursor: pointer;
+}
+.bi-person-circle{
+  /* display: none; */
+  font-size: 1px;
+  /* color: #929296; */
+}
+.bi-person-circle::before {
+  font-size: 22px;
+}
+.bi-chevron-down::before {
+  font-size: 14px;
+}
 
-  
-  .fa-user-circle::before {
-    font-size: 22px;
-  }
-  .bi-chevron-down::before {
-    font-size: 14px;
-  }
 
-  .block-user a{
-    color: rgb(255, 255, 255);
-  }
-  .block-user {
-    position: relative;
-    -webkit-transition: all 0.1s ease-in-out;
-    transition: all 0.1s ease-in-out;
-    -webkit-box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
-            box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
-    background-color: #38abb8;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    color: #ffff;
-    font-weight: bold;
-    border: 3px solid #ffffff4d;
-    outline: none;
-    font-size: 10px;
-  }
-  .block-user:hover {
-    -webkit-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-            transform: scale(1.05);
-    border-color: #fff9;
-  }
-  .block-user:hover::before {
-    -webkit-animation: shine 1.5s ease-out infinite;
-            animation: shine 1.5s ease-out infinite;
-  }
-  .block-user::before {
-    content: "";
-    position: absolute;
-    width: 100px;
-    height: 100%;
-    background-image: linear-gradient(
-      120deg,
-      rgba(255, 255, 255, 0) 30%,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0) 70%
-    );
-    top: 0;
-    left: -100px;
-    opacity: 0.6;
-  }
-  
+.block-user {
+  background-color: #e9fcff;
+  height: 35%;
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  -webkit-box-shadow: 1px 1px 19px 0px rgba(159, 242, 255, 0.52);
+  box-shadow: 1px 1px 19px 0px rgba(159, 242, 255, 0.52);
+  border: 1px solid #a9deff;
+  border-radius: 8px;
+
+}
+.block-user a{
+  color: rgb(255, 255, 255);
+}
+.block-user {
+  position: relative;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  -webkit-box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
+          box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2);
+  background-color: #38abb8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #ffff;
+  font-weight: bold;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  font-size: 10px;
+}
+.block-user:hover {
+  /* -webkit-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+          transform: scale(1.05); */
+  border-color: #fff9;
+}
+.block-user:hover::before {
+  -webkit-animation: shine 1.5s ease-out infinite;
+          animation: shine 1.5s ease-out infinite;
+}
+.block-user::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+
   @-webkit-keyframes shine {
     0% {
       left: -100px;
@@ -950,7 +965,7 @@ padding: 5px;
   
   .search-bar input {
       padding: 10px;
-      margin: 5px;
+      margin: 0px 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
       flex: 1;

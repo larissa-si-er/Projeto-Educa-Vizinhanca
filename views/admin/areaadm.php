@@ -7,11 +7,9 @@
 
 ?>  
 <?php
-session_start();
+// session_start();
 
-// Verifica se o usuário não está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // Redireciona para a página de login
     header('Location: ../views/auth/login.php');
     exit();
 }
@@ -1065,6 +1063,15 @@ box-shadow:  25px 25px 50px #d0d0d0,
     background: #63d7e4;
     box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent, 0 36px 0 -10px transparent, -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
   }
+}
+
+.alterar {
+    height: 40px;
+    border-radius: 6px;
+    background-color: #72dce5;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 

@@ -4,11 +4,9 @@ require_once '../../head.php';
 include_once '../menuinterno.php';
 require_once '../../models/conexao.php'; // Verifique o caminho correto aqui
 
-session_start();
+// session_start();
 
-// Verifica se o usuário não está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // Redireciona para a página de login
     header('Location: ../views/auth/login.php');
     exit();
 }
@@ -25,7 +23,7 @@ $resultado = consultarInsti($idInstituicaoLogado);
   <ul>
     <li>
     <i class="fa-solid fa-arrow-left" style="margin-top: 0px; display: inline-block;"></i>
-    <a href="../../index.php" style="display: inline-block; vertical-align: top;">Voltar</a>
+    <a href="../feed.php" style="display: inline-block; vertical-align: top;">Voltar</a>
   </ul>
   </div>
   </div>
@@ -54,7 +52,7 @@ $resultado = consultarInsti($idInstituicaoLogado);
                 echo '<p><strong>Nome:</strong> ' . htmlspecialchars($linha['nome']) . '</p>';
                 echo '<p><strong>Instituição:</strong> ' . htmlspecialchars($linha['nome_insti']) . '</p>';
                 echo '<p><strong>Email:</strong> ' . htmlspecialchars($linha['email']) . '</p>';
-                echo '<p><strong>Fundada:</strong> ' . htmlspecialchars($linha['data}_fundacao']) . '</p>';
+                echo '<p><strong>Fundada:</strong> ' . htmlspecialchars($linha['data_fundacao']) . '</p>';
                 echo '<p><strong>CNPJ:</strong> ' . htmlspecialchars($linha['cnpj']) . '</p>';
                 echo '<p><strong>Telefone Celular:</strong> ' . htmlspecialchars($linha['telefone_celular']) . '</p>';
                 echo '<p><strong>Telefone Fixo:</strong> ' . htmlspecialchars($linha['telefone_fixo']) . '</p>';

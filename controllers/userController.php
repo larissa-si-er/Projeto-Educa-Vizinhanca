@@ -308,6 +308,10 @@ function cadastrarInstituicao($user) {
 
 
 
+
+
+
+
 // function gerarEnviarEmailRedefinicaoSenha($user) {
 //     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 

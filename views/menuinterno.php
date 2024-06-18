@@ -28,15 +28,19 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 
             <div class="block-user">
                 <i class="bi bi-x sidebarClose"></i>
-                <ul class="user-ul" onclick="openModal()">
-                    <li class="user-li">
+                <ul class="user-ul user-ul-block" onclick="openModal()">
+                    <li class="user-li user-li-block">
                         <p id="user">
                             <i class="fas fa-user-circle"></i>
                             <?php echo htmlspecialchars($primeiroNome); ?>
                             <i class="bi bi-chevron-down" style="cursor:pointer;"></i>
                         </p>
+
+                    </li>
+                </ul>
+            </div>
                         <!-- modal user -->
-                        <div id="myModal" class="modal-user">
+                        <div id="myModal" class="modal-user" style="margin-top: 26%;">
                             <span class="close" onclick="closeModal()">&times;</span>
                             <div class="modal-content-user">
                                 <?php
@@ -56,12 +60,13 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                                     <!--erro-->
                                     <a href="../views/admin/areaadm.php">Meu perfil</a>
                                 </button>
-                                <button id="bnt-sair"><a href="">sair</a></button>
+                                <form action="../controllers/userController.php" method="post">
+                                    <input type="hidden" name="logout">
+                                    <button type="submit" id="bnt-sair">Sair</button>
+                                </form>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                       </div>
+                       
             <div class="user-mobile">
                 <i class="bi bi-person-square"></i>
             </div>
