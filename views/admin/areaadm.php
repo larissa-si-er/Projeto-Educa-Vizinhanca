@@ -96,18 +96,19 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         <div class="modal-content">
             <span class="fechar">&times;</span>
             <h2>Editar Perfil</h2>
-            <form id="formCurso" action="formulario_editar_adm.php" method="post">
-                <label for="nome_adm">User:</label>
-                <input type="text" id="usuario" name="user" value="<?php echo isset($usuario) ? $usuario : ''; ?>"required>
-                
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" rows="4" value="<?php echo isset($email) ? $email : ''; ?>"required></input>
-                
-                <label for="senha">Senha:</label>
-                <input type="text" id="senha" name="senha" value="<?php echo isset($senha) ? $senha : ''; ?>" required>
+            <form id="formEditarAdm" action="formulario_editar_adm.php" method="post">
+    <label for="usuario">User:</label>
+    <input type="text" id="usuario" name="usuario" value="<?php echo isset($_SESSION['usuario']) ? htmlspecialchars($_SESSION['usuario']) : ''; ?>" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="<?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>" required>
+    
+    <label for="senha">Nova Senha:</label>
+    <input type="password" id="senha" name="senha" required>
 
-                <button type="submit" class="alterar">Salvar Alterações</button>
-            </form>
+    <button type="submit" class="alterar">Salvar Alterações</button>
+</form>
+
         </div>
     </div>
 </li>
@@ -495,6 +496,8 @@ require_once '../../footer.php';
   }
   
   input[type="text"],
+  input[type="password"],
+  input[type="email"],
   input[type="number"],
   input[type="date"],
   select,

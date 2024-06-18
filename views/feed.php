@@ -142,17 +142,17 @@ function getSettingsLink($userType) {
 
                     <div class="menu">
                             <i class="bi bi-x sidebarClose"></i>
-
+                        
                             <ul class="nav-links">
+                                         <li>
+                                            <a href="../index.php">
+                                            <i class="fa-solid fa-house" id="filter-icon" style="cursor: pointer;"></i><span>Início</span>
+                                           </a>
+                                        </li>
                                         <li>
                                             <a>
                                             <i class="bi bi-sliders2" id="filter-icon" style="cursor: pointer;"></i><span>Filtro</span>
                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo getSettingsLink($_SESSION['user_type']); ?>" title="Controle">
-                                                <i class="bi bi-bar-chart-line-fill"></i><span>Configurações</span>
-                                            </a>
                                         </li>
                                         <li>
                                             <!-- <a href="./produtos-interno.php">  -->

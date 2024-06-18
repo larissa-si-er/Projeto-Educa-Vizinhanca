@@ -1030,116 +1030,97 @@ input.input {
   }
   
   .main-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      margin-top: 4%;
-  }
-  .log-container {
-      background-color: white;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 1000px;
-  }
-  .log-container i{ font-size: 25px; color: #74DCE6; }
-  
-  .log-container h2 {
-      margin-bottom: 20px;
-      text-align: center;
-  }
-  
-  .search-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 20px;
-  }
-  
-  .search-bar input {
-      padding: 10px;
-      margin: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      flex: 1;
-      min-width: 200px;
-      
-  }
-  .search-input input::placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 4%;
+}
+.log-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1000px;
+}
+.log-container i { font-size: 25px; color: #74DCE6; }
+.log-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.search-bar input {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1;
+    min-width: 200px;
+}
+.search-input input::placeholder {
     color: #9e9ea7;
-   }
-   
-   .search-bar input:focus, .search-bar input:hover {
+}
+.search-bar input:focus, .search-bar input:hover {
     outline: none;
     border-color: #38abb8;
     background-color: #fff;
-    
-   }
-  
-  .search-bar button {
-      background-color: #74DCE6;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      margin: 5px;
-      min-width: 100px;
-  }
-  
-  .search-bar button:hover {
-      background-color: #2874a6;
-  }
-  
-  table {
-      width: 100%;
-      border-collapse: collapse;
-  }
-  
-  table th, table td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #ccc;
-  }
-  
-  table th {
-      background-color: #f4f4f4;
-  }
-  
-  table tbody tr:hover {
-      background-color: #f9f9f9;
-  }
-  
-  @media (max-width: 600px) {
-      table, table thead, table tbody, table th, table td, table tr {
-          display: block;
-      }
-  
-      table thead tr {
-          display: none;
-      }
-  
-      table tr {
-          
-          margin-bottom: 15px;
-      }
-      
-     
-      table td {
-          text-align: right;
-          padding-left: 50%;
-          position: relative;
-      }
-  
-      table td::before {
-          content: attr(data-label);
-          position: absolute;
-          left: 10px;
-          width: calc(80% - 20px);
-          padding-right: 10px;
-          text-align: left;
-          font-weight: bold;
-      }
-  }
+}
+.search-bar button {
+    background-color: #74DCE6;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+    min-width: 100px;
+}
+.search-bar button:hover {
+    background-color: #2874a6;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+table th {
+    background-color: #f4f4f4;
+}
+table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+@media (max-width: 600px) {
+    table, table thead, table tbody, table th, table td, table tr {
+        display: block;
+    }
+    table thead tr {
+        display: none;
+    }
+    table tr {
+        margin-bottom: 15px;
+    }
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: calc(80% - 20px);
+        padding-right: 10px;
+        text-align: left;
+        font-weight: bold;
+    }
+}

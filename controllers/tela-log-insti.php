@@ -115,59 +115,89 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 </div>
 
 <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const searchButton = document.getElementById("search-button");
-            const showAllButton = document.getElementById("show-all-button");
-            const searchInput = document.getElementById("search-input");
-            const logEntries = document.getElementById("log-entries");
+document.addEventListener('DOMContentLoaded', function() {
+    // Função para buscar os dados
+    function fetchData() {
+        fetch('fetch_data_insti.php')
+            .then(response => response.json())
+            .then(data => {
+                let tableBody = document.getElementById('log-entries');
+                tableBody.innerHTML = ''; // Limpar o corpo da tabela
 
-            const logs = [
-                { date: "2024-06-01 12:30", name: "Instituição A", cnpj: "12345678901234", authFactor: "CEP" },
-                { date: "2024-06-02 08:45", name: "Instituição B", cnpj: "98765432109876", authFactor: "Nome materno" },
-                // Adicione mais registros conforme necessário
-            ];
+                data.forEach(entry => {
+                    let row = document.createElement('tr');
 
-            function formatDateTime(dateTimeStr) {
-                const [datePart, timePart] = dateTimeStr.split(' ');
-                const [year, month, day] = datePart.split('-');
-                const [hour, minute] = timePart.split(':');
-                return `${day}/${month}/${year} ${hour}:${minute}`;
-            }
+                    // Formatação da data
+                    let dateCell = document.createElement('td');
+                    dateCell.textContent = formatarData(entry.registro); // Chamada para a função de formatação
+                    row.appendChild(dateCell);
 
-            function renderLogs(filteredLogs) {
-                logEntries.innerHTML = "";
-                filteredLogs.forEach(log => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td data-label="Data e Hora">${formatDateTime(log.date)}</td>
-                        <td data-label="Nome">${log.name}</td>
-                        <td data-label="CNPJ">${log.cnpj}</td>
-                        <td data-label="Fator de Autenticação">${log.authFactor}</td>
-                    `;
-                    logEntries.appendChild(row);
+                    let nameCell = document.createElement('td');
+                    nameCell.textContent = entry.nome_insti;
+                    row.appendChild(nameCell);
+
+                    let cnpjCell = document.createElement('td');
+                    cnpjCell.textContent = entry.cnpj;
+                    row.appendChild(cnpjCell);
+
+                    let authFactorCell = document.createElement('td');
+                    authFactorCell.textContent = entry.auth_factor;
+                    row.appendChild(authFactorCell);
+
+                    tableBody.appendChild(row);
                 });
+            })
+            .catch(error => console.error('Erro:', error));
+    }
+
+    // Função para formatar a data
+    function formatarData(data) {
+        if (!data) return 'N/A'; // Caso a data seja nula ou indefinida
+
+        // Criando um objeto Date com a string da data
+        let dataFormatada = new Date(data);
+
+        // Formatação da data no formato desejado (dia/mês/ano)
+        let dia = dataFormatada.getDate().toString().padStart(2, '0');
+        let mes = (dataFormatada.getMonth() + 1).toString().padStart(2, '0'); // Mês começa do zero
+        let ano = dataFormatada.getFullYear();
+        let horas = dataFormatada.getHours().toString().padStart(2, '0');
+        let minutos = dataFormatada.getMinutes().toString().padStart(2, '0');
+        let segundos = dataFormatada.getSeconds().toString().padStart(2, '0');
+
+        return `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+    }
+
+    // Buscar dados ao carregar a página
+    fetchData();
+
+    // Evento de clique para o botão de busca
+    document.getElementById('search-button').addEventListener('click', function() {
+        let query = document.getElementById('search-input').value.toLowerCase();
+        let tableBody = document.getElementById('log-entries');
+        let rows = tableBody.getElementsByTagName('tr');
+
+        Array.from(rows).forEach(row => {
+            let nameCell = row.cells[1].textContent.toLowerCase();
+            let cnpjCell = row.cells[2].textContent.toLowerCase();
+
+            if (nameCell.includes(query) || cnpjCell.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
             }
-
-            function searchLogs(query) {
-                const filteredLogs = logs.filter(log => 
-                    log.name.toLowerCase().includes(query.toLowerCase()) || 
-                    log.cnpj.includes(query)
-                );
-                renderLogs(filteredLogs);
-            }
-
-            searchButton.addEventListener("click", function() {
-                const query = searchInput.value;
-                searchLogs(query);
-            });
-
-            showAllButton.addEventListener("click", function() {
-                renderLogs(logs);
-            });
-
-            // Render all logs initially
-            renderLogs(logs);
         });
-    </script>
+    });
+
+    // Evento de clique para o botão "Mostrar Todos"
+    document.getElementById('show-all-button').addEventListener('click', function() {
+        fetchData();
+        document.getElementById('search-input').value = '';
+    });
+});
+</script>
+
+
+</body>
 </body>
 </html>
