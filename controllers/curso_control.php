@@ -1,6 +1,5 @@
 <?php
 include '../models/conexao.php';
-// require '../controllers/userController.php'; 
 
 // Seleciona os cursos do banco de dados
 $sql = "SELECT nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao FROM curso";
@@ -28,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $link = $_POST['linksite'];
     $inicio = $_POST['inicioinscricoes'];
     $termino = $_POST['terminoinscricoes'];
-    $instituicao = $_POST['instituicao']; // Adiciona esta linha para recuperar a instituição
+    $instituicao = $_POST['instituicao'];
 
     // Processamento do upload da imagem
     $foto = $_FILES['fotocurso'];
@@ -48,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao)";
             $stmt = $conn->prepare($sql);
 
-            // Bind dos parâmetros, incluindo instituicao
+            // Bind dos parâmetros
             $stmt->bindParam(':titulo', $titulo);
             $stmt->bindParam(':descricao', $descricao);
             $stmt->bindParam(':area', $area);
@@ -63,8 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':termino', $termino);
             $stmt->bindParam(':nomeArquivo', $nomeArquivo);
             $stmt->bindParam(':instituicao', $instituicao);
-            $stmt->bindParam(':quantidadevagas', $vagas); 
-            
+
             // Executa a instrução
             if ($stmt->execute()) {
                 // Define a mensagem de feedback na sessão

@@ -288,9 +288,9 @@ function getSettingsLink($userType) {
             <p>Nenhum curso disponível no momento.</p>
         <?php else: ?>
             <?php foreach ($cursos as $curso):
-                    echo "<pre>";
-                    var_dump($curso);
-                    echo "</pre>";
+                    // echo "<pre>";
+                    // var_dump($curso);
+                    // echo "</pre>";
             ?>
 
                 <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
