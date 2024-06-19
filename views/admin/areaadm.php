@@ -277,8 +277,8 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 
         <label for="formato">Formato:</label>
         <select id="formato" name="formato" required>
-            <option value="Manhã">Pesencial</option>
-            <option value="Tarde">Ead</option>
+            <option value="Pesencial">Pesencial</option>
+            <option value="Ead">Ead</option>
         </select>
 
         <label for="vagas">Quantidade de Vagas:</label>

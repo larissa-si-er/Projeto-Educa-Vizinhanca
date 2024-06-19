@@ -1,7 +1,6 @@
 <?php
-    include '../models/conexao.php';
-    // require '../controllers/userController.php'; 
-
+include '../models/conexao.php';
+// require '../controllers/userController.php'; 
 
 // Seleciona os cursos do banco de dados
 $sql = "SELECT nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao FROM curso";
@@ -44,27 +43,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Move o arquivo para o diretório desejado
         if (move_uploaded_file($caminhoTemp, __DIR__ . $diretorioSalvar . $nomeArquivo)) {
-        // Prepara a instrução SQL para inserção
-        $sql = "INSERT INTO curso (nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao) 
-        VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao)";
-        $stmt = $conn->prepare($sql);
+            // Prepara a instrução SQL para inserção
+            $sql = "INSERT INTO curso (nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao) 
+            VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao)";
+            $stmt = $conn->prepare($sql);
 
-        // Bind dos parâmetros, incluindo instituicao
-        $stmt->bindParam(':titulo', $titulo);
-        $stmt->bindParam(':descricao', $descricao);
-        $stmt->bindParam(':area', $area);
-        $stmt->bindParam(':tipocurso', $tipocurso);
-        $stmt->bindParam(':formato', $formato);
-        $stmt->bindParam(':vagas', $vagas);
-        $stmt->bindParam(':duracao', $duracao);
-        $stmt->bindParam(':turno', $turno);
-        $stmt->bindParam(':localidade', $localidade);
-        $stmt->bindParam(':link', $link);
-        $stmt->bindParam(':inicio', $inicio);
-        $stmt->bindParam(':termino', $termino);
-        $stmt->bindParam(':nomeArquivo', $nomeArquivo);
-        $stmt->bindParam(':instituicao', $instituicao); // Adiciona esta linha para o bind do instituicao
-
+            // Bind dos parâmetros, incluindo instituicao
+            $stmt->bindParam(':titulo', $titulo);
+            $stmt->bindParam(':descricao', $descricao);
+            $stmt->bindParam(':area', $area);
+            $stmt->bindParam(':tipocurso', $tipocurso);
+            $stmt->bindParam(':formato', $formato);
+            $stmt->bindParam(':vagas', $vagas);
+            $stmt->bindParam(':duracao', $duracao);
+            $stmt->bindParam(':turno', $turno);
+            $stmt->bindParam(':localidade', $localidade);
+            $stmt->bindParam(':link', $link);
+            $stmt->bindParam(':inicio', $inicio);
+            $stmt->bindParam(':termino', $termino);
+            $stmt->bindParam(':nomeArquivo', $nomeArquivo);
+            $stmt->bindParam(':instituicao', $instituicao);
+            $stmt->bindParam(':quantidadevagas', $vagas); 
+            
             // Executa a instrução
             if ($stmt->execute()) {
                 // Define a mensagem de feedback na sessão
@@ -90,9 +90,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: ../views/admin/areaadm.php");
     exit(); // Certifique-se de sair após o redirecionamento
 }
-
-
-//------------------------------------------ like -----------------------------------------------------
-
 ?>
-
