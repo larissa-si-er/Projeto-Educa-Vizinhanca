@@ -4,7 +4,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$dbname = "educa_vizinhanca";
+$dbname = "educa_teste";
 $port = 3306;
 
 try {
@@ -79,7 +79,7 @@ class conexao {
     private $host = "localhost";
     private $user = "root";
     private $pass = "";
-    private $dbname = "educa_vizinhanca";
+    private $dbname = "educa_teste";
     private $port = 3306;
     private $conn;
 

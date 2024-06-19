@@ -197,7 +197,6 @@ function getSettingsLink($userType) {
                         <option value="rj">RJ</option>
                         <option value="sp">SP</option>
                         <option value="mg">MG</option>
-                        <!-- Adicione mais opções conforme necessário -->
                     </select>
                     <button id="filter-button">Filtrar</button>
                     <div class="no-results">Nenhum curso encontrado.</div>
@@ -285,67 +284,61 @@ function getSettingsLink($userType) {
 <div class="container">
 
 
-                <?php if (empty($cursos)): ?>
+        <?php if (empty($cursos)): ?>
             <p>Nenhum curso disponível no momento.</p>
         <?php else: ?>
             <?php foreach ($cursos as $curso):
-                    // echo "<pre>";
-                    // var_dump($curso);
-                    // echo "</pre>";
+                    echo "<pre>";
+                    var_dump($curso);
+                    echo "</pre>";
             ?>
 
                 <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
                
                 <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
 
-                <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-                    <!-- <div class="control-config" onclick="toggleMenu(this)">
-                       <i class="bi bi-three-dots"></i>
-                       <div class="dropdown-menu" id="dropdownMenu">
-                            <a href="#editar" class="editar">Editar <i class="bi bi-pencil-square"></i></a>
-                            <a href="#deletar" class="delet" data-id="<?php echo $curso['id_curso']; ?>">Deletar <i class="bi bi-trash3-fill"></i></a>
-                            <a href="#outra-acao" class="outro">Outra ação</a>
-                       </div>
-                    </div> -->
-               <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                    <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                    <div class="control-config" onclick="toggleMenu(this)">
+                            <i class="bi bi-three-dots"></i>
+                            <div class="dropdown-menu" id="dropdownMenu<?php echo $curso['id_curso']; ?>">
+                                <!-- Formulário para editar curso -->
+                                <button class="editar" onclick="openEditModal(<?php echo htmlspecialchars(json_encode($curso)); ?>)">Editar <i class="bi bi-pencil-square"></i></button>
+                                <button class="delet" onclick="confirmDeletion(<?php echo htmlspecialchars($curso['id_curso']); ?>)">Deletar <i class="bi bi-trash3-fill"></i></button>
 
+                                <!-- Link outra ação -->
+                                <?php
+                                    switch ($_SESSION['user_type']) {
+                                        case 'administracao':
+                                            echo '<a href="./admin/areaadm.php" class="outro">Outra ação</a>';
+                                            break;
+                                        case 'instituicao':
+                                            echo '<a href="./instituicao/areainsti.php" class="outro">Outra ação</a>';
+                                            break;
+                                        default:
+                                            echo '<a href="#" class="outro">Outra ação</a>'; 
+                                            break;
+                                    }
+                                ?>                                
+                            </div>
+                        </div>
 
-            <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-            <div class="control-config" onclick="toggleMenu(this)">
-                    <i class="bi bi-three-dots"></i>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <!-- Formulário para editar curso -->
-                        <form action="../controllers/editar_curso.php" method="post" class="editar">
-                            <input type="hidden" name="id_curso" value="<?php echo $curso['id_curso']; ?>">
-                            <button type="submit">Editar <i class="bi bi-pencil-square"></i></button>
-                        </form>
+                <?php endif; ?>
+                    <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
 
-                        <!-- Formulário para deletar curso -->
-                        <form action="../controllers/deletar_curso.php" method="post" class="delet">
-                        <input type="hidden" name="id_curso" value="<?php echo htmlspecialchars($curso['id_curso']); ?>">
-                        <button type="submit" onclick="confirmDeletion(<?php echo htmlspecialchars($curso['id_curso']); ?>)">Deletar <i class="bi bi-trash3-fill"></i></button>
-                        </form>
-
-                        <a href="#outra-acao" class="outro">Outra ação</a>
-                    </div>
-                </div>
-            <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
-
-                     <!-- IMAGEM -->
+                    <!-- IMAGEM -->
                    <?php
-                    $caminhoImagem = '/../views/fotos-banco/' . htmlspecialchars($curso['fotocurso']);
+                        $caminhoImagem = '/../views/fotos-banco/' . htmlspecialchars($curso['fotocurso']);
                     ?>
                     <img src="<?php echo $caminhoImagem; ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
                     <!-- FIM IMAGEM -->
 
-               <?php endif; ?>
 
                     <h2><?php echo htmlspecialchars($curso['nome_curso']); ?></h2>
                     <p>Área: <?php echo htmlspecialchars($curso['areacurso']); ?></p>
                     <div class="curso-content">
                     <?php if (isset($curso['instituicao'])): ?>
-                     <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
-                        <?php endif; ?>
+                        <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
+                    <?php endif; ?>
                         <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
                         <div class="curso-buttons">
                             <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
@@ -361,33 +354,137 @@ function getSettingsLink($userType) {
 
 </div>
 
-<!-- FEEDBACKS -->
-<?php
-    if (isset($_SESSION['success_message'])) {
-        echo "<script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Sucesso',
-                    text: '" . $_SESSION['success_message'] . "',
-                });
-              </script>";
-        unset($_SESSION['success_message']);
-    }
+    <!-- O Modal -->
+    <div id="editModal" class="modal-edit">
+        <div class="modal-content-edit curso">
+            <span class="close-edit">&times;</span>
+            <form action="../controllers/editar_curso.php" method="post" id="editForm" enctype="multipart/form-data">
+                
+                    <!-- Mostrar imagem atual -->
+                    <div class="imagem-atual">
+                        <label>Imagem Atual:</label><br>
+                        <img id="imagem_atual_edit" src="" alt="Imagem Atual">
+                    </div>
 
-    if (isset($_SESSION['error_message'])) {
-        echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: '" . $_SESSION['error_message'] . "',
-                });
-              </script>";
-        unset($_SESSION['error_message']);
+                    <input type="hidden" name="id_curso" id="id_curso_edit">
+                    <label for="nome_curso_edit">Nome do Curso:</label>
+                    <input type="text" name="nome_curso" id="nome_curso_edit" required>
+                    <label for="areacurso_edit">Área do Curso:</label>
+                    <input type="text" name="areacurso" id="areacurso_edit" required>
+                    <label for="instituicao_edit">Instituição:</label>
+                    <input type="text" name="instituicao" id="instituicao_edit" required>
+                    <label for="formato_edit">Modalidade:</label>
+                    <input type="text" name="formato" id="formato_edit" required>
+                    <label for="linksite_edit">Link do Site:</label>
+                    <input type="url" name="linksite" id="linksite_edit" required>
+                    <label for="foto_edit">Editar Foto:</label>
+                    <input type="file" name="foto_curso" id="foto_edit">
+                    <button type="submit">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+    <!-- O Modal [FIM] -->
+
+
+    <script>
+        // Função para abrir o modal e preencher os dados do curso
+        function openEditModal(curso) {
+            document.getElementById('id_curso_edit').value = curso.id_curso;
+            document.getElementById('nome_curso_edit').value = curso.nome_curso;
+            document.getElementById('areacurso_edit').value = curso.areacurso;
+            document.getElementById('instituicao_edit').value = curso.instituicao;
+            document.getElementById('formato_edit').value = curso.formato;
+            document.getElementById('linksite_edit').value = curso.linksite;
+
+            // imagem atual
+            var imagemAtual = document.getElementById('imagem_atual_edit');
+            var caminhoImagem = '../views/fotos-banco/' + curso.fotocurso;
+            imagemAtual.src = caminhoImagem;
+
+            var modal = document.getElementById("editModal");
+            modal.style.display = "block";
+        }
+
+        // Fechar o modal 
+        document.getElementsByClassName("close-edit")[0].onclick = function() {
+            document.getElementById("editModal").style.display = "none";
+        }
+
+        // Fechar o modal PT2
+        window.onclick = function(event) {
+            var modal = document.getElementById("editModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    // Função para confirmar exclusão
+    function confirmDeletion(idCurso) {
+        Swal.fire({
+            title: 'Excluir permanentemente?',
+            text: "Você não poderá reverter isso!",
+            icon: 'warning',
+            iconHtml: '<i class="bi bi-exclamation-triangle-fill custom-swal-icon"></i>',
+            showCancelButton: true,
+            confirmButtonColor: '#E1241D',
+            cancelButtonColor: '#CCCCCC',
+            confirmButtonText: 'Sim, deletar!',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+            confirmButton: 'botao-confirmar-swal', 
+            cancelButton: 'botao-cancelar-swal',
+            icon: 'custom-swal-icon' // Classe CSS para o ícone
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Criar um formulário e enviar a requisição POST para deletar o curso
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '../controllers/deletar_curso.php';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'id_curso';
+                input.value = idCurso;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
     }
+    </script>
+
+
+
+
+
+
+    <!-- FEEDBACKS -->
+    <?php
+        if (isset($_GET['deletion']) && $_GET['deletion'] == 'success') {
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        title: "Deletado!",
+                        text: "O curso foi deletado com sucesso.",
+                        icon: "success",
+                        timer: 2000, // Tempo em milissegundos (3 segundos)
+                        timerProgressBar: true,
+                        showConfirmButton: false // Remove o botão OK
+                    }).then((result) => {
+                        window.location.href = "#curso-list"; // Redireciona para o container de cursos
+                    });
+                });
+            </script>';
+        }
     ?>
 
     <script src="./js/script.js"></script>
     <script src="./js/modal.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </main>
 </body>
 

@@ -490,6 +490,7 @@ section.container-three .cards-c3{
 .cards-c3 p{
     text-align: center;
     margin: 2px 10px 15px 0px;
+    padding: 0px 13px;
 }
 .cards-c3 i{
     text-align: center;
@@ -509,14 +510,14 @@ section.container-three .cards-c3{
     margin: 10px 55px;
     cursor: pointer;
 }
-.avaliacao{
+.avaliacao1{
     align-items: center;
     justify-content: center;
     display: flex;
     color: rgb(255, 234, 0);
     margin: 5px;
 }
-.avaliacao i{
+.avaliacao1 i{
     margin: 2px;
 }
 
@@ -672,29 +673,27 @@ section .cards-c6{
     color: var(--body-color);
     margin-bottom: 8%;
 }
-.line1{
+.line1, .line2, .line3{
     background-color: #ffffff;
     width: 80%;
     height: 2px;
     margin: 0px 0px 15px 25px;
-}
-.line2{
-    background-color: #ffffff;
-    width: 80%;
-    height: 2px;
-    margin: 0px 0px 15px 25px;
-}
-.line3{
-    background-color: #ffffff;
-    width: 80%;
-    height: 2px;
-    margin: 0px 0px 15px 25px;
+    text-decoration: underline;
+    text-decoration-color: white;
 }
 .c6 button{
     background-color: var(--body-color);
     color: rgb(0, 109, 192);
 }
 
+.avaliacao {
+    text-decoration: underline;
+    text-decoration-color: white;
+    color: rgb(255, 255, 255); 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    padding: 1px 12px;
+}
 
 
 
@@ -1647,10 +1646,10 @@ footer a:hover{
             margin: 7% 22%;
             
         }
-        .avaliacao{
+        .avaliacao1{
             margin: 2px;
         }
-        .avaliacao i{
+        .avaliacao1 i{
             font-size: 10px;
         }
 
