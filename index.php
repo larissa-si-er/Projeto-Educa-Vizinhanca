@@ -7,9 +7,7 @@
         <section class="container-one">
             <div class="side-one">
                 <div class="ball-one"></div>
-                <h1 class="h1-c1">Upgrade Your
-                    Skill Now!
-                </h1>
+                <h1 class="h1-c1">Aprimore suas habilidades!</h1>
                 <p class="p1-c1">Conecte-se com oportunidades de aprendizado exclusivas e descubra uma variedade de cursos, workshops e eventos educacionais disponíveis na sua região.</p>
                 <button class="b1-c1" onclick="window.location.href ='./views/auth/login.php'">Resgistre-se Agora</button>
                 <div class="ball-two"></div>
@@ -73,11 +71,11 @@
             </div>
             <div class="cards-c3">
                 <div class="hidden c3 card1">
-                    <img src=".\views\img\teste.png" alt="" class="cursos1">
-                    <h3 class="txt-cursos">NOME INSTITUIÇÃO</h3>
-                    <P class="p-cursos">Breve resumo</P>
+                <img src=".\views\img\inst1.png" alt="" class="cursos1">
+                    <h3 class="txt-cursos">SEBRAE</h3>
+                    <P class="p-cursos">Oferece cursos para fomentar o empreendedorismo e educação.</P>
                     <p class="local"><i class="bi bi-pin-angle-fill"></i>Localização</p>
-                    <div class="avaliacao">
+                    <div class="avaliacao1">
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
@@ -87,11 +85,11 @@
                 </div>
 
                 <div class="hidden c3 card2">
-                    <img src=".\views\img\teste.png" alt="" class="cursos1">
-                    <h3 class="txt-cursos">NOME INSTITUIÇÃO</h3>
-                    <P class="p-cursos">Breve resumo</P>
+                <img src=".\views\img\inst2.jpg" alt="" class="cursos1">
+                    <h3 class="txt-cursos">FGV</h3>
+                    <P class="p-cursos">oferece cursos de graduação, pós-graduação, MBA e mais...</P>
                     <p class="local"><i class="bi bi-pin-angle-fill"></i>Localização</p>
-                    <div class="avaliacao">
+                    <div class="avaliacao1">
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
@@ -101,11 +99,11 @@
                 </div>
 
                 <div class="hidden c3 card3">
-                    <img src=".\views\img\teste.png" alt="" class="cursos1">
-                    <h3 class="txt-cursos">NOME INSTITUIÇÃO</h3>
-                    <P class="p-cursos">Breve resumo</P>
+                <img src=".\views\img\inst3.png" alt="" class="cursos1">
+                    <h3 class="txt-cursos">Fundação Bradesco</h3>
+                    <P class="p-cursos">Provê educação básica e profissional gratuita</P>
                     <p class="local"><i class="bi bi-pin-angle-fill"></i>Localização</p>
-                    <div class="avaliacao">
+                    <div class="avaliacao1">
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
@@ -115,11 +113,11 @@
                 </div>
 
                 <div class="hidden c3 card4">
-                    <img src=".\views\img\teste.png" alt="" class="cursos1">
-                    <h3 class="txt-cursos">NOME INSTITUIÇÃO</h3>
-                    <P class="p-cursos">Breve resumo</P>
+                <img src=".\views\img\inst4.jpg" alt="" class="cursos1">
+                    <h3 class="txt-cursos">Senac</h3>
+                    <P class="p-cursos">Provê educação profissional em mais de 20 áreas</P>
                     <p class="local"><i class="bi bi-pin-angle-fill"></i>Localização</p>
-                    <div class="avaliacao">
+                    <div class="avaliacao1">
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
                         <i class="bi bi-star-fill"></i>
@@ -165,44 +163,27 @@
             </div>
             <div class="cards-c6">
                 <div class="c6 card1-c6">
-                    <img src=".\views\img\teste.png" alt="" class="cursos1-c6">
-                    <h3 class="txt-cursos">NOME ALUNO</h3>
-                    <div class="line1"></div>
-                    <div class="line2"></div>
-                    <div class="line3"></div>
+                <img src=".\views\img\avalia1.jpg" alt="" class="cursos1-c6">
+                    <h3 class="txt-cursos">Stephanny Saloto</h3>
                     <div class="avaliacao">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
+                        Amei a plataforma! Já ganhei diploma em vários cursos que encontrei no EV! indico demais!
+                        
                     </div>
                     <button class="bt-acessar" onclick="window.open('https://www.instagram.com/ev_projeto?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')">Acessar</button>
                 </div>
                 <div class="c6 card1-c6">
-                    <img src=".\views\img\teste.png" alt="" class="cursos2-c6">
-                    <h3 class="txt-cursos">NOME ALUNO</h3>
-                    <div class="line1"></div>
-                    <div class="line2"></div>
-                    <div class="line3"></div>
+                <img src=".\views\img\avalia2.jpg" alt="" class="cursos2-c6">
+                    <h3 class="txt-cursos">Vitor Cardoso</h3>
                     <div class="avaliacao">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
+                        Essa plataforma é ótima, com certeza irei usar o Educa Vizinhança mais vezes!
                     </div>
                     <button class="bt-acessar" onclick="window.open('https://www.instagram.com/ev_projeto?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')">Acessar</button>
                 </div>
                 <div class="c6 card3-c6">
-                    <img src=".\views\img\teste.png" alt="" class="cursos3-c6">
-                    <h3 class="txt-cursos">NOME ALUNO</h3>
-                    <div class="line1"></div>
-                    <div class="line2"></div>
-                    <div class="line3"></div>
-                    <div class="avaliacao">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
+                <img src=".\views\img\avalia3.jpg" alt="" class="cursos3-c6">
+                    <h3 class="txt-cursos">Isabelly Almeida</h3>
+                     <div class="avaliacao">
+                     Educa Vizinhança é um tudo! Achei os cursos mais incríveis! <br> Eu ameiii
                     </div>
                     <button class="bt-acessar" onclick="window.open('https://www.instagram.com/ev_projeto?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')">Acessar</button>
                 </div>

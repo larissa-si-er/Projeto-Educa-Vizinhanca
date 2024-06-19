@@ -31,8 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // MODAL ADD PRODUTO [INICIO]
-
+// MODAL ADD PRODUTO [INICIO]
 
         // Abrir o modal de adicionar curso
         var abrirModalAdicionar = document.getElementById('abrirModalProduto');
@@ -63,8 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-
-
 // MODAL ADD PRODUTO [FIM]
     
 
@@ -192,69 +189,52 @@ window.onclick = function(event) {
 }
 
 
-// MODAL FEED (CONFIGURAÇOES)
-// function toggleMenu() {
-//     var menu = document.getElementById("dropdownMenu");
-//     if (menu.style.display === "block") {
-//         menu.style.display = "none";
-//     } else {
-//         menu.style.display = "block";
+// MODAL FEED (CONFIGURAÇOES) [inicio]
+function toggleMenu(icon) {
+    var controlConfig = icon.parentElement;
+    
+    var dropdownMenu = controlConfig.querySelector('.dropdown-menu');
+
+    dropdownMenu.classList.toggle('show-menu');
+}
+// MODAL FEED (CONFIGURAÇOES) [fim]
+
+
+
+// function confirmDelete(id_curso) {
+//     if (confirm("Tem certeza que deseja deletar este curso?")) {
+//         fetch(`feedController.php?id_curso=${id_curso}`, {
+//             method: 'DELETE'
+//         })
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Erro ao deletar o curso.');
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             // Exibir mensagem de sucesso (opcional)
+//             console.log('Curso deletado com sucesso:', data);
+//             // Atualizar a página ou fazer outra ação necessária
+//             location.reload();
+//         })
+//         .catch(error => {
+//             console.error('Erro ao deletar o curso:', error);
+//             // Exibir mensagem de erro (opcional)
+//             alert('Erro ao deletar o curso. Por favor, tente novamente.');
+//         });
 //     }
 // }
 
-// document.addEventListener('click', function(event) {
-//     var isClickInside = document.querySelector('.control-config').contains(event.target);
-//     if (!isClickInside) {
-//         document.getElementById("dropdownMenu").style.display = "none";
-//     }
+// // Adicionar evento de clique aos links de exclusão
+// document.addEventListener('DOMContentLoaded', function() {
+//     const linksDeletar = document.querySelectorAll('.deletar-curso');
+//     linksDeletar.forEach(link => {
+//         link.addEventListener('click', function(event) {
+//             event.preventDefault();
+//             const id_curso = this.getAttribute('data-id');
+//             confirmDelete(id_curso);
+//         });
+//     });
 // });
-
-function toggleMenu(icon) {
-    // Encontrar o elemento pai do ícone (control-config)
-    var controlConfig = icon.parentElement;
-    
-    // Encontrar o dropdown-menu dentro do elemento pai
-    var dropdownMenu = controlConfig.querySelector('.dropdown-menu');
-
-    // Alternar a classe para mostrar ou ocultar o menu
-    dropdownMenu.classList.toggle('show-menu');
-}
-
-
-function confirmDelete(id_curso) {
-    if (confirm("Tem certeza que deseja deletar este curso?")) {
-        fetch(`feedController.php?id_curso=${id_curso}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao deletar o curso.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Exibir mensagem de sucesso (opcional)
-            console.log('Curso deletado com sucesso:', data);
-            // Atualizar a página ou fazer outra ação necessária
-            location.reload();
-        })
-        .catch(error => {
-            console.error('Erro ao deletar o curso:', error);
-            // Exibir mensagem de erro (opcional)
-            alert('Erro ao deletar o curso. Por favor, tente novamente.');
-        });
-    }
-}
-
-// Adicionar evento de clique aos links de exclusão
-document.addEventListener('DOMContentLoaded', function() {
-    const linksDeletar = document.querySelectorAll('.deletar-curso');
-    linksDeletar.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const id_curso = this.getAttribute('data-id');
-            confirmDelete(id_curso);
-        });
-    });
-});
 

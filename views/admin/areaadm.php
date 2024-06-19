@@ -267,12 +267,27 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         <textarea id="descricao" name="descricao" rows="4" required></textarea>
         
         <label for="area">Área do Curso:</label>
-        <input type="text" id="areacurso" name="areacurso" required>
+        <!-- <input type="text" id="areacurso" name="areacurso" required> -->
+        <select id="areacurso" name="areacurso" required>
+            <option value="" disabled selected></option>
+            <option value="tecnologia"> Tecnologia</option>
+            <option value="Saúde e Bem-Estar"> Saúde e Bem-Estar</option>
+            <option value="Educação"> Educação</option>
+            <option value="Engenharia"> Engenharia</option>
+            <option value="Ciências Exatas e Naturais"> Ciências Exatas e Naturais</option>
+            <option value="Ciências sociais, negócios e direito"> Ciências sociais, negócios e direito</option>
+            <option value="Ciências Agrárias"> Ciências Agrárias</option>
+            <option value="Meio Ambiente"> Meio Ambiente</option>
+            <option value="Artes e Design"> Artes e Design</option>
+            <option value="Comunicação"> Comunicação</option>
+            <option value="Outros"> Outros</option>
+        </select>
+
        
         <label for="tipo">Tipo do curso:</label>
         <select id="tipocurso" name="tipocurso" required>
-            <option value="Manhã">Extenção</option>
-            <option value="Tarde">Livre</option>
+            <option value="Extenção">Extenção</option>
+            <option value="Livre">Livre</option>
         </select>
 
         <label for="formato">Formato:</label>
@@ -300,8 +315,18 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
         <label for="link">Link do Site:</label>
         <input type="url" id="linksite" name="linksite" placeholder="https://example.com" required>
         
-        <label for="instituicao">Instituição:</label>
-        <input type="text" id="instituicao" name="instituicao">
+        <!-- <label for="instituicao">Instituição:</label>
+        <input type="text" id="instituicao" name="instituicao"> -->
+
+        <!-- CAMPO DE VERIFICAR INST [INICIO] -->
+        <?php if ($_SESSION['user_type'] === 'administracao'): ?>
+                <label for="instituicao">Instituição:</label>
+                <input type="text" id="instituicao" name="instituicao" required>
+            <?php else: ?>
+                <input type="hidden" id="instituicao" name="instituicao" value="<?php echo $_SESSION['user_name']; ?>">
+            <?php endif; ?>
+        <!-- CAMPO DE VERIFICAR INST [FIM] -->
+
 
         <label for="inicio">Início das Inscrições:</label>
         <input type="date" id="inicioinscricoes" name="inicioinscricoes" required>
