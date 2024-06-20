@@ -290,7 +290,9 @@
 
     // Verifica se há produtos para exibir
     if (empty($produtos)): ?>
-        <p>Nenhum produto disponível no momento.</p>
+        <div class="alert1">
+        <p>Nenhum produto recente <b>disponível</b> no momento.</p>
+        </div>
     <?php else: ?>
         <section class="third">
             <h3 class="title title-produtos" id="news">PRODUTOS RECENTEMENTE DISPONÍVEIS</h3>
