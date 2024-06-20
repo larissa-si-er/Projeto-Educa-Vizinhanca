@@ -1,5 +1,4 @@
 <?php
-// require '../controllers/userController.php';
 include '../controllers/curso_control.php';
 // include '../controllers/feedController.php';
 
@@ -33,10 +32,6 @@ function getSettingsLink($userType) {
             return '#';
     }
 }
-
- $sql = "SELECT id_curso, nome_curso, fotocurso, areacurso, localidade, linksite, formato FROM curso";
- $stmt = $conn->query($sql);
- $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //  var_dump($_SESSION);
 
@@ -283,17 +278,16 @@ function getSettingsLink($userType) {
 
 <div class="container">
 
-
         <?php if (empty($cursos)): ?>
             <p>Nenhum curso disponível no momento.</p>
         <?php else: ?>
             <?php foreach ($cursos as $curso):
-                    echo "<pre>";
-                    var_dump($curso);
-                    echo "</pre>";
+                    // echo "<pre>";
+                    // var_dump($curso);
+                    // echo "</pre>";
             ?>
 
-                <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>">
+                <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>" title="<?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($curso['data_time']))); ?>">
                
                 <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
 
@@ -340,6 +334,33 @@ function getSettingsLink($userType) {
                         <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
                     <?php endif; ?>
                         <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
+
+
+                        <!-- <p class="tipocurso"><i class="bi bi-tag"></i>Tipo: <?php echo htmlspecialchars($curso['tipocurso']); ?></p>
+                        <p class="vagas"><i class="bi bi-person"></i>Vagas: <?php echo htmlspecialchars($curso['quantidadevagas']); ?></p>
+                        <p class="duracao"><i class="bi bi-clock"></i>Duração: <?php echo htmlspecialchars($curso['duracao']); ?></p>
+                        <p class="turno"><i class="bi bi-sun"></i>Turno: <?php echo htmlspecialchars($curso['turno']); ?></p> -->
+
+                        <!-- <p class="inicioinscricoes"><i class="bi bi-calendar"></i><?php echo htmlspecialchars(date('d/m/Y', strtotime($curso['inicioinscricoes']))); ?></p>
+                        <p class="terminoinscricoes"><i class="bi bi-calendar"></i><?php echo htmlspecialchars(date('d/m/Y', strtotime($curso['terminoinscricoes']))); ?></p> -->
+
+                        <!-- DESCRIÇAO -->
+                    <!-- Descrição com "Ver mais" -->
+                    <?php
+                    $descricao = htmlspecialchars($curso['descricao']);
+                    ?>
+                    <p class="descricao"><?php echo substr($descricao, 0, 75); ?></p>
+                    <?php if (strlen($descricao) > 75): ?>
+                        <p class="descricao-completa" style="display: none;"><?php echo $descricao; ?></p>
+                        <a href="#" class="ver-mais" onclick="toggleDescription(this); return false;">Ver mais</a>
+                    <?php endif; ?>
+
+                        <!-- Link "Mais informações" para abrir o modal -->
+
+
+                        <button class="mais-info" onclick="openDetalhesModal(<?php echo htmlspecialchars(json_encode($curso)); ?>)">+ Info.</button>
+
+
                         <div class="curso-buttons">
                             <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
                             <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
@@ -347,12 +368,262 @@ function getSettingsLink($userType) {
                             <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
                             <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
                         </div>
-                    </div>
-                </div>
+                    </div>                    
+               </div>
             <?php endforeach; ?>
         <?php endif; ?>
 
+        <!-- truncar a descrição -->
+        <?php
+        function truncate($text, $length) {
+            if (strlen($text) > $length) {
+                $text = substr($text, 0, $length);
+                $text = substr($text, 0, strrpos($text, ' '));
+                $text .= '...';
+            }
+            return $text;
+        }
+        ?>
+        <!-- truncar a descrição -->
 </div>
+
+
+        <!-- Modal de Detalhes do Curso -->
+        <div id="detalhesModal" class="modal-detalhes">
+            <div class="modal-content-detalhes">
+                <span class="close-detalhes" onclick="closeDetalhesModal()">&times;</span>
+                <div class="curso-detalhes">
+                    <h1 id="title"><i class="bi bi-mortarboard-fill"></i>EDUCA <span class="title-details"> VIZINHANÇA</span></h1>
+                    <h2 id="detalhesNomeCurso"></h2>
+                    <p class="vagas"><i class="bi bi-person"></i>Vagas: <span id="detalhesVagas"></span></p>
+                    <div class="row">
+                        <p class="instituicao"><i class="bi bi-building"></i>Instituição: <span id="detalhesInstituicao"></span></p>
+                        <p class="area"><i class="bi bi-book"></i>Área: <span id="detalhesAreaCurso"></span></p>
+                    </div>
+                    <div class="row">
+                        <p class="modalidade"><i class="bi bi-card-list"></i>Modalidade: <span id="detalhesModalidade"></span></p>
+                        <p class="tipocurso"><i class="bi bi-tag"></i>Tipo: <span id="detalhesTipoCurso"></span></p>
+                    </div>
+                    <div class="row">
+                        <p class="duracao"><i class="bi bi-clock"></i>Duração: <span id="detalhesDuracao"></span></p>
+                        <p class="turno"><i class="bi bi-sun"></i>Turno: <span id="detalhesTurno"></span></p>
+                    </div>
+                    <div class="row">
+                        <p class="inicioinscricoes"><i class="bi bi-calendar"></i>Início: <span id="detalhesInicioInscricoes"></span></p>
+                        <p class="terminoinscricoes"><i class="bi bi-calendar"></i>Término: <span id="detalhesTerminoInscricoes"></span></p>
+                    </div>
+                    <div class="row">
+                        <p class="linksite"><i class="bi bi-link-45deg"></i>Link do site: <a href="#" id="detalhesLinkSite" target="_blank"></a></p>
+                        <p class="localizacao"><i class="bi bi-geo-alt"></i>Localização: <span id="detalhesLocalizacao"></span></p>
+                    </div>
+
+                    <p class="descricao"><i class="bi bi-file-earmark-text"></i>Descrição: <span id="detalhesDescricao"></span></p>
+
+                </div>
+            </div>
+        </div>
+
+
+
+<style>
+    .descricao {
+        margin-bottom: 10px;
+    }
+    .ver-mais {
+        color: blue;
+        cursor: pointer;
+    }
+
+    .curso-content .descricao {
+        margin-bottom: 10px;
+        line-height: 1.5;
+        line-break: anywhere;
+    }
+
+    .curso-content .descricao .ver-mais {
+        color: blue;
+        cursor: pointer;
+    }
+
+    .curso-content .descricao-completa {
+        display: none; 
+    }
+
+    .curso-content .ver-mais {
+        color: #92c7df;
+        cursor: pointer;
+        display: block;
+    }
+    .curso-info p {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .curso-content {
+        margin-top: 10px;
+    }
+
+    .descricao {
+        margin-bottom: 10px;
+        line-height: 1.5;
+        /* max-height: 75px;  */
+        overflow: hidden;
+    }
+
+    .descricao-completa {
+        display: none; 
+        /* max-height: none;  */
+        overflow: visible; 
+        line-break: anywhere;
+    }
+
+    .ver-mais {
+        color: blue;
+        cursor: pointer;
+        display: block;
+    }
+
+
+
+    .mais-info {
+    color: #979797;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 5%;
+    top: 1%;
+}
+
+    .mais-info:hover {
+        text-decoration: underline;
+    }
+
+            /* Estilos para o modal de detalhes */
+            .modal-detalhes {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content-detalhes {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close-detalhes {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-detalhes:hover,
+        .close-detalhes:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-detalhes p {
+            margin-bottom: 10px;
+        }
+
+        .title{
+            color: #888;
+        }
+        .title-details{
+            color: #0dcae4;
+        }
+        .row{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        p.instituicao {
+            width: 50%;
+            margin-top: 19px;
+        }
+
+        .bi-mortarboard-fill::before {
+            content: "\f6fd";
+            margin-right: 2%;
+        }
+
+</style>
+<script>
+    function toggleDescription(link) {
+        var descricaoCompleta = link.previousElementSibling; 
+        var descricaoResumida = descricaoCompleta.previousElementSibling; 
+        if (descricaoCompleta.style.display === 'none') {
+            descricaoResumida.style.display = 'none';
+            descricaoCompleta.style.display = 'block';
+            link.innerText = 'Ver menos';
+        } else {
+            descricaoCompleta.style.display = 'none';
+            descricaoResumida.style.display = 'block';
+            link.innerText = 'Ver mais';
+        }
+    }
+
+
+
+                // modal de detalhes 
+                function openDetalhesModal(curso) {
+                document.getElementById('detalhesNomeCurso').textContent = curso.nome_curso;
+                document.getElementById('detalhesAreaCurso').textContent = curso.areacurso;
+                document.getElementById('detalhesInstituicao').textContent = curso.instituicao;
+                document.getElementById('detalhesModalidade').textContent = curso.formato;
+                document.getElementById('detalhesLinkSite').textContent = curso.linksite;
+                document.getElementById('detalhesDescricao').textContent = curso.descricao;
+                document.getElementById('detalhesLocalizacao').textContent = curso.localidade;
+                document.getElementById('detalhesTipoCurso').textContent = curso.tipocurso;
+                document.getElementById('detalhesVagas').textContent = curso.quantidadevagas;
+                document.getElementById('detalhesDuracao').textContent = curso.duracao;
+                document.getElementById('detalhesTurno').textContent = curso.turno;
+                document.getElementById('detalhesInicioInscricoes').textContent = formatarData(curso.inicioinscricoes);
+                document.getElementById('detalhesTerminoInscricoes').textContent = formatarData(curso.terminoinscricoes);
+
+                
+
+                var modal = document.getElementById("detalhesModal");
+                modal.style.display = "block";
+            }
+
+            function closeDetalhesModal() {
+                var modal = document.getElementById("detalhesModal");
+                modal.style.display = "none";
+            }
+
+            //  dd/mm/yyyy
+            function formatarData(data) {
+                const partesData = data.split('-');
+                const ano = partesData[0];
+                const mes = partesData[1];
+                const dia = partesData[2];
+                return `${dia}/${mes}/${ano}`;
+            }
+
+            window.onclick = function(event) {
+                var modal = document.getElementById("detalhesModal");
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+</script>
+
+
 
     <!-- O Modal -->
     <div id="editModal" class="modal-edit">

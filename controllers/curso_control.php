@@ -4,7 +4,7 @@
 
 
 // Seleciona os cursos do banco de dados
-$sql = "SELECT nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao FROM curso";
+$sql = "SELECT id_curso, nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao, data_time FROM curso ORDER BY data_time DESC";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -45,8 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Move o arquivo para o diretório desejado
         if (move_uploaded_file($caminhoTemp, __DIR__ . $diretorioSalvar . $nomeArquivo)) {
         // Prepara a instrução SQL para inserção
-        $sql = "INSERT INTO curso (nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao) 
-        VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao)";
+        $sql = "INSERT INTO curso (nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao, data_time) 
+        VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao, NOW())";
         $stmt = $conn->prepare($sql);
 
         // Bind dos parâmetros, incluindo instituicao

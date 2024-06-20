@@ -4,10 +4,8 @@
     require_once '../../head.php';
     include_once '../menuinterno.php';
     require_once '../../models/conexao.php';
-
-?>  
-<?php
-// session_start();
+    // renderização do modal add curso
+    include '../render/renderModal.php'; 
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: ../views/auth/login.php');
@@ -15,6 +13,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 $primeiroNome = $_SESSION['first_name'] ?? '';
+$tipoUsuario = $_SESSION['user_type'];
 
 // var_dump($_SESSION);
 
@@ -70,7 +69,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
            echo '<p><strong>Email:</strong> Não logado</p>';
            }
     ?>
-    <!--<button id="vermais"><a href="#">Ver mais</a>
+    <!-- <button id="vermais"><a href="#">Ver mais</a>
                  <svg
                    xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -85,7 +84,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                     d="M14 5l7 7m0 0l-7 7m7-7H3"
                     ></path>
                   </svg>
-              </button>-->
+              </button> -->
     <br>
     <div class="acoes">
   <ul>
@@ -180,17 +179,6 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 </div>
 <script src="../js/quant-curso.js"></script>
 <script src="../js/quant-prod.js"></script>
-   <!-- <div class="card">
-      <h3 class="card__title"><i class="fa-solid fa-graduation-cap"></i></h3>
-      <p class="card__content"><a href="cursosaddadm.php" >Veja seus cursos adicionados na plataforma aqui.</a></p>
-      <div class="card__date"></div>
-      <div class="card__arrow">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
-          <path fill="#fff" d="M13.4697 17.9697C13.1768 18.2626 13.1768 18.7374 13.4697 19.0303C13.7626 19.3232 14.2374 19.3232 14.5303 19.0303L20.3232 13.2374C21.0066 12.554 21.0066 11.446 20.3232 10.7626L14.5303 4.96967C14.2374 4.67678 13.7626 4.67678 13.4697 4.96967C13.1768 5.26256 13.1768 5.73744 13.4697 6.03033L18.6893 11.25H4C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75H18.6893L13.4697 17.9697Z"></path>
-        </svg>
-      </div>
-    </div> 
-   APAGAR CSS-->
 
     <div class="button-container">
         
@@ -253,96 +241,28 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 </div>
 
 
-  <!--modal adicionar curso-->
+<!--modal adicionar curso-->
   <button class="button" id="abrirModalAdicionar" title="Adicionar Curso" style="cursor: pointer;">Adicionar Curso<i class="fa-regular fa-square-plus"></i></button>
-    <div id="modalAdicionar" class="modal">
-        <div class="modal-content">
-            <span class="fechar">&times;</span>
-            <h2>Adicionar Curso</h2>
-    <form action="../../controllers/curso_control.php" id="formCurso" method="post" enctype="multipart/form-data">
-        <label for="titulo">Título do Curso:</label>
-        <input type="text" id="nome_curso" name="nome_curso" required>
-        
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" rows="4" required></textarea>
-        
-        <label for="area">Área do Curso:</label>
-        <!-- <input type="text" id="areacurso" name="areacurso" required> -->
-        <select id="areacurso" name="areacurso" required>
-            <option value="" disabled selected></option>
-            <option value="tecnologia"> Tecnologia</option>
-            <option value="Saúde e Bem-Estar"> Saúde e Bem-Estar</option>
-            <option value="Educação"> Educação</option>
-            <option value="Engenharia"> Engenharia</option>
-            <option value="Ciências Exatas e Naturais"> Ciências Exatas e Naturais</option>
-            <option value="Ciências sociais, negócios e direito"> Ciências sociais, negócios e direito</option>
-            <option value="Ciências Agrárias"> Ciências Agrárias</option>
-            <option value="Meio Ambiente"> Meio Ambiente</option>
-            <option value="Artes e Design"> Artes e Design</option>
-            <option value="Comunicação"> Comunicação</option>
-            <option value="Outros"> Outros</option>
-        </select>
 
-       
-        <label for="tipo">Tipo do curso:</label>
-        <select id="tipocurso" name="tipocurso" required>
-            <option value="Extenção">Extenção</option>
-            <option value="Livre">Livre</option>
-        </select>
+  <?php renderizarModalAdicionarCurso($tipoUsuario); ?>
 
-        <label for="formato">Formato:</label>
-        <select id="formato" name="formato" required>
-            <option value="Presencial">Presencial</option>
-            <option value="EAD">Ead</option>
-            <option value="Híbrido">Híbrido</option>
-        </select>
+</div> 
 
-        <label for="vagas">Quantidade de Vagas:</label>
-        <input type="number" id="quantidadevagas" name="quantidadevagas" min="0" required>
-        
-        <label for="duracao">Duração:</label>
-        <input type="text" id="duracao" name="duracao" required>
-        
-        <label for="turno">Turno:</label>
-        <select id="turno" name="turno" required>
-            <option value="Manhã">Manhã</option>
-            <option value="Tarde">Tarde</option>
-            <option value="Noite">Noite</option>
-        </select>
-        
-        <label for="local">Local:</label>
-        <input type="text" id="localidade" name="localidade" required>
-        
-        <label for="link">Link do Site:</label>
-        <input type="url" id="linksite" name="linksite" placeholder="https://example.com" required>
-        
-        <!-- <label for="instituicao">Instituição:</label>
-        <input type="text" id="instituicao" name="instituicao"> -->
+<script>
+        document.getElementById('abrirModalAdicionar').addEventListener('click', function() {
+            document.getElementById('modalAdicionar').style.display = 'block';
+        });
 
-        <!-- CAMPO DE VERIFICAR INST [INICIO] -->
-        <?php if ($_SESSION['user_type'] === 'administracao'): ?>
-                <label for="instituicao">Instituição:</label>
-                <input type="text" id="instituicao" name="instituicao" required>
-            <?php else: ?>
-                <input type="hidden" id="instituicao" name="instituicao" value="<?php echo $_SESSION['user_name']; ?>">
-            <?php endif; ?>
-        <!-- CAMPO DE VERIFICAR INST [FIM] -->
+        document.querySelector('.fechar').addEventListener('click', function() {
+            document.getElementById('modalAdicionar').style.display = 'none';
+        });
 
-
-        <label for="inicio">Início das Inscrições:</label>
-        <input type="date" id="inicioinscricoes" name="inicioinscricoes" required>
-        
-        <label for="termino">Término das Inscrições:</label>
-        <input type="date" id="terminoinscricoes" name="terminoinscricoes" required>
-         
-         <label for="foto">Foto do Curso:</label>
-         <input type="file" id="fotocurso" name="fotocurso" accept="image/*">
-         
-        <button type="submit" class="adicionar">Adicionar</button>
-    </form>
-  </div>
-</div>
-</div>
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('modalAdicionar')) {
+                document.getElementById('modalAdicionar').style.display = 'none';
+            }
+        });
+    </script>
     <br>
   </div>
   <div class="div2">

@@ -13,7 +13,7 @@ $user = new User($db);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['submit'])) {
-        // Verifica se o formulário de login foi enviado
+        // formulário de login foi enviado:
         // echo "<script>alert('Tentativa de LOGIN detectada');</script>";
 
         login($user);
@@ -83,7 +83,7 @@ function login($user) {
         $result = $user->login($username);
 
         if ($result) {
-            // Verifica se a senha fornecida corresponde à senha criptografada no banco de dados
+
             if (password_verify($password, $result['dados']['senha'])) {
                 // Autenticação bem-sucedida
                 $_SESSION['loggedin'] = true;
@@ -136,7 +136,6 @@ function logout() {
         session_destroy();
     }
 
-    // Redireciona para a página de login após o logout
     header('Location: ../views/auth/login.php');
     exit();
 }
@@ -179,7 +178,7 @@ function verificarAutenticacao($resposta, $campo_correto) {
         header("Location: ../views/feed.php");
         exit;
     } else {
-        // tentativas de autenticação
+        // tentativas de autenticação /3 [inicio]
         $_SESSION['auth_attempts'] += 1;
 
         if ($_SESSION['auth_attempts'] >= 3) {

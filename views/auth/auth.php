@@ -7,7 +7,7 @@ function gerarPergunta($authFactor) {
         case 'cep':
             return "Qual é o seu CEP?";
         case 'data_nasc':
-            return "Qual é a sua data de nascimento? "; //(Formato: AAAA-MM-DD)
+            return "Qual é a sua data de nascimento? "; 
         case 'nome_materno':
             return "Qual é o nome da sua mãe?";
         default:
@@ -15,7 +15,6 @@ function gerarPergunta($authFactor) {
     }
 }
 
-// Verificar sessão
 if (isset($_SESSION['user_data'])) {
     $authFactor = $_SESSION['user_data']['auth_factor'];
     $pergunta = gerarPergunta($authFactor);
@@ -64,7 +63,6 @@ if (isset($_SESSION['user_data'])) {
               <label class="label-auth">Autenticação </label>
             </div>
             <div class="inputForm-auth">
-              <!-- <p class="p-question-auth" id="question-auth" name="name-auth">Qual nome da sua mãe?</p> -->
 
               <p class="p-question-auth" id="question-auth"><?php echo $pergunta; ?></p>
               <!-- <p class="p-question-auth" id="question-auth"><?php echo  $_SESSION['user_data']['auth_factor']; ?></p> -->
@@ -87,7 +85,6 @@ if (isset($_SESSION['user_data'])) {
 
 
 <?php
-    // Exibir SweetAlert se houver erro de tentativas excedidas
     if (isset($_SESSION['auth_attempts_exceeded']) && $_SESSION['auth_attempts_exceeded'] !== '') {
         $authAttemptsExceeded = $_SESSION['auth_attempts_exceeded'];
         unset($_SESSION['auth_attempts_exceeded']);
@@ -100,7 +97,7 @@ if (isset($_SESSION['user_data'])) {
             }).then(() => {
                 setTimeout(function() {
                     window.location.href = "./login.php";
-                }, 800); // Redirecionar após 5 segundos
+                }, 800); 
             });
         </script>';
     } 
