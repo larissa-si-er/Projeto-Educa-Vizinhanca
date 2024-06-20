@@ -1,59 +1,50 @@
 <?php
-require_once '../menuproduto.php';
+require_once '../menuproduto.php'; // Incluir o arquivo que contém a conexão com o banco de dados
+include '../../models/conexao.php';
 
-if (isset($_POST['id_produto'])) {
-    $id_produto = $_POST['id_produto'];
+// Verifica se foi enviado um ID de produto via GET
+if (isset($_GET['id_produto'])) {
+    $id_produto = $_GET['id_produto'];
 
     // Prepare a consulta para buscar o produto pelo ID especificado
-    $sql = "SELECT nome_produto, descricao, preco, imagem FROM produto WHERE id_produto =?";
-    $stmt = $conn->prepare($sql);
+    $sql = "SELECT nome_produto, descricao, preco, imagem FROM produto WHERE id_produto = ?";
+    $stmt = $conn->prepare($sql); // Assumindo que $conn está definido no arquivo de conexão
     $stmt->bindParam(1, $id_produto);
     $stmt->execute();
     $produto = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Verifica se o produto foi encontrado
     if (!$produto) {
-        // Caso o produto não seja encontrado pelo ID especificado
         echo '<p>Produto não encontrado.</p>';
     } else {
-        // Exibir os detalhes do produto
-        $imagemPath = '/../views/fotos-banco/'. $produto['imagem'];
-        // Restante do código para exibir os detalhes do produto...
+        // Exibir os detalhes do produto encontrado
+        $imagemPath = '/../views/fotos-banco/' . $produto['imagem'];
+        ?>
 
-        if ($produto) :?>
-            <div class="product">
-                <div class="product-details">
-                    <h2><?php echo htmlspecialchars($produto['nome_produto']);?></h2>
-                    <h1 class="Dica"><?php echo htmlspecialchars($produto['descricao']);?></h1>
-                    <h1 class="price">R$<?php echo number_format($produto['preco'], 2, ',', '.');?></h1>
-                    <!-- Exemplo para parcelamento -->
-                    <h1 class="Parcela">Ou em 4x R$<?php echo number_format($produto['preco'] / 4, 2, ',', '.');?></h1>
-                    <div class="quantity">
-                        <label for="quantity">Quantidade:</label>
-                        <div class="quantity-input">
-                            <button id="decrement">-</button>
-                            <input type="number" id="quantity" value="0" min="0">
-                            <button id="increment">+</button>
-                        </div>
-                    </div>
-                    <br>
-                    <button id="add-to-cart">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product-images">
-                    <div class="main-image">
-                        <img id="main-image" src="<?php echo htmlspecialchars($imagemPath);?>" alt="Product Image">
-                    </div>
+        <div class="product">
+            <div class="product-details">
+                <h2><?php echo htmlspecialchars($produto['nome_produto']); ?></h2>
+                <h1 class="Dica"><?php echo htmlspecialchars($produto['descricao']); ?></h1>
+                <h1 class="price">R$<?php echo number_format($produto['preco'], 2, ',', '.'); ?></h1>
+                <!-- Exemplo para parcelamento -->
+                <h1 class="Parcela">Ou em 4x R$<?php echo number_format($produto['preco'] / 4, 2, ',', '.'); ?></h1>
+                <br>
+                <a href="../../views/produtos.php"><button id="add-to-cart">Volte a tela de produtos</button></a>
+            </div>
+            <div class="product-images">
+                <div class="main-image">
+                    <img id="main-image" src="<?php echo htmlspecialchars($imagemPath); ?>" alt="Product Image">
                 </div>
             </div>
-        <?php else:?>
-            css
-            Copy code
-            <p>Produto não encontrado.</p>
-        <?php endif;
+        </div>
+
+    <?php
     }
 } else {
-    var_dump($_POST);
+    // Se não foi enviado um ID de produto via GET, mostra uma mensagem para selecionar um produto
     echo '<p>Por favor, selecione um produto.</p>';
 }
 
-require_once '../../footer.php';
+require_once '../../footer.php'; // Inclui o rodapé da página
 ?>
+  <script src="../js/subtelas_produtos.js"></script>

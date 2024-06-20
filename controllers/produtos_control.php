@@ -2,7 +2,7 @@
 include '../models/conexao.php';
 
 // Busca todos os produtos
-$sql = "SELECT nome_produto, descricao, preco, imagem FROM produto";
+$sql = "SELECT nome_produto, descricao, preco, imagem,id_produto FROM produto";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
