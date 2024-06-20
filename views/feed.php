@@ -340,8 +340,6 @@ function getSettingsLink($userType) {
                         <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
                     <?php endif; ?>
                         <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
-                        <p class="localizacao"><i class="bi bi-geo-alt-fill"></i>Localidade: <?php echo htmlspecialchars($curso['localidade']); ?></p>
-                        
                         <div class="curso-buttons">
                             <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
                             <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>

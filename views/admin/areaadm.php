@@ -292,9 +292,8 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
 
         <label for="formato">Formato:</label>
         <select id="formato" name="formato" required>
-            <option value="Pesencial">Presencial</option>
+            <option value="Pesencial">Pesencial</option>
             <option value="Ead">Ead</option>
-            <option value="Híbrido">Híbrido</option>
         </select>
 
         <label for="vagas">Quantidade de Vagas:</label>
