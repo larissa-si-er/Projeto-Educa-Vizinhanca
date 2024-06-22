@@ -1,9 +1,7 @@
 <?php
 require_once '../../head.php';
 include_once '../menuinterno.php';
-require_once '../../models/conexao.php'; // Verifique o caminho correto aqui
-
-// session_start();
+require_once '../../models/conexao.php';
 
 // Verifica se o usuário não está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -14,6 +12,32 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 $idAlunoLogado = $_SESSION['user_data']['id_aluno'] ?? null;
 
+// Verifica se $idAlunoLogado está definido antes de continuar
+if (!$idAlunoLogado) {
+    $_SESSION['error_message'] = 'ID do aluno não encontrado.';
+    header('Location: arealuno.php'); // Redirecione para onde for apropriado
+    exit();
+}
+
+// Consultar dados do aluno associado ao usuário logado
+$sql = "SELECT a.id_aluno, a.nome, a.data_nasc, a.sexo, a.nome_materno, a.cpf, a.email, 
+               a.telefone_celular, a.telefone_fixo, a.usuario, a.cep, 
+               e.logradouro, e.bairro, e.cidade, e.estado, e.num
+        FROM aluno a
+        LEFT JOIN endereco e ON a.cep = e.cep
+        WHERE a.id_aluno = :id_aluno";
+
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':id_aluno', $idAlunoLogado, PDO::PARAM_INT);
+$stmt->execute();
+$aluno = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Verificar se $aluno foi encontrado antes de acessar seus dados
+if (!$aluno) {
+    $_SESSION['error_message'] = 'Dados do aluno não encontrados.';
+    header('Location: arealuno.php'); // Redirecione para onde for apropriado
+    exit();
+}
 // Consultar dados dos alunos associados ao usuário logado
 $resultado = consultarAlunos($idAlunoLogado);
 ?>
@@ -76,10 +100,6 @@ $resultado = consultarAlunos($idAlunoLogado);
         }
         ?>
 
-
-
-
-
 <!-- Script JavaScript -->
 <script>
 function addViewDetailsEvent() {
@@ -106,64 +126,164 @@ document.addEventListener('DOMContentLoaded', addViewDetailsEvent);
     <li>
     <button id="abrirModalEditar" title="Editar Curso"><i class="fa-solid fa-user-pen" style="cursor: pointer;" title="Editar Perfil"></i></button>
     <div id="modalEditar" class="modal">
-        <div class="modal-content">
-            <span class="fechar">&times;</span>
-            <h2>Editar Perfil</h2>
-            <form id="formCurso" action="formulario_editar_adm.php" method="post">
-
-                <label for="user">User:</label>
-                <input type="text" id="user" name="user" required>
-                
-                <label for="nome_aluno">Login:</label>
-                <input type="text" id="nome_adm" name="user" required>
-
-                <label for="senha">Senha:</label>
-                <input type="text" id="senha" name="senha" required>
-
-                <label for="nome_aluno">Nome:</label>
-                <input type="text" id="nome_adm" name="user" required>
-
-                <label for="data_nascimento">Data de Nascimento:</label>
-                <input type="date" id="data_nascimento" name="data_nascimento" required>
-
-                <label for="sexo">Sexo:</label>
-                  <select id="sexo" name="sexo" required>
-                    <option value="Feminino">Feminino</option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Outro">Outro</option>
-                   </select>
-                
-                <label for="nome_aluno">Nome Materno:</label>
-                <input type="text" id="nome_adm" name="user" required>
-
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cPF" name="cPF" required>
-
-                <label for="telefone_fixo">Celular:</label>
-                <input type="text" id="telefone_fixo" name="telefone" required>
-
-                <label for="telefone_fixo">Telefone Fixo:</label>
-                <input type="text" id="telefone_fixo" name="telefone" required>
-                
-
-                <label for="cep">CEP:</label>
-                <input type="text" id="cep" name="cep" required>
-
-                <label for="logradouro">Logradouro:</label>
-                <input type="text" id="logradouro" name="logradouro" required>
-
-                <label for="bairro">Bairro:</label>
-                <input type="text" id="bairro" name="bairro" required>
-
-                <label for="estado">Estado:</label>
-                <input type="text" id="estado" name="estado"  required></input>
-                
-                <label for="numero">Número:</label>
-                <input type="text" id="numero" name="numero" required>
-                <button type="submit" class="adicionar">Adicionar</button>
-            </form>
-        </div>
+    <div class="modal-content">
+        <span class="fechar">&times;</span>
+        <h2>Editar Dados</h2>
+        <form id="formCurso" action="form_editar_aluno.php" method="post">
+            <input type="hidden" id="id_aluno" name="id_aluno" value="<?php echo $aluno['id_aluno']; ?>">
+            
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($aluno['nome']); ?>">
+            
+            <label for="data_nasc">Data de Nascimento:</label>
+            <input type="date" id="data_nasc" name="data_nasc" value="<?php echo $aluno['data_nasc']; ?>">
+            
+            <label for="sexo">Sexo:</label>
+            <select id="sexo" name="sexo">
+                <option value="feminino" <?php echo ($aluno['sexo'] == 'feminino') ? 'selected' : ''; ?>>Feminino</option>
+                <option value="masculino" <?php echo ($aluno['sexo'] == 'masculino') ? 'selected' : ''; ?>>Masculino</option>
+                <option value="outro" <?php echo ($aluno['sexo'] == 'outro') ? 'selected' : ''; ?>>Outro</option>
+            </select>
+            
+            <label for="nome_materno">Nome Materno:</label>
+            <input type="text" id="nome_materno" name="nome_materno" value="<?php echo htmlspecialchars($aluno['nome_materno']); ?>">
+            
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf" maxlength="14" value="<?php echo $aluno['cpf']; ?>">
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo $aluno['email']; ?>">
+            
+            <label for="phone">Telefone Celular:</label>
+            <input type="text" id="phone" name="phone" value="<?php echo $aluno['telefone_celular']; ?>">
+            
+            <label for="phone_fixed">Telefone Fixo:</label>
+            <input type="text" id="phone_fixed" name="phone_fixed" value="<?php echo $aluno['telefone_fixo']; ?>">
+            
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" name="usuario" value="<?php echo $aluno['usuario']; ?>">
+            
+            <label for="senha">Nova senha:</label>
+            <input type="password" id="senha" name="senha">
+            
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" maxlength="9" value="<?php echo $aluno['cep']; ?>">
+             <!-- Novos campos de endereço -->
+    <label for="cidade">Cidade:</label>
+    <input type="text" id="cidade" name="cidade" value="<?php echo htmlspecialchars($aluno['cidade']); ?>">
+    
+    <label for="estado">Estado:</label>
+    <input type="text" id="estado" name="estado" value="<?php echo htmlspecialchars($aluno['estado']); ?>">
+    
+    <label for="logradouro">Logradouro:</label>
+    <input type="text" id="logradouro" name="logradouro" value="<?php echo htmlspecialchars($aluno['logradouro']); ?>">
+    
+    <label for="bairro">Bairro:</label>
+    <input type="text" id="bairro" name="bairro" value="<?php echo htmlspecialchars($aluno['bairro']); ?>">
+    <label for="num">Número:</label>
+    <input type="text" id="num" name="num" value="<?php echo htmlspecialchars($aluno['num']); ?>">
+            
+            <button type="submit" class="alterar">Salvar</button>
+        </form>
     </div>
+</div>
+<script>    // Abrir o modal de editar perfil
+    var abrirModalEditar = document.getElementById('abrirModalEditar');
+    if (abrirModalEditar) {
+        abrirModalEditar.addEventListener('click', function() {
+            var modalEditar = document.getElementById('modalEditar');
+            if (modalEditar) {
+                modalEditar.style.display = 'block';
+            }
+        });
+    }
+
+    // Fechar o modal de editar perfil
+    var modalEditar = document.getElementById('modalEditar');
+    if (modalEditar) {
+        var fecharEditar = modalEditar.getElementsByClassName('fechar')[0];
+        if (fecharEditar) {
+            fecharEditar.addEventListener('click', function() {
+                modalEditar.style.display = 'none';
+            });
+        }
+
+        // Fechar o modal de editar perfil se o usuário clicar fora dele
+        window.addEventListener('click', function(event) {
+            if (event.target == modalEditar) {
+                modalEditar.style.display = 'none';
+            }
+        });
+    }
+
+    // Função para formatar telefone celular
+    document.getElementById('phone').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{5})(\d{4})/);
+        if (x) {
+            e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
+        }
+    });
+
+    // Função para formatar telefone fixo
+    document.getElementById('phone_fixed').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{4})(\d{4})/);
+        if (x) {
+            e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
+        }
+    });
+
+    // Função para formatar CPF
+    document.getElementById('cpf').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{3})(\d{3})(\d{3})(\d{2})/);
+        if (x) {
+            e.target.value = x[1] + '.' + x[2] + '.' + x[3] + '-' + x[4];
+        }
+    });
+
+    document.getElementById('cep').addEventListener('blur', function (e) {
+    var cep = e.target.value.replace(/\D/g, '');
+    if (cep.length === 8) {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.erro) {
+                    document.getElementById('logradouro').value = data.logradouro;
+                    document.getElementById('bairro').value = data.bairro;
+                    document.getElementById('cidade').value = data.localidade;
+                    document.getElementById('estado').value = data.uf;
+                } else {
+                    alert('CEP não encontrado!');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar o CEP:', error);
+                alert('Erro ao buscar o CEP!');
+            });
+    } else {
+        alert('CEP inválido!');
+    }
+});
+
+    // Função para atualizar dados
+    function updateData() {
+        var formData = new FormData(document.getElementById('editForm'));
+        fetch('update_student.php', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Dados atualizados com sucesso!');
+                modalEditar.style.display = "none";
+            } else {
+                alert('Erro ao atualizar dados!');
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar dados:', error);
+            alert('Erro ao atualizar dados!');
+        });
+    }</script>
 </li>
     <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket" title="Sair"></i></a></li>
   </ul>
@@ -267,6 +387,8 @@ require_once '../../footer.php';
   }
   
   input[type="text"],
+  input[type="password"],
+  input[type="email"],
   input[type="number"],
   input[type="date"],
   select,
@@ -299,7 +421,14 @@ require_once '../../footer.php';
     -webkit-box-shadow: 0px 0px 2px 3px rgba(0, 45, 246, 0.1); 
     box-shadow: 0px 0px 2px 3px rgba(0, 68, 151, 0.146);
 }
-
+.alterar {
+    height: 40px;
+    border-radius: 6px;
+    background-color: #72dce5;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 .meu_perfil {
   overflow: hidden;
   padding-left: 12%;

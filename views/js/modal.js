@@ -65,7 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
 // MODAL ADD PRODUTO [FIM]
     
 
+ 
+});
 
+//modal editar perfil
     // Abrir o modal de editar perfil
     var abrirModalEditar = document.getElementById('abrirModalEditar');
     if (abrirModalEditar) {
@@ -94,7 +97,75 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
+
+    // Função para formatar telefone celular
+    document.getElementById('phone').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{5})(\d{4})/);
+        if (x) {
+            e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
+        }
+    });
+
+    // Função para formatar telefone fixo
+    document.getElementById('phone_fixed').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{4})(\d{4})/);
+        if (x) {
+            e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
+        }
+    });
+
+    // Função para formatar CPF
+    document.getElementById('cpf').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{3})(\d{3})(\d{3})(\d{2})/);
+        if (x) {
+            e.target.value = x[1] + '.' + x[2] + '.' + x[3] + '-' + x[4];
+        }
+    });
+
+    // Função para buscar informações do CEP
+    document.getElementById('cep').addEventListener('blur', function (e) {
+        var cep = e.target.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.getElementById('address').value = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+                    } else {
+                        alert('CEP não encontrado!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar o CEP:', error);
+                    alert('Erro ao buscar o CEP!');
+                });
+        } else {
+            alert('CEP inválido!');
+        }
+    });
+
+    // Função para atualizar dados
+    function updateData() {
+        var formData = new FormData(document.getElementById('editForm'));
+        fetch('update_student.php', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Dados atualizados com sucesso!');
+                modalEditar.style.display = "none";
+            } else {
+                alert('Erro ao atualizar dados!');
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar dados:', error);
+            alert('Erro ao atualizar dados!');
+        });
+    }
+
+//modal editar perfil [FIM]
 
 
 // modal user

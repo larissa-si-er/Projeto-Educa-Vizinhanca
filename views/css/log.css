@@ -1045,10 +1045,11 @@ input.input {
     max-width: 1000px;
 }
 .log-container i { font-size: 25px; color: #74DCE6; }
-.log-container h2 {
+.log-container h2{
     margin-bottom: 20px;
     text-align: center;
 }
+
 .search-bar {
     display: flex;
     flex-wrap: wrap;
@@ -1056,6 +1057,7 @@ input.input {
     margin-bottom: 20px;
 }
 .search-bar input {
+
     padding: 10px;
     margin: 5px;
     border: 1px solid #ccc;

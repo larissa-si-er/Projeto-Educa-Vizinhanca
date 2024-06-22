@@ -18,7 +18,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../views/img/home-ic.png">
     <title>Tela de Logs</title>
-    <link rel="stylesheet" href="../views/css/log.css">
+    <link rel="stylesheet" href="../views/css/log.css"> 
     <script src="../views/js/menu.js"></script>
     <script src="../views/js/script.js"></script>
     <script src="../views/js/modal.js"></script>

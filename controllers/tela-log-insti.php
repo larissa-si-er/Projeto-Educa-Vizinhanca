@@ -92,7 +92,6 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
     <div class="log-container">
         <i class="fa-solid fa-user-shield"></i>
         <h2>Registros de Login</h2>
-        
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Buscar por CNPJ ou nome ">
             <button id="search-button">Buscar</button>
