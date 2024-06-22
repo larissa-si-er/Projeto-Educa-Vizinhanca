@@ -38,9 +38,6 @@ function renderizarModalAdicionarCurso($tipoUsuario, $nomeInstituicao = null) {
                     <option value="Livre">Livre</option>
                 </select>
 
-                <label for="descricao_edit">Descrição:</label>
-                <textarea name="descricao" id="descricao_edit" rows="4" required></textarea>
-
                 <label for="formato">Formato:</label>
                 <select id="formato" name="formato" required>
                     <option value="Presencial">Presencial</option>
@@ -73,6 +70,7 @@ function renderizarModalAdicionarCurso($tipoUsuario, $nomeInstituicao = null) {
                     <input type="text" id="instituicao" name="instituicao" required>
                 <?php else: ?>
                     <input type="hidden" id="instituicao" name="instituicao" value="<?php echo $nomeInstituicao; ?>">
+                    <input type="hidden" name="id_instituicao" value="<?php echo htmlspecialchars($_SESSION['user_data']['id_instituicao']); ?>">
                 <?php endif; ?>
 
                 <label for="inicio">Início das Inscrições:</label>

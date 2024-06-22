@@ -55,7 +55,7 @@ function openEditModal(curso) {
         }
     }
         
-    // Função para confirmar exclusão
+    // exclusão card
     function confirmDeletion(idCurso) {
         Swal.fire({
             title: 'Excluir permanentemente?',

@@ -289,8 +289,7 @@ function getSettingsLink($userType) {
 
                 <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>" title="<?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($curso['data_time']))); ?>">
                
-                <?php if ($_SESSION['user_type'] === 'administracao' || $_SESSION['user_type'] === 'instituicao'): ?>
-
+                <?php if ($_SESSION['user_type'] === 'administracao' || ($_SESSION['user_type'] === 'instituicao' && $curso['id_instituicao'] === $_SESSION['user_data']['id_instituicao'])): ?>                    
                     <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
                     <div class="control-config" onclick="toggleMenu(this)">
                             <i class="bi bi-three-dots"></i>
@@ -317,7 +316,7 @@ function getSettingsLink($userType) {
                         </div>
 
                 <?php endif; ?>
-                    <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
+                <!-- FIM BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
 
                     <!-- IMAGEM -->
                    <?php
