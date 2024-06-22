@@ -1287,6 +1287,7 @@ img.img-top3{
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 100px;
+  margin-bottom: 5%;
   
 }
 
@@ -1304,11 +1305,12 @@ img.img-top3{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     margin-top: 2px; 
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .curso:hover {
-  transform: translateY(-5px);
+  /* transform: translateY(-5px); */
 }
+
 /*icon predio e pc*/
 .bi-building,.bi-laptop{
   padding: 5px;
@@ -1771,3 +1773,101 @@ padding-right: 5px;
     font-size: 10px;
   }
 
+
+  /* AÇÕES NO FEED - CURSOS */
+
+      /* Estilos para o contêiner de comentários */
+      .comentarios {
+        margin-top: 10px; 
+        padding: 10px; 
+        border: 1px solid #ddd; 
+        background-color: #f4f4f4;
+        border-radius: 5px; 
+        z-index: 9999;
+        position: absolute;
+        margin-top: 4%;
+    }
+
+    .comentario {
+        border-bottom: 1px solid #e0e0e0;
+        padding: 0px 0px 13px 0px;
+    }
+
+
+    /* Estilos para o campo de texto do comentário */
+    .comentarios textarea {
+        width: calc(100% - 20px); /* Largura total menos o padding */
+        padding: 8px; /* Espaçamento interno */
+        margin-bottom: 8px; /* Espaçamento inferior */
+        border: 1px solid #ccc; /* Borda cinza clara */
+        border-radius: 17px;
+        resize: vertical;
+        outline: none;
+    
+    }
+
+    /* Estilos para o botão de enviar comentário */
+    .comentarios button {
+    background-color: #a1d0df;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    border: 1px solid #00aab0;
+    }
+
+    .comentarios button:hover {
+        background-color: transparent; 
+        color: #00aab0;
+        border: 1px solid #00aab0;
+    }
+
+    .comentario-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.comentario-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    min-height: 40px;
+    resize: none;
+}
+
+.comentario-input[contenteditable]:empty:before {
+    content: attr(placeholder);
+    color: #999;
+}
+
+.comentario-botao {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.comentario-botao i {
+    font-size: 20px;
+}
+
+.comentarios button.maisComent {
+    background-color: #a1d0df00;
+    color: #9c9c9c;
+    padding: 14px 73px;
+    border: none;
+    cursor: pointer;
+    border: 1px solid #ffffff;
+    font-style: italic;
+}
+.comentarios .maisComent:hover {
+    background-color: transparent; 
+    color: #00aab0;
+    border-bottom: 1px solid #00aab0;
+}

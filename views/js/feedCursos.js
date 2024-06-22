@@ -149,3 +149,87 @@ function openDetalhesModal(curso) {
     }
 // ----------------MODAL DETALHES [FIM]-------------------
 
+
+// ----------------COMMENTS [INICIO]-------------------
+let commentsPerPage = 5;
+
+function toggleComments(id_curso) {
+    var comentariosContainer = document.getElementById('comentarios-curso-' + id_curso);
+    if (comentariosContainer.style.display === 'none') {
+        comentariosContainer.style.display = 'block';
+        fetchComentarios(id_curso, 1); // Carrega os comentários ao abrir
+    } else {
+        comentariosContainer.style.display = 'none';
+    }
+}
+
+function fetchComentarios(id_curso, page) {
+    fetch(`../controllers/feed/comentarioController.php?id_curso=${id_curso}&page=${page}&limit=${commentsPerPage}`)
+        .then(response => response.json())
+        .then(data => {
+            var comentariosDiv = document.getElementById('lista-comentarios-' + id_curso);
+            if (page === 1) {
+                comentariosDiv.innerHTML = ''; // Limpa a lista de comentários se for a primeira página
+            }
+
+            if (data.error) {
+                comentariosDiv.innerHTML = `<p>${data.error}</p>`;
+                return;
+            }
+
+            if (data.comentarios.length === 0 && page === 1) {
+                comentariosDiv.innerHTML = `<p>Sem comentários para este curso.</p>`;
+            } else {
+                data.comentarios.forEach(comentario => {
+                    var comentarioHtml = `
+                        <div class="comentario">
+                            <p>${comentario.texto}</p>
+                            <small>Postado por ${comentario.usuario} em ${comentario.data_time}</small>
+                        </div>
+                    `;
+                    comentariosDiv.innerHTML += comentarioHtml;
+                });
+            }
+
+            var loadMoreDiv = document.getElementById('load-more-' + id_curso);
+            if (data.hasMore) {
+                loadMoreDiv.style.display = 'block';
+                loadMoreDiv.dataset.page = page + 1;
+            } else {
+                loadMoreDiv.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar comentários:', error);
+        });
+}
+
+function loadMoreComentarios(id_curso) {
+    var loadMoreDiv = document.getElementById('load-more-' + id_curso);
+    var nextPage = loadMoreDiv.dataset.page || 2;
+    fetchComentarios(id_curso, parseInt(nextPage));
+}
+
+function enviarComentario(id_curso) {
+    var form = document.getElementById('form-comentario-' + id_curso);
+    var comentarioInput = form.querySelector('.comentario-input');
+
+    var formData = new FormData();
+    formData.append('id_curso', id_curso);
+    formData.append('comentario', comentarioInput.textContent);
+
+    fetch('../controllers/feed/comentarioController.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        fetchComentarios(id_curso, 1); // Recarrega os comentários
+        comentarioInput.textContent = ''; // Limpa o campo de comentário
+    })
+    .catch(error => {
+        console.error('Erro ao enviar comentário:', error);
+    });
+}
+// ---------------- COMMENTS [FIM]-------------------
+

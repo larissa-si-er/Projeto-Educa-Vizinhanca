@@ -14,7 +14,6 @@ if ($cursos === false) {
 
 // Verifica se o formulário foi submetido para inserção de um novo curso
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recupera os dados do formulário
     $titulo = $_POST['nome_curso'];
     $descricao = $_POST['descricao'];
     $area = $_POST['areacurso'];
@@ -28,28 +27,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $inicio = $_POST['inicioinscricoes'];
     $termino = $_POST['terminoinscricoes'];
     $instituicao = $_POST['instituicao'];
-    $id_instituicao = $_POST['id_instituicao']; // ID da instituição 
+    $id_instituicao = $_POST['id_instituicao']; 
 
 
-    // Processamento do upload da imagem
+    // upload da imagem
     $foto = $_FILES['fotocurso'];
 
-    // Verifica se foi enviado um arquivo
     if ($foto['error'] === UPLOAD_ERR_OK) {
         $nomeArquivo = $foto['name'];
         $caminhoTemp = $foto['tmp_name'];
 
-        // Diretório para salvar a imagem
+        // Diretório a imagem
         $diretorioSalvar = '/../views/fotos-banco/';
 
-        // Move o arquivo para o diretório desejado
+        // Move para o diretório desejado
         if (move_uploaded_file($caminhoTemp, __DIR__ . $diretorioSalvar . $nomeArquivo)) {
         // Prepara a instrução SQL para inserção
         $sql = "INSERT INTO curso (nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao,  id_instituicao,  data_time) 
         VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao, :id_instituicao, NOW())";
         $stmt = $conn->prepare($sql);
 
-            // Bind dos parâmetros
             $stmt->bindParam(':titulo', $titulo);
             $stmt->bindParam(':descricao', $descricao);
             $stmt->bindParam(':area', $area);
@@ -66,29 +63,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':instituicao', $instituicao);
             $stmt->bindParam(':id_instituicao', $id_instituicao);
 
-            // Executa a instrução
             if ($stmt->execute()) {
-                // Define a mensagem de feedback na sessão
                 session_start();
                 $_SESSION['success_message'] = 'Curso inserido com sucesso.';
             } else {
-                // Em caso de erro na execução da consulta
                 session_start();
                 $_SESSION['error_message'] = "Erro ao inserir o curso.";
             }
         } else {
-            // Em caso de erro ao mover o arquivo
             session_start();
             $_SESSION['error_message'] = "Erro ao fazer o upload da imagem.";
         }
     } else {
-        // Em caso de erro no envio do arquivo
         session_start();
         $_SESSION['error_message'] = "Erro ao enviar o arquivo.";
     }
 
-    // Redireciona para a página de administração
     header("Location: ../views/admin/areaadm.php");
-    exit(); // Certifique-se de sair após o redirecionamento
+    exit(); 
 }
 ?>

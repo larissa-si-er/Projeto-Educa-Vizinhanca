@@ -276,6 +276,41 @@ function getSettingsLink($userType) {
 <br>
 <br>
 
+
+
+
+<script>
+    function toggleComentarios(icon) {
+        // Encontra o contêiner de comentários relacionado ao ícone clicado
+        var comentariosContainer = icon.parentElement.querySelector('.comentarios');
+
+        // Verifica se o contêiner existe e alterna sua visibilidade
+        if (comentariosContainer) {
+            if (comentariosContainer.style.display === 'none') {
+                comentariosContainer.style.display = 'block';
+            } else {
+                comentariosContainer.style.display = 'none';
+            }
+        }
+    }
+</script>
+        <style>
+            .comentarios-area {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            }
+        </style>
+
+
+
+
+
+
+
+
+
 <div class="container">
 
         <?php if (empty($cursos)): ?>
@@ -360,11 +395,34 @@ function getSettingsLink($userType) {
                             <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
 
                             <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
-                            <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
+                            <i class="fa-regular fa-comment-dots botao-comentar" title="comentar" onclick="toggleComments(<?php echo $curso['id_curso']; ?>)"></i>
                             <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
                             <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
                         </div>
-                    </div>                    
+                    </div>           
+
+                    <!-- COMENTARIOS -->
+                    <div class="comentarios" id="comentarios-curso-<?php echo $curso['id_curso']; ?>" style="display: none;">
+                        <!-- Formulário de comentário -->
+                        <?php if ($_SESSION['user_type'] !== 'administracao' && $_SESSION['user_type'] !== 'instituicao'): ?>
+                            <form id="form-comentario-<?php echo $curso['id_curso']; ?>" onsubmit="event.preventDefault(); enviarComentario(<?php echo $curso['id_curso']; ?>);">
+                                <div class="comentario-input-container">
+                                    <div class="comentario-input" contenteditable="true" placeholder="Adicione um comentário..."></div>
+                                    <button type="submit" class="comentario-botao"><i class="bi bi-cursor"></i></button>
+                                </div>
+                            </form>
+                        <?php endif; ?>
+
+                        <!-- Lista de comentários -->
+                        <div id="lista-comentarios-<?php echo $curso['id_curso']; ?>"> </div>
+
+                        <!-- Botão para carregar mais comentários -->
+                        <div id="load-more-<?php echo $curso['id_curso']; ?>" style="display: none;">
+                            <button class="maisComent" onclick="loadMoreComentarios(<?php echo $curso['id_curso']; ?>);">Carregar mais comentários</button>
+                        </div>
+                    </div>
+                    <!-- FIM COMENTARIOS -->
+
                </div>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -382,7 +440,6 @@ function getSettingsLink($userType) {
         ?>
         <!-- truncar a descrição -->
 </div>
-
 
         <!-- O Modal de detalhes do Curso -->
         <div id="detalhesModal" class="modal-detalhes">

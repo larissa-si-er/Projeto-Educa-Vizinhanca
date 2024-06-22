@@ -72,8 +72,6 @@ $resultado = consultarInsti($idInstituicaoLogado);
 
 
 
-
-
 <!-- Script JavaScript -->
 <script>
 function addViewDetailsEvent() {
