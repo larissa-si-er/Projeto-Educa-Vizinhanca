@@ -2,19 +2,21 @@
 <?php
 require_once '../../head.php';
 include_once '../menuinterno.php';
-require_once '../../models/conexao.php'; // Verifique o caminho correto aqui
-
-// session_start();
+require_once '../../models/conexao.php'; 
+include '../render/renderModal.php'; 
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: ../views/auth/login.php');
     exit();
 }
 
+$tipoUsuario = $_SESSION['user_type'];
+$nomeInstituicao = $_SESSION['user_data']['nome_insti']; 
 $idInstituicaoLogado = $_SESSION['user_data']['id_instituicao'] ?? null;
 
-// Consultar dados dos alunos associados ao usuário logado
 $resultado = consultarInsti($idInstituicaoLogado);
+
+// var_dump($_SESSION);
 ?>
 
 <script src="../js/modal.js"></script>
@@ -70,8 +72,6 @@ $resultado = consultarInsti($idInstituicaoLogado);
 
 
 
-
-
 <!-- Script JavaScript -->
 <script>
 function addViewDetailsEvent() {
@@ -95,64 +95,9 @@ document.addEventListener('DOMContentLoaded', addViewDetailsEvent);
   <ul>
     <li> 
       <button id="abrirModalAdicionar" title="Adicionar Curso"><i class="fa-regular fa-square-plus" style="cursor: pointer;"></i></button>
-    <div id="modalAdicionar" class="modal">
-  <div class="modal-content">
-    <span class="fechar">&times;</span>
-    <h2>Adicione seu curso</h2>
-    <form action="#" id="formCurso" action="../../admin/formulario_add_curso.php" method="post">
-        <label for="titulo">Título do Curso:</label>
-        <input type="text" id="nome_curso" name="titulo" required>
-        
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" rows="4" required></textarea>
-        
-        <label for="area">Área do Curso:</label>
-        <input type="text" id="areacurso" name="area" required>
-       
-        <label for="tipo">Tipo do curso:</label>
-        <select id="tipocurso" name="tipocurso" required>
-            <option value="Manhã">Extenção</option>
-            <option value="Tarde">Livre</option>
-        </select>
+    <?php renderizarModalAdicionarCurso($tipoUsuario, $nomeInstituicao); ?>
 
-        <label for="formato">Formato:</label>
-        <select id="formato" name="formato" required>
-            <option value="Manhã">Pesencial</option>
-            <option value="Tarde">Ead</option>
-        </select>
 
-        <label for="vagas">Quantidade de Vagas:</label>
-        <input type="number" id="quantidadevagas" name="vagas" min="0" required>
-        
-        <label for="duracao">Duração:</label>
-        <input type="text" id="duracao" name="duracao" required>
-        
-        <label for="turno">Turno:</label>
-        <select id="turno" name="turno" required>
-            <option value="Manhã">Manhã</option>
-            <option value="Tarde">Tarde</option>
-            <option value="Noite">Noite</option>
-        </select>
-        
-        <label for="local">Local:</label>
-        <input type="text" id="localidade" name="local" required>
-        
-        <label for="link">Link do Site:</label>
-        <input type="url" id="linksite" name="link" placeholder="https://example.com" required>
-        
-        <label for="inicio">Início das Inscrições:</label>
-        <input type="date" id="inicioinscricoes" name="inicio" required>
-        
-        <label for="termino">Término das Inscrições:</label>
-        <input type="date" id="terminoinscricoes" name="termino" required>
-         
-         <label for="foto">Foto do Curso:</label>
-         <input type="file" id="fotocurso" name="foto" accept="image/*">
-         
-        <button type="submit" class="adicionar">Adicionar</button>
-    </form>
-  </div>
-</div>
 </li>
 
     <li>
