@@ -898,21 +898,26 @@ html[dark] body .curso{
   background-color: rgb(53, 53, 53);
   transition: 1s;
 }
-html[dark] body .card-top{
+html[dark] body .card-top, html[dark] body .card-top3, html[dark] body .card-top2{
   background-color: rgb(53, 53, 53);
   box-shadow: 2px 2px 7px 1px #4b4b4b;
   transition: 1s;
 }
-html[dark] body .card-top2{
-  background-color: rgb(53, 53, 53);
-  box-shadow: 2px 2px 7px 1px #4b4b4b;
-  transition: 1s;
+
+html[dark] .modal-content-detalhes{
+  background-color: #3c3c3c;
 }
-html[dark] body .card-top3{
-  background-color: rgb(53, 53, 53);
-  box-shadow: 2px 2px 7px 1px #4b4b4b;
-  transition: 1s;
+html[dark] .mais-info{
+  color: #888888;
 }
+html[dark] .dropdown-menu{
+  background-color: #868686;
+}
+html[dark] .dropdown-menu button:hover, html[dark] .dropdown-menu a:hover{
+  background-color: #696969;
+  color: white;
+}
+
 html[dark] body input{
   background-color: rgb(28, 27, 27);
 }
@@ -1292,7 +1297,6 @@ img.img-top3{
     display: flex;
     flex-direction: column;
     width: 350px; 
-    /* height: 400px; */
     margin-bottom: 40px; 
     padding: 20px;
     background-color: #ffffff;
@@ -1300,6 +1304,7 @@ img.img-top3{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     margin-top: 2px; 
+    overflow: hidden;
 }
 .curso:hover {
   transform: translateY(-5px);
@@ -1407,7 +1412,8 @@ img.img-top3{
   margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 400px;
+  /* width: 400px; */
+  width: 480px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -1473,9 +1479,11 @@ img.img-top3{
 }
 img#imagem_atual_edit {
   width: 350px;
-  height: 150px;
+  height: 159px;
   object-fit: cover;
   border-radius: 8px;
+  width: 100%;
+  margin-top: 2%;
 }
 button.editar, button.delet {
   width: 100%;
@@ -1580,3 +1588,186 @@ div:where(.swal2-icon).swal2-warning {
 .dropdown-menu.show-menu {
   display: block; /* Mostrar quando a classe show-menu está presente */
 }
+
+/* MODALS */
+
+.descricao {
+  margin-bottom: 10px;
+}
+.ver-mais {
+  color: blue;
+  cursor: pointer;
+}
+
+.curso-content .descricao {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  line-break: anywhere;
+}
+
+.curso-content .descricao .ver-mais {
+  color: blue;
+  cursor: pointer;
+}
+
+.curso-content .descricao-completa {
+  display: none; 
+}
+
+.curso-content .ver-mais {
+  color: #92c7df;
+  cursor: pointer;
+  display: block;
+}
+.curso-info p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.curso-content {
+  margin-top: 10px;
+}
+
+.descricao {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.descricao-completa {
+  display: none; 
+  overflow: visible; 
+  line-break: anywhere;
+}
+
+.ver-mais {
+  color: blue;
+  cursor: pointer;
+  display: block;
+}
+
+
+
+.mais-info {
+color: #000000;
+cursor: pointer;
+background: transparent;
+border: none;
+font-weight: bold;
+font-size: medium;
+}
+.mais-info:hover {
+text-decoration: underline;
+}
+.bi-info-circle::before {
+padding-right: 5px;
+}
+
+      /* Estilos para o modal de detalhes */
+      .modal-detalhes {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content-detalhes {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      overflow: hidden;
+  }
+
+  .close-detalhes {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
+
+  .close-detalhes:hover,
+  .close-detalhes:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  .modal-detalhes p {
+      margin-bottom: 10px;
+  }
+
+  .title{
+      color: #888;
+  }
+  .title-details{
+      color: #0dcae4;
+  }
+  .row{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .modal-content-detalhes i{
+      margin-right: 5px;
+  }
+  p.instituicao {
+      margin-top: 19px;
+  }
+  p.instituicao-detalhes {
+      font-weight: 600;
+      margin-left: -5px;
+  }
+  p.instituicao-detalhes span {
+      color: #1ba0ab;
+  }
+
+  .bi-mortarboard-fill::before {
+      content: "\f6fd";
+      margin-right: 2%;
+  }
+
+  p.descricao, p.descricao-completa{
+    display: block;
+    text-align: justify;
+  }
+ /* MODAL EDITAR */
+ .modal-content-edit label{
+    font-size: 12px;
+    color: #c5c5c5;
+  }
+  .modal-content-edit select {
+      border: none;
+      font-size: medium;
+      outline: none;
+      margin-top: 9px;
+  }
+  .modal-content-edit textarea {
+    outline: none;
+    border: none;
+    font-family: system-ui;
+    font-size: 13px;
+  }
+  input#quantidadevagas_edit {
+      width: 10%;
+  }
+  .row_edit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2%;
+      margin-bottom: 2%;
+  }
+  .row_dates label{
+    font-size: 10px;
+  }
+

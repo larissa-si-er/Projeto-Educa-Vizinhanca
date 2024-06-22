@@ -246,15 +246,7 @@ $tipoUsuario = $_SESSION['user_type'];
 
   <?php renderizarModalAdicionarCurso($tipoUsuario); ?>
 
-<<<<<<< HEAD
 </div> 
-=======
-        <label for="formato">Formato:</label>
-        <select id="formato" name="formato" required>
-            <option value="Pesencial">Pesencial</option>
-            <option value="Ead">Ead</option>
-        </select>
->>>>>>> cc13cb717215c6493dce5efe5dfde7e374ea5a32
 
 <script>
         document.getElementById('abrirModalAdicionar').addEventListener('click', function() {

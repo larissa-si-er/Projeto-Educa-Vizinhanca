@@ -334,6 +334,8 @@ function getSettingsLink($userType) {
                         <p class="instituicao"><i class="bi bi-building"></i>Instituição: <?php echo htmlspecialchars($curso['instituicao']); ?></p>
                     <?php endif; ?>
                         <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
+                        <button class="mais-info" onclick="openDetalhesModal(<?php echo htmlspecialchars(json_encode($curso)); ?>)"><i class="bi bi-info-circle"></i>Mais Info.</button>
+                        
 
 
                         <!-- <p class="tipocurso"><i class="bi bi-tag"></i>Tipo: <?php echo htmlspecialchars($curso['tipocurso']); ?></p>
@@ -355,14 +357,9 @@ function getSettingsLink($userType) {
                         <a href="#" class="ver-mais" onclick="toggleDescription(this); return false;">Ver mais</a>
                     <?php endif; ?>
 
-                        <!-- Link "Mais informações" para abrir o modal -->
-
-
-                        <button class="mais-info" onclick="openDetalhesModal(<?php echo htmlspecialchars(json_encode($curso)); ?>)">+ Info.</button>
-
-
                         <div class="curso-buttons">
                             <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
+
                             <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
                             <i class="fa-regular fa-comment-dots botao-comentar" title="comentar"></i>
                             <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
@@ -388,33 +385,33 @@ function getSettingsLink($userType) {
 </div>
 
 
-        <!-- Modal de Detalhes do Curso -->
+        <!-- O Modal de detalhes do Curso -->
         <div id="detalhesModal" class="modal-detalhes">
             <div class="modal-content-detalhes">
                 <span class="close-detalhes" onclick="closeDetalhesModal()">&times;</span>
                 <div class="curso-detalhes">
-                    <h1 id="title"><i class="bi bi-mortarboard-fill"></i>EDUCA <span class="title-details"> VIZINHANÇA</span></h1>
+                    <h1 id="title"><i class="bi bi-mortarboard-fill"></i>EDUCA <span class="title-details"> VIZINHANÇA</span></h1> <p>CURSOS</p>
                     <h2 id="detalhesNomeCurso"></h2>
-                    <p class="vagas"><i class="bi bi-person"></i>Vagas: <span id="detalhesVagas"></span></p>
+
                     <div class="row">
-                        <p class="instituicao"><i class="bi bi-building"></i>Instituição: <span id="detalhesInstituicao"></span></p>
-                        <p class="area"><i class="bi bi-book"></i>Área: <span id="detalhesAreaCurso"></span></p>
+                        <p class="instituicao-detalhes"><i class="bi bi-building"></i>Instituição: <span id="detalhesInstituicao"></span></p>
+                        <p class="vagas"><i class="bi bi-person"></i>Vagas: <span id="detalhesVagas"></span></p>
+
                     </div>
+
+                    <div class="row">
+                        <p class="localizacao-detalhes"><i class="bi bi-geo-alt"></i>Localização: <span id="detalhesLocalizacao"></span></p>
+                    </div>
+
                     <div class="row">
                         <p class="modalidade"><i class="bi bi-card-list"></i>Modalidade: <span id="detalhesModalidade"></span></p>
-                        <p class="tipocurso"><i class="bi bi-tag"></i>Tipo: <span id="detalhesTipoCurso"></span></p>
-                    </div>
-                    <div class="row">
-                        <p class="duracao"><i class="bi bi-clock"></i>Duração: <span id="detalhesDuracao"></span></p>
                         <p class="turno"><i class="bi bi-sun"></i>Turno: <span id="detalhesTurno"></span></p>
+                        <p class="tipocurso"><i class="bi bi-tag"></i>Tipo: <span id="detalhesTipoCurso"></span></p>
+                        <p class="duracao"><i class="bi bi-clock"></i>Duração: <span id="detalhesDuracao"></span></p>
                     </div>
+
                     <div class="row">
-                        <p class="inicioinscricoes"><i class="bi bi-calendar"></i>Início: <span id="detalhesInicioInscricoes"></span></p>
-                        <p class="terminoinscricoes"><i class="bi bi-calendar"></i>Término: <span id="detalhesTerminoInscricoes"></span></p>
-                    </div>
-                    <div class="row">
-                        <p class="linksite"><i class="bi bi-link-45deg"></i>Link do site: <a href="#" id="detalhesLinkSite" target="_blank"></a></p>
-                        <p class="localizacao"><i class="bi bi-geo-alt"></i>Localização: <span id="detalhesLocalizacao"></span></p>
+                        <p class="inicioinscricoes"><i class="bi bi-calendar"></i>Datas: <span id="detalhesInicioInscricoes"></span>  até   <span id="detalhesTerminoInscricoes"></span></p>
                     </div>
 
                     <p class="descricao"><i class="bi bi-file-earmark-text"></i>Descrição: <span id="detalhesDescricao"></span></p>
@@ -424,307 +421,102 @@ function getSettingsLink($userType) {
         </div>
 
 
-
-<style>
-    .descricao {
-        margin-bottom: 10px;
-    }
-    .ver-mais {
-        color: blue;
-        cursor: pointer;
-    }
-
-    .curso-content .descricao {
-        margin-bottom: 10px;
-        line-height: 1.5;
-        line-break: anywhere;
-    }
-
-    .curso-content .descricao .ver-mais {
-        color: blue;
-        cursor: pointer;
-    }
-
-    .curso-content .descricao-completa {
-        display: none; 
-    }
-
-    .curso-content .ver-mais {
-        color: #92c7df;
-        cursor: pointer;
-        display: block;
-    }
-    .curso-info p {
-        margin: 0;
-        font-size: 1rem;
-    }
-
-    .curso-content {
-        margin-top: 10px;
-    }
-
-    .descricao {
-        margin-bottom: 10px;
-        line-height: 1.5;
-        /* max-height: 75px;  */
-        overflow: hidden;
-    }
-
-    .descricao-completa {
-        display: none; 
-        /* max-height: none;  */
-        overflow: visible; 
-        line-break: anywhere;
-    }
-
-    .ver-mais {
-        color: blue;
-        cursor: pointer;
-        display: block;
-    }
-
-
-
-    .mais-info {
-    color: #979797;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    position: absolute;
-    right: 5%;
-    top: 1%;
-}
-
-    .mais-info:hover {
-        text-decoration: underline;
-    }
-
-            /* Estilos para o modal de detalhes */
-            .modal-detalhes {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-        }
-
-        .modal-content-detalhes {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        .close-detalhes {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close-detalhes:hover,
-        .close-detalhes:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-detalhes p {
-            margin-bottom: 10px;
-        }
-
-        .title{
-            color: #888;
-        }
-        .title-details{
-            color: #0dcae4;
-        }
-        .row{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        p.instituicao {
-            width: 50%;
-            margin-top: 19px;
-        }
-
-        .bi-mortarboard-fill::before {
-            content: "\f6fd";
-            margin-right: 2%;
-        }
-
-</style>
-<script>
-    function toggleDescription(link) {
-        var descricaoCompleta = link.previousElementSibling; 
-        var descricaoResumida = descricaoCompleta.previousElementSibling; 
-        if (descricaoCompleta.style.display === 'none') {
-            descricaoResumida.style.display = 'none';
-            descricaoCompleta.style.display = 'block';
-            link.innerText = 'Ver menos';
-        } else {
-            descricaoCompleta.style.display = 'none';
-            descricaoResumida.style.display = 'block';
-            link.innerText = 'Ver mais';
-        }
-    }
-
-
-
-                // modal de detalhes 
-                function openDetalhesModal(curso) {
-                document.getElementById('detalhesNomeCurso').textContent = curso.nome_curso;
-                document.getElementById('detalhesAreaCurso').textContent = curso.areacurso;
-                document.getElementById('detalhesInstituicao').textContent = curso.instituicao;
-                document.getElementById('detalhesModalidade').textContent = curso.formato;
-                document.getElementById('detalhesLinkSite').textContent = curso.linksite;
-                document.getElementById('detalhesDescricao').textContent = curso.descricao;
-                document.getElementById('detalhesLocalizacao').textContent = curso.localidade;
-                document.getElementById('detalhesTipoCurso').textContent = curso.tipocurso;
-                document.getElementById('detalhesVagas').textContent = curso.quantidadevagas;
-                document.getElementById('detalhesDuracao').textContent = curso.duracao;
-                document.getElementById('detalhesTurno').textContent = curso.turno;
-                document.getElementById('detalhesInicioInscricoes').textContent = formatarData(curso.inicioinscricoes);
-                document.getElementById('detalhesTerminoInscricoes').textContent = formatarData(curso.terminoinscricoes);
-
-                
-
-                var modal = document.getElementById("detalhesModal");
-                modal.style.display = "block";
-            }
-
-            function closeDetalhesModal() {
-                var modal = document.getElementById("detalhesModal");
-                modal.style.display = "none";
-            }
-
-            //  dd/mm/yyyy
-            function formatarData(data) {
-                const partesData = data.split('-');
-                const ano = partesData[0];
-                const mes = partesData[1];
-                const dia = partesData[2];
-                return `${dia}/${mes}/${ano}`;
-            }
-
-            window.onclick = function(event) {
-                var modal = document.getElementById("detalhesModal");
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-</script>
-
-
-
-    <!-- O Modal -->
+    <!-- O Modal editar [INICIO]-->
     <div id="editModal" class="modal-edit">
         <div class="modal-content-edit curso">
             <span class="close-edit">&times;</span>
             <form action="../controllers/editar_curso.php" method="post" id="editForm" enctype="multipart/form-data">
-                
-                    <!-- Mostrar imagem atual -->
-                    <div class="imagem-atual">
-                        <label>Imagem Atual:</label><br>
-                        <img id="imagem_atual_edit" src="" alt="Imagem Atual">
-                    </div>
+                <input type="hidden" name="id_curso" id="id_curso_edit">
 
-                    <input type="hidden" name="id_curso" id="id_curso_edit">
-                    <label for="nome_curso_edit">Nome do Curso:</label>
-                    <input type="text" name="nome_curso" id="nome_curso_edit" required>
-                    <label for="areacurso_edit">Área do Curso:</label>
-                    <input type="text" name="areacurso" id="areacurso_edit" required>
-                    <label for="instituicao_edit">Instituição:</label>
-                    <input type="text" name="instituicao" id="instituicao_edit" required>
+                <!-- imagem atual -->
+                <div class="imagem-atual">
+                    <label>Imagem Atual:</label><br>
+                    <img id="imagem_atual_edit" src="" alt="Imagem Atual">
+                </div>
+
+                
+                <label for="nome_curso_edit">Nome do Curso:</label>
+                <input type="text" name="nome_curso" id="nome_curso_edit" required>
+
+                <label for="descricao_edit">Descrição:</label>
+                <textarea name="descricao" id="descricao_edit" rows="4" required></textarea>
+                
+                <label for="areacurso_edit">Área do Curso:</label>
+                <select name="areacurso" id="areacurso_edit" required>
+                    <option value="tecnologia">Tecnologia</option>
+                    <option value="Saúde e Bem-Estar">Saúde e Bem-Estar</option>
+                    <option value="Educação">Educação</option>
+                    <option value="Engenharia">Engenharia</option>
+                    <option value="Ciências Exatas e Naturais">Ciências Exatas e Naturais</option>
+                    <option value="Ciências sociais, negócios e direito">Ciências sociais, negócios e direito</option>
+                    <option value="Ciências Agrárias">Ciências Agrárias</option>
+                    <option value="Meio Ambiente">Meio Ambiente</option>
+                    <option value="Artes e Design">Artes e Design</option>
+                    <option value="Comunicação">Comunicação</option>
+                    <option value="Outros">Outros</option>
+                </select>
+                
+                <label for="instituicao_edit">Instituição:</label>
+                <input type="text" name="instituicao" id="instituicao_edit" required>
+
+                <div class="row_edit">
                     <label for="formato_edit">Modalidade:</label>
-                    <input type="text" name="formato" id="formato_edit" required>
-                    <label for="linksite_edit">Link do Site:</label>
-                    <input type="url" name="linksite" id="linksite_edit" required>
-                    <label for="foto_edit">Editar Foto:</label>
-                    <input type="file" name="foto_curso" id="foto_edit">
-                    <button type="submit">Salvar Alterações</button>
+                    <select name="formato" id="formato_edit" required>
+                        <option value="Presencial">Presencial</option>
+                        <option value="EAD">EAD</option>
+                        <option value="Híbrido">Híbrido</option>
+                    </select>
+
+                    <label for="tipocurso_edit">Tipo do curso:</label>
+                    <select name="tipocurso" id="tipocurso_edit" required>
+                        <option value="Extenção">Extenção</option>
+                        <option value="Livre">Livre</option>
+                    </select>
+                </div>
+                
+                <div class="row_edit">
+                    <label for="quantidadevagas_edit">Quantidade de Vagas:</label>
+                    <input type="number" name="quantidadevagas" id="quantidadevagas_edit" min="0" required>
+
+                    <label for="duracao_edit">Duração:</label>
+                    <input type="text" name="duracao" id="duracao_edit" required>
+                </div>
+                
+                <label for="linksite_edit">Link do Site:</label>
+                <input type="url" name="linksite" id="linksite_edit" required>
+                
+                <label for="turno_edit">Turno:</label>
+                <select name="turno" id="turno_edit" required>
+                    <option value="Manhã">Manhã</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noite">Noite</option>
+                    <option value="Indefinido">Indefinido</option>
+                </select>
+                
+                <label for="localidade_edit">Local:</label>
+                <input type="text" name="localidade" id="localidade_edit" required>
+
+                <div class="row_edit row_dates">
+                    <label for="inicioinscricoes_edit">Início das Inscrições:</label>
+                    <input type="date" name="inicioinscricoes" id="inicioinscricoes_edit" required>
+
+                    <label for="terminoinscricoes_edit">Término das Inscrições:</label>
+                    <input type="date" name="terminoinscricoes" id="terminoinscricoes_edit" required>
+                </div>
+                
+                <label for="foto_edit">Editar Foto:</label>
+                <input type="file" name="foto_curso" id="foto_edit">
+                
+                <button type="submit">Salvar Alterações</button>
             </form>
         </div>
     </div>
-    <!-- O Modal [FIM] -->
+    <!-- O Modal edita [FIM] -->
 
 
-    <script>
-        // Função para abrir o modal e preencher os dados do curso
-        function openEditModal(curso) {
-            document.getElementById('id_curso_edit').value = curso.id_curso;
-            document.getElementById('nome_curso_edit').value = curso.nome_curso;
-            document.getElementById('areacurso_edit').value = curso.areacurso;
-            document.getElementById('instituicao_edit').value = curso.instituicao;
-            document.getElementById('formato_edit').value = curso.formato;
-            document.getElementById('linksite_edit').value = curso.linksite;
 
-            // imagem atual
-            var imagemAtual = document.getElementById('imagem_atual_edit');
-            var caminhoImagem = '../views/fotos-banco/' + curso.fotocurso;
-            imagemAtual.src = caminhoImagem;
 
-            var modal = document.getElementById("editModal");
-            modal.style.display = "block";
-        }
 
-        // Fechar o modal 
-        document.getElementsByClassName("close-edit")[0].onclick = function() {
-            document.getElementById("editModal").style.display = "none";
-        }
-
-        // Fechar o modal PT2
-        window.onclick = function(event) {
-            var modal = document.getElementById("editModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-    // Função para confirmar exclusão
-    function confirmDeletion(idCurso) {
-        Swal.fire({
-            title: 'Excluir permanentemente?',
-            text: "Você não poderá reverter isso!",
-            icon: 'warning',
-            iconHtml: '<i class="bi bi-exclamation-triangle-fill custom-swal-icon"></i>',
-            showCancelButton: true,
-            confirmButtonColor: '#E1241D',
-            cancelButtonColor: '#CCCCCC',
-            confirmButtonText: 'Sim, deletar!',
-            cancelButtonText: 'Cancelar',
-            customClass: {
-            confirmButton: 'botao-confirmar-swal', 
-            cancelButton: 'botao-cancelar-swal',
-            icon: 'custom-swal-icon' // Classe CSS para o ícone
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Criar um formulário e enviar a requisição POST para deletar o curso
-                var form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '../controllers/deletar_curso.php';
-
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'id_curso';
-                input.value = idCurso;
-
-                form.appendChild(input);
-                document.body.appendChild(form);
-                form.submit();
-            }
-        });
-    }
-    </script>
 
 
 
@@ -750,9 +542,12 @@ function getSettingsLink($userType) {
             </script>';
         }
     ?>
+    <!-- FEEDBACKS -->
+
 
     <script src="./js/script.js"></script>
     <script src="./js/modal.js"></script>
+    <script src="./js/feedCursos.js"></script>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

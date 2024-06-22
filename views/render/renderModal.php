@@ -38,6 +38,9 @@ function renderizarModalAdicionarCurso($tipoUsuario, $nomeInstituicao = null) {
                     <option value="Livre">Livre</option>
                 </select>
 
+                <label for="descricao_edit">Descrição:</label>
+                <textarea name="descricao" id="descricao_edit" rows="4" required></textarea>
+
                 <label for="formato">Formato:</label>
                 <select id="formato" name="formato" required>
                     <option value="Presencial">Presencial</option>
@@ -56,6 +59,7 @@ function renderizarModalAdicionarCurso($tipoUsuario, $nomeInstituicao = null) {
                     <option value="Manhã">Manhã</option>
                     <option value="Tarde">Tarde</option>
                     <option value="Noite">Noite</option>
+                    <option value="Indefinido">Indefinido</option>
                 </select>
                 
                 <label for="localidade">Local:</label>

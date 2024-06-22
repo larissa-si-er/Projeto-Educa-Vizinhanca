@@ -42,17 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Move o arquivo para o diretório desejado
         if (move_uploaded_file($caminhoTemp, __DIR__ . $diretorioSalvar . $nomeArquivo)) {
-<<<<<<< HEAD
         // Prepara a instrução SQL para inserção
         $sql = "INSERT INTO curso (nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao, data_time) 
         VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao, NOW())";
         $stmt = $conn->prepare($sql);
-=======
-            // Prepara a instrução SQL para inserção
-            $sql = "INSERT INTO curso (nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao) 
-            VALUES (:titulo, :descricao, :area, :tipocurso, :formato, :vagas, :duracao, :turno, :localidade, :link, :inicio, :termino, :nomeArquivo, :instituicao)";
-            $stmt = $conn->prepare($sql);
->>>>>>> cc13cb717215c6493dce5efe5dfde7e374ea5a32
 
             // Bind dos parâmetros
             $stmt->bindParam(':titulo', $titulo);
