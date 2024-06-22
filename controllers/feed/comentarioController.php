@@ -1,15 +1,14 @@
 <?php
-// Inclua o arquivo de conexão com o banco de dados
 require_once '../../models/conexao.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Verifica se todos os dados necessários foram recebidos
+
     if (isset($_POST['id_curso'], $_POST['comentario'])) {
         $id_curso = $_POST['id_curso'];
         $comentario = $_POST['comentario'];
 
-        // Busca o id do usuário logado
+        // Busca usuário logado
         if (isset($_SESSION['user_data']['id_aluno'])) {
             $id_usuario = $_SESSION['user_data']['id_aluno'];
         } else {
@@ -18,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         try {
-            // Insere o comentário no banco de dados
+            // Inserir o comentário
             $stmt = $conn->prepare("INSERT INTO comentario (id_aluno, id_curso, texto) VALUES (:id_aluno, :id_curso, :texto)");
             $stmt->bindParam(':id_aluno', $id_usuario, PDO::PARAM_INT);
             $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
@@ -26,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->execute();
             $stmt->closeCursor();
 
-            // Retorna a lista atualizada de comentários
+            // lista atualizada de comentários
             fetchComentarios($id_curso);
         } catch (PDOException $e) {
             echo json_encode(['error' => "Erro ao processar o comentário: " . $e->getMessage()]);
@@ -55,7 +54,7 @@ function fetchComentarios($id_curso, $page = 1, $limit = 5) {
         $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
 
-        // Verifica se há mais comentários
+
         $stmt = $conn->prepare("SELECT COUNT(*) FROM comentario WHERE id_curso = :id_curso");
         $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
         $stmt->execute();
@@ -64,7 +63,6 @@ function fetchComentarios($id_curso, $page = 1, $limit = 5) {
 
         $hasMore = ($totalComentarios > $page * $limit);
 
-        // Formatando a data antes de enviar como resposta JSON
         foreach ($comentarios as &$comentario) {
             $comentario['data_time'] = date('d/m/Y H:i', strtotime($comentario['data_time']));
         }
