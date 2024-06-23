@@ -206,7 +206,12 @@ $tipoUsuario = $_SESSION['user_type'];
         <input type="text" class="form-control" id="cor" name="cor" required>
 
         <label for="categoria">Categoria:</label>
-        <input type="text" class="form-control" id="categoria" name="categoria" required>
+        <select class="form-control" id="categoria" name="categoria" required>
+            <option value="cadernos">Cadernos</option>
+            <option value="garrafas">Garrafas</option>
+            <option value="planners">Planners</option>
+        </select>
+
 
         <label class="checkbox-container" for="is_lancamento">É lançamento?
         <!-- <input type="checkbox" id="is_lancamento" name="is_lancamento" value="1"> -->

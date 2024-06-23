@@ -1,11 +1,34 @@
 <?php
 include '../models/conexao.php';
 
-// Busca todos os produtos
-$sql = "SELECT nome_produto, descricao, preco, imagem,id_produto FROM produto";
-$stmt = $conn->prepare($sql);
+
+// Busca todos os produtos, filtrando se houver uma categoria especificada
+if (isset($_GET['categoria'])) {
+    $categoria = $_GET['categoria'];
+    $sql = "SELECT nome_produto, descricao, preco, imagem, id_produto FROM produto WHERE categoria = :categoria";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':categoria', $categoria);
+} else {
+    $sql = "SELECT nome_produto, descricao, preco, imagem, id_produto FROM produto";
+    $stmt = $conn->prepare($sql);
+}
+
 $stmt->execute();
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
+
+
+
+
+
+// Busca todos os produtos
+// $sql = "SELECT nome_produto, descricao, preco, imagem,id_produto FROM produto";
+// $stmt = $conn->prepare($sql);
+// $stmt->execute();
+// $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Verifica se há produtos
 if ($produtos === false) {

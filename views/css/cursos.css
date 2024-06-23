@@ -22,6 +22,10 @@ body{
     background-color: #ffffff;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 nav{
     position: absolute;
     top: 0;
