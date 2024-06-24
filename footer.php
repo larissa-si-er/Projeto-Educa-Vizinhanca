@@ -18,6 +18,7 @@
     <!--scripts etc-->
     <link rel="stylesheet" href="./views/css/footer.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="./css/footer.css">
     <script src="./views/js/script.js"></script>
     <script src="./views/js/scroll.js"></script>
     <script src="./views/js/modal.js"></script>

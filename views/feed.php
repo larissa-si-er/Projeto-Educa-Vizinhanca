@@ -262,7 +262,7 @@ if (!isset($_SESSION['preload_displayed'])) {
 
                     <div class="curso" id="curso-list" data-area="<?php echo htmlspecialchars($curso['areacurso']); ?>" data-regiao="<?php echo htmlspecialchars($curso['localidade']); ?>" title="<?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($curso['data_time']))); ?>">
                 
-                    <?php if ($_SESSION['user_type'] === 'administracao'): ?>                    
+                    <?php if ($_SESSION['user_type'] === 'administracao' || ($_SESSION['user_type'] === 'instituicao' && $curso['id_instituicao'] === $_SESSION['user_data']['id_instituicao'])): ?>       
                         <!-- BOTAO DE CONTROLE DO CURSO PARA ADMIN -->
                         <div class="control-config" onclick="toggleMenu(this)">
                                 <i class="bi bi-three-dots"></i>
@@ -308,16 +308,6 @@ if (!isset($_SESSION['preload_displayed'])) {
                             <p class="localizacao"><i class="bi bi-laptop"></i>Modalidade: <?php echo htmlspecialchars($curso['formato']); ?></p>
                             <button class="mais-info" onclick="openDetalhesModal(<?php echo htmlspecialchars(json_encode($curso)); ?>)"><i class="bi bi-info-circle"></i>Mais Info.</button>
                             
-
-
-                            <!-- <p class="tipocurso"><i class="bi bi-tag"></i>Tipo: <?php echo htmlspecialchars($curso['tipocurso']); ?></p>
-                            <p class="vagas"><i class="bi bi-person"></i>Vagas: <?php echo htmlspecialchars($curso['quantidadevagas']); ?></p>
-                            <p class="duracao"><i class="bi bi-clock"></i>Duração: <?php echo htmlspecialchars($curso['duracao']); ?></p>
-                            <p class="turno"><i class="bi bi-sun"></i>Turno: <?php echo htmlspecialchars($curso['turno']); ?></p> -->
-
-                            <!-- <p class="inicioinscricoes"><i class="bi bi-calendar"></i><?php echo htmlspecialchars(date('d/m/Y', strtotime($curso['inicioinscricoes']))); ?></p>
-                            <p class="terminoinscricoes"><i class="bi bi-calendar"></i><?php echo htmlspecialchars(date('d/m/Y', strtotime($curso['terminoinscricoes']))); ?></p> -->
-
                         <!-- DESCRIÇAO -->
                         <!-- Descrição com "Ver mais" -->
                         <?php
@@ -332,7 +322,7 @@ if (!isset($_SESSION['preload_displayed'])) {
                             <div class="curso-buttons">
                                 <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
 
-                                <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
+                                <!-- <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i> -->
                                 <i class="fa-regular fa-comment-dots botao-comentar" title="comentar" onclick="toggleComments(<?php echo $curso['id_curso']; ?>)"></i>
                                 <i class="fa-regular fa-bookmark botao-salvar" title="salvar" data-id-curso="<?php echo $curso['id_curso']; ?>"></i>
 
@@ -373,7 +363,7 @@ if (!isset($_SESSION['preload_displayed'])) {
                                         });
 
                                     } else {
-                                        // Utilizando SweetAlert2 para exibir mensagem de erro
+
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'Erro ao salvar o curso!',
@@ -383,7 +373,7 @@ if (!isset($_SESSION['preload_displayed'])) {
                                 })
                                 .catch(error => {
                                     console.error('Erro ao salvar o curso:', error);
-                                    // Utilizando SweetAlert2 para exibir mensagem de erro genérica
+
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Erro ao salvar o curso!',
@@ -607,5 +597,10 @@ if (!isset($_SESSION['preload_displayed'])) {
 </div>
 
 </body>
+
+
+<?php 
+require_once "../footer.php";
+?>
 
 </html>

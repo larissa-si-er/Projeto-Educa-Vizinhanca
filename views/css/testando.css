@@ -415,11 +415,13 @@ padding: 5px;
   box-shadow: -6px 6px 20px -1px rgb(0 0 0 / 42%);
   z-index: 1;
   border-radius: 4px;
+  width: 50%;
+
 }
 
 .dropdown-menu form, .dropdown-menu a {
   color: black;
-  padding: 12px 16px;
+  padding: 15px 29px;
   text-decoration: none;
   display: block;
   font-size: 18px;
@@ -1788,7 +1790,8 @@ padding-right: 5px;
         border-radius: 5px; 
         z-index: 9999;
         position: absolute;
-        margin-top: 4%;
+        /* margin-top: 4%; */
+        top: 100%;
     }
 
     .comentario {
@@ -2107,3 +2110,9 @@ padding-right: 5px;
           }
         }
     
+
+        .fa-house:before {
+          content: "\f015";
+          margin-right: 10px;
+          margin-bottom: 8px;
+      }
