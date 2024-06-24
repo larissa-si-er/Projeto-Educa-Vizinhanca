@@ -1,4 +1,4 @@
-<?php
+    <?php
 include '../models/conexao.php'; // Inclui a conexão com o banco de dados
 
 try {

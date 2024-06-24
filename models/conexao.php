@@ -46,7 +46,7 @@ function consultarInsti($idInsti) {
 
     try {
         // Consulta SQL para selecionar dados da instituição associada ao ID informado
-        $sql = "SELECT i.id_instituicao, i.nome_insti, i.telefone_fixo, i.telefone_celular, i.cep, i.email, 
+        $sql = "SELECT i.id_instituicao, i.nome_insti, i.telefone_fixo, i.telefone_celular, i.cep, i.usuario, i.email, i.data_fundacao,
                        i.cnpj, e.estado, e.logradouro, e.bairro, e.num
                 FROM instituicao i
                 INNER JOIN endereco e ON i.cep = e.cep

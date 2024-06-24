@@ -69,8 +69,8 @@ $resultado = consultarAlunos($idAlunoLogado);
             while ($linha = $resultado->fetch(PDO::FETCH_ASSOC)) {
                 echo '<h1>Seus dados abaixo</h1>';
                 echo '<br>';
-                echo '<p><strong>User:</strong> ' . htmlspecialchars($_SESSION['user_data']['usuario']) . '</p>';
-                echo '<p><strong>Email:</strong> ' . htmlspecialchars($_SESSION['user_data']['email']) . '</p>';
+                echo '<p><strong>User:</strong> ' . htmlspecialchars($linha['usuario']) . '</p>';
+                echo '<p><strong>Email:</strong> ' . htmlspecialchars($linha['email']) . '</p>';
                 echo '<p><strong>Senha:</strong> *********</p>';
                 echo '<button class="view-details" id="vermais" data-id="' . $linha['id_aluno'] . '">Ver mais';
                 echo '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">';
@@ -125,90 +125,77 @@ document.addEventListener('DOMContentLoaded', addViewDetailsEvent);
     <ul>
     <li>
     <button id="abrirModalEditar" title="Editar Curso"><i class="fa-solid fa-user-pen" style="cursor: pointer;" title="Editar Perfil"></i></button>
-    <div id="modalEditar" class="modal">
+<div id="modalEditar" class="modal">
     <div class="modal-content">
         <span class="fechar">&times;</span>
         <h2>Editar Dados</h2>
         <form id="formCurso" action="form_editar_aluno.php" method="post">
             <input type="hidden" id="id_aluno" name="id_aluno" value="<?php echo $aluno['id_aluno']; ?>">
-            
             <label for="name">Nome:</label>
             <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($aluno['nome']); ?>">
-            
             <label for="data_nasc">Data de Nascimento:</label>
             <input type="date" id="data_nasc" name="data_nasc" value="<?php echo $aluno['data_nasc']; ?>">
-            
             <label for="sexo">Sexo:</label>
             <select id="sexo" name="sexo">
                 <option value="feminino" <?php echo ($aluno['sexo'] == 'feminino') ? 'selected' : ''; ?>>Feminino</option>
                 <option value="masculino" <?php echo ($aluno['sexo'] == 'masculino') ? 'selected' : ''; ?>>Masculino</option>
                 <option value="outro" <?php echo ($aluno['sexo'] == 'outro') ? 'selected' : ''; ?>>Outro</option>
             </select>
-            
             <label for="nome_materno">Nome Materno:</label>
             <input type="text" id="nome_materno" name="nome_materno" value="<?php echo htmlspecialchars($aluno['nome_materno']); ?>">
-            
             <label for="cpf">CPF:</label>
             <input type="text" id="cpf" name="cpf" maxlength="14" value="<?php echo $aluno['cpf']; ?>">
-            
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="<?php echo $aluno['email']; ?>">
-            
             <label for="phone">Telefone Celular:</label>
             <input type="text" id="phone" name="phone" value="<?php echo $aluno['telefone_celular']; ?>">
-            
             <label for="phone_fixed">Telefone Fixo:</label>
             <input type="text" id="phone_fixed" name="phone_fixed" value="<?php echo $aluno['telefone_fixo']; ?>">
-            
             <label for="usuario">Usuário:</label>
             <input type="text" id="usuario" name="usuario" value="<?php echo $aluno['usuario']; ?>">
-            
             <label for="senha">Nova senha:</label>
             <input type="password" id="senha" name="senha">
-            
             <label for="cep">CEP:</label>
             <input type="text" id="cep" name="cep" maxlength="9" value="<?php echo $aluno['cep']; ?>">
-             <!-- Novos campos de endereço -->
-    <label for="cidade">Cidade:</label>
-    <input type="text" id="cidade" name="cidade" value="<?php echo htmlspecialchars($aluno['cidade']); ?>">
-    
-    <label for="estado">Estado:</label>
-    <input type="text" id="estado" name="estado" value="<?php echo htmlspecialchars($aluno['estado']); ?>">
-    
-    <label for="logradouro">Logradouro:</label>
-    <input type="text" id="logradouro" name="logradouro" value="<?php echo htmlspecialchars($aluno['logradouro']); ?>">
-    
-    <label for="bairro">Bairro:</label>
-    <input type="text" id="bairro" name="bairro" value="<?php echo htmlspecialchars($aluno['bairro']); ?>">
-    <label for="num">Número:</label>
-    <input type="text" id="num" name="num" value="<?php echo htmlspecialchars($aluno['num']); ?>">
             
             <button type="submit" class="alterar">Salvar</button>
         </form>
     </div>
 </div>
-<script>    // Abrir o modal de editar perfil
+</li>
+<li><form action="../../controllers/userController.php" method="post">
+          <input type="hidden" name="logout">
+          <button type="submit" style="background-color: transparent; border:none;"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </form></li>
+  </ul>
+</div>
+    <br>
+  </div>
+  <Script>//modal editar perfil
+document.addEventListener('DOMContentLoaded', function() {
     var abrirModalEditar = document.getElementById('abrirModalEditar');
+    console.log('abrirModalEditar:', abrirModalEditar);
     if (abrirModalEditar) {
         abrirModalEditar.addEventListener('click', function() {
             var modalEditar = document.getElementById('modalEditar');
+            console.log('modalEditar:', modalEditar);
             if (modalEditar) {
                 modalEditar.style.display = 'block';
             }
         });
     }
 
-    // Fechar o modal de editar perfil
     var modalEditar = document.getElementById('modalEditar');
+    console.log('modalEditar:', modalEditar);
     if (modalEditar) {
         var fecharEditar = modalEditar.getElementsByClassName('fechar')[0];
+        console.log('fecharEditar:', fecharEditar);
         if (fecharEditar) {
             fecharEditar.addEventListener('click', function() {
                 modalEditar.style.display = 'none';
             });
         }
 
-        // Fechar o modal de editar perfil se o usuário clicar fora dele
         window.addEventListener('click', function(event) {
             if (event.target == modalEditar) {
                 modalEditar.style.display = 'none';
@@ -216,80 +203,70 @@ document.addEventListener('DOMContentLoaded', addViewDetailsEvent);
         });
     }
 
-    // Função para formatar telefone celular
-    document.getElementById('phone').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{5})(\d{4})/);
-        if (x) {
-            e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
-        }
-    });
+    var phoneInput = document.getElementById('phone');
+    console.log('phoneInput:', phoneInput);
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{5})(\d{4})/);
+            if (x) {
+                e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
+            }
+        });
+    }
 
-    // Função para formatar telefone fixo
-    document.getElementById('phone_fixed').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{4})(\d{4})/);
-        if (x) {
-            e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
-        }
-    });
+    var phoneFixedInput = document.getElementById('phone_fixed');
+    console.log('phoneFixedInput:', phoneFixedInput);
+    if (phoneFixedInput) {
+        phoneFixedInput.addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{4})(\d{4})/);
+            if (x) {
+                e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
+            }
+        });
+    }
 
-    // Função para formatar CPF
-    document.getElementById('cpf').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{3})(\d{3})(\d{3})(\d{2})/);
-        if (x) {
-            e.target.value = x[1] + '.' + x[2] + '.' + x[3] + '-' + x[4];
-        }
-    });
+    var cpfInput = document.getElementById('cpf');
+    console.log('cpfInput:', cpfInput);
+    if (cpfInput) {
+        cpfInput.addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{3})(\d{3})(\d{3})(\d{2})/);
+            if (x) {
+                e.target.value = x[1] + '.' + x[2] + '.' + x[3] + '-' + x[4];
+            }
+        });
+    }
 
-    document.getElementById('cep').addEventListener('blur', function (e) {
-    var cep = e.target.value.replace(/\D/g, '');
-    if (cep.length === 8) {
-        fetch(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(response => response.json())
-            .then(data => {
-                if (!data.erro) {
-                    document.getElementById('logradouro').value = data.logradouro;
-                    document.getElementById('bairro').value = data.bairro;
-                    document.getElementById('cidade').value = data.localidade;
-                    document.getElementById('estado').value = data.uf;
-                } else {
-                    alert('CEP não encontrado!');
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao buscar o CEP:', error);
-                alert('Erro ao buscar o CEP!');
-            });
-    } else {
-        alert('CEP inválido!');
+    var cepInput = document.getElementById('cep');
+    console.log('cepInput:', cepInput);
+    if (cepInput) {
+        cepInput.addEventListener('blur', function (e) {
+            var cep = e.target.value.replace(/\D/g, '');
+            if (cep.length === 8) {
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.erro) {
+                            document.getElementById('logradouro').value = data.logradouro;
+                            document.getElementById('bairro').value = data.bairro;
+                            document.getElementById('cidade').value = data.localidade;
+                            document.getElementById('estado').value = data.uf;
+                        } else {
+                            alert('CEP não encontrado!');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar o CEP:', error);
+                        alert('Erro ao buscar o CEP!');
+                    });
+            } else {
+                alert('CEP inválido!');
+            }
+        });
     }
 });
 
-    // Função para atualizar dados
-    function updateData() {
-        var formData = new FormData(document.getElementById('editForm'));
-        fetch('update_student.php', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Dados atualizados com sucesso!');
-                modalEditar.style.display = "none";
-            } else {
-                alert('Erro ao atualizar dados!');
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao atualizar dados:', error);
-            alert('Erro ao atualizar dados!');
-        });
-    }</script>
-</li>
-    <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket" title="Sair"></i></a></li>
-  </ul>
-</div>
-    <br>
-  </div>
+//modal editar perfil [FIM]
+</Script>
   
   <div class="div2">
     <h1>Favoritos</h1><br>
@@ -307,11 +284,11 @@ document.addEventListener('DOMContentLoaded', addViewDetailsEvent);
 </div>
 <br>
 <br>
+
+
 <?php
 require_once '../../footer.php';
 ?>
-
-
 
 <style>
 .sub-title-form{

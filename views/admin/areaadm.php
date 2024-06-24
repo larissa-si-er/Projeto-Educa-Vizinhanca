@@ -1,5 +1,3 @@
-
-
 <?php
     require_once '../../head.php';
     include_once '../menuinterno.php';
@@ -14,9 +12,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 $primeiroNome = $_SESSION['first_name'] ?? '';
 $tipoUsuario = $_SESSION['user_type'];
-
-// var_dump($_SESSION);
-
 ?>
 <!-- Script [inicio] -->
 <script src="../js/modal.js"></script>
@@ -31,12 +26,6 @@ $tipoUsuario = $_SESSION['user_type'];
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.js"></script>
 <!-- Script [fim] -->
     
-  <!-- Exibição do feedback, se houver -->
-<?php if (isset($feedback)): ?>
-  <div class="feedback">
-  <?php echo $feedback; ?>
-  </div>
-<?php endif; ?>
 
 <div class="voltar">
   <div class="meu_perfil">
@@ -88,65 +77,42 @@ $tipoUsuario = $_SESSION['user_type'];
     <br>
     <div class="acoes">
   <ul>
-<!--modal editar-->
-<li>
-<button id="abrirModalEditar" title="Editar Curso"><i class="fa-solid fa-user-pen" style="cursor: pointer;" title="Editar Perfil"></i></button>
-    <div id="modalEditar" class="modal">
-        <div class="modal-content">
-            <span class="fechar">&times;</span>
-            <h2>Editar Perfil</h2>
-            <form id="formEditarAdm" action="formulario_editar_adm.php" method="post">
-    <label for="usuario">User:</label>
-    <input type="text" id="usuario" name="usuario" value="<?php echo isset($_SESSION['usuario']) ? htmlspecialchars($_SESSION['usuario']) : ''; ?>" required>
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<?php echo isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : ''; ?>" required>
-    
-    <label for="senha">Nova Senha:</label>
-    <input type="password" id="senha" name="senha" required>
 
-    <button type="submit" class="alterar">Salvar Alterações</button>
-</form>
-
-        </div>
-    </div>
-</li>
-    <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket" title="Sair"></i></a></li>
+    <li><form action="../../controllers/userController.php" method="post">
+          <input type="hidden" name="logout">
+          <button type="submit" style="background-color: transparent; border:none;"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </form></li>
   </ul>
 </div>
     <br>
     <script>
-    $(document).ready(function() {
-            // Exibe o modal de edição ao clicar no botão
-            $('#abrirModalEditar').click(function() {
-                $('#modalEditar').modal('show');
-            });
-
-            // Verifica se houve sucesso ao submeter o formulário
-            <?php if (!empty($mensagemSucesso)) : ?>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Sucesso!',
-                    text: '<?php echo addslashes($mensagemSucesso); ?>',
-                    showConfirmButton: false,
-                    timer: 2000 // Fecha automaticamente após 2 segundos
-                }).then((result) => {
-                    // Redireciona para outra página após a mensagem de sucesso (opcional)
-                    window.location.href = "areaadm.php";
-                });
-            <?php endif; ?>
-
-            // Verifica se houve erro ao submeter o formulário
-            <?php if (!empty($mensagemErro)) : ?>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro!',
-                    text: '<?php echo addslashes($mensagemErro); ?>',
-                    showConfirmButton: false,
-                    timer: 3000 // Fecha automaticamente após 3 segundos
-                });
-            <?php endif; ?>
+    document.addEventListener('DOMContentLoaded', function() {
+    var abrirModalEditar = document.getElementById('abrirModalEditar');
+    if (abrirModalEditar) {
+        abrirModalEditar.addEventListener('click', function() {
+            var modalEditar = document.getElementById('modalEditar');
+            if (modalEditar) {
+                modalEditar.style.display = 'block';
+            }
         });
+    }
+
+    var modalEditar = document.getElementById('modalEditar');
+    if (modalEditar) {
+        var fecharEditar = modalEditar.getElementsByClassName('fechar')[0];
+        if (fecharEditar) {
+            fecharEditar.addEventListener('click', function() {
+                modalEditar.style.display = 'none';
+            });
+        }
+
+        window.addEventListener('click', function(event) {
+            if (event.target == modalEditar) {
+                modalEditar.style.display = 'none';
+            }
+        });
+    }
+});
     </script>
     
     <!--cursos_add-->

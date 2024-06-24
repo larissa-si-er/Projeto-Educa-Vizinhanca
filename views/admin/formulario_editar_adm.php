@@ -17,7 +17,7 @@ if (!isset($_SESSION['id_admin'])) {
 $id_admin = $_SESSION['id_admin'];
 
 // Inclui o arquivo de conexão com o banco de dados
-include '../../models/conexao.php';
+require_once '../../models/conexao.php';
 
 // Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -34,9 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             try {
                 $stmt = $conn->prepare($sql);
+                $senha_hash = password_hash($senha, PASSWORD_DEFAULT); // hash da senha
                 $stmt->bindParam(':usuario', $usuario);
                 $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':senha', $senha);
+                $stmt->bindParam(':senha', $senha_hash);
                 $stmt->bindParam(':id_admin', $id_admin);
 
                 $stmt->execute();
@@ -46,7 +47,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Erro ao atualizar dados: " . $e->getMessage();
             }
         } else {
-            echo "Por favor, preencha todos os campos.";
+            // Atualiza apenas usuário e email, sem alterar a senha
+            $sql = "UPDATE administracao SET usuario = :usuario, email = :email WHERE id_admin = :id_admin";
+
+            try {
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':usuario', $usuario);
+                $stmt->bindParam(':email', $email);
+                $stmt->bindParam(':id_admin', $id_admin);
+
+                $stmt->execute();
+
+                echo "Dados atualizados com sucesso!";
+            } catch (PDOException $e) {
+                echo "Erro ao atualizar dados: " . $e->getMessage();
+            }
         }
     } else {
         echo "Por favor, preencha todos os campos.";

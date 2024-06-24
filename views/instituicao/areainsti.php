@@ -1,22 +1,47 @@
-
 <?php
 require_once '../../head.php';
 include_once '../menuinterno.php';
 require_once '../../models/conexao.php'; 
 include '../render/renderModal.php'; 
 
+// Verifica se o usuário não está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: ../views/auth/login.php');
     exit();
 }
 
-$tipoUsuario = $_SESSION['user_type'];
-$nomeInstituicao = $_SESSION['user_data']['nome_insti']; 
-$idInstituicaoLogado = $_SESSION['user_data']['id_instituicao'] ?? null;
+$tipoUsuario = $_SESSION['user_type'];  // Tipo de usuário logado
+$nomeInstituicao = $_SESSION['user_data']['nome_insti'];  // Nome da instituição logada
+$idInstituicaoLogado = $_SESSION['user_data']['id_instituicao'] ?? null;  // ID da instituição logada
 
+// Verifica se $idInstituicaoLogado está definido antes de continuar
+if (!$idInstituicaoLogado) {
+    $_SESSION['error_message'] = 'ID da instituição não encontrado.';
+    header('Location: areainstituicao.php');  // Redireciona para a área apropriada
+    exit();
+}
+
+// Consulta dados da instituição associada ao usuário logado
+$sql = "SELECT id_instituicao, nome_insti, email, data_fundacao, cnpj, telefone_celular, telefone_fixo, cep, usuario, senha
+        FROM instituicao
+        WHERE id_instituicao = :id_instituicao";
+
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':id_instituicao', $idInstituicaoLogado, PDO::PARAM_INT);
+$stmt->execute();
+$instituicao = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Verificar se $instituicao foi encontrado antes de acessar seus dados
+if (!$instituicao) {
+    $_SESSION['error_message'] = 'Dados da instituição não encontrados.';
+    header('Location: areainstituicao.php');  // Redireciona para a área apropriada
+    exit();
+}
+
+
+// Consultar dados da instituição associada ao usuário logado
 $resultado = consultarInsti($idInstituicaoLogado);
 
-// var_dump($_SESSION);
 ?>
 
 <script src="../js/modal.js"></script>
@@ -41,8 +66,8 @@ $resultado = consultarInsti($idInstituicaoLogado);
             while ($linha = $resultado->fetch(PDO::FETCH_ASSOC)) {
                 echo '<h1>Seus dados abaixo</h1>';
                 echo '<br>';
-                echo '<p><strong>User:</strong> ' . htmlspecialchars($_SESSION['user_data']['usuario']) . '</p>';
-                echo '<p><strong>Email:</strong> ' . htmlspecialchars($_SESSION['user_data']['email']) . '</p>';
+                echo '<p><strong>User:</strong> ' . htmlspecialchars($linha['usuario']) . '</p>';
+                echo '<p><strong>Email:</strong> ' . htmlspecialchars($linha['email']) . '</p>';
                 echo '<p><strong>Senha:</strong> *********</p>';
                 echo '<button class="view-details" id="vermais" data-id="' . $linha['id_instituicao'] . '">Ver mais';
                 echo '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">';
@@ -50,19 +75,21 @@ $resultado = consultarInsti($idInstituicaoLogado);
                 echo '</svg></button>';
 
                 // Detalhes a serem exibidos ao clicar em Ver mais
+                echo '<br>';
                 echo '<div id="details-' . $linha['id_instituicao'] . '" style="display: none;">';
-                echo '<p><strong>Nome:</strong> ' . htmlspecialchars($linha['nome']) . '</p>';
+                echo '<div class="sub-title-form"> <p>Informações Pessoais</p></div>';
                 echo '<p><strong>Instituição:</strong> ' . htmlspecialchars($linha['nome_insti']) . '</p>';
-                echo '<p><strong>Email:</strong> ' . htmlspecialchars($linha['email']) . '</p>';
                 echo '<p><strong>Fundada:</strong> ' . htmlspecialchars($linha['data_fundacao']) . '</p>';
                 echo '<p><strong>CNPJ:</strong> ' . htmlspecialchars($linha['cnpj']) . '</p>';
                 echo '<p><strong>Telefone Celular:</strong> ' . htmlspecialchars($linha['telefone_celular']) . '</p>';
                 echo '<p><strong>Telefone Fixo:</strong> ' . htmlspecialchars($linha['telefone_fixo']) . '</p>';
+                echo '<div class="sub-title-form"> <p>Informações de endereço</p></div>';
                 echo '<p><strong>CEP:</strong> ' . htmlspecialchars($linha['cep']) . '</p>';
                 echo '<p><strong>Logradouro:</strong> ' . htmlspecialchars($linha['logradouro']) . '</p>';
                 echo '<p><strong>Bairro:</strong> ' . htmlspecialchars($linha['bairro']) . '</p>';
                 echo '<p><strong>Estado:</strong> ' . htmlspecialchars($linha['estado']) . '</p>';
                 echo '<p><strong>Número:</strong> ' . htmlspecialchars($linha['num']) . '</p>';
+                echo '<br>';
                 echo '</div>';
             }
         } else {
@@ -106,34 +133,139 @@ document.addEventListener('DOMContentLoaded', addViewDetailsEvent);
         <div class="modal-content">
             <span class="fechar">&times;</span>
             <h2>Editar Perfil</h2>
-            <form id="formCurso" action="formulario_editar_adm.php" method="post">
-                
-                <label for="nome_insti">Nome Instituição:</label>
-                <input type="text" id="nome_adm" name="user" required>
+            <form id="formInstituicao" action="form_editar_insti.php" method="post">
+    <input type="hidden" id="id_instituicao" name="id_instituicao" value="<?php echo htmlspecialchars($instituicao['id_instituicao']); ?>">
 
-                <label for="telefone_fixo">Telefone Fixo:</label>
-                <input type="text" id="telefone_fixo" name="telefone" required>
-                
-                <label for="endereco">Endereço:</label>
-                <input type="text" id="endereco" name="endereco" required>
+    <label for="nome_insti">Nome Instituição:</label>
+    <input type="text" id="nome_insti" name="nome_insti" value="<?php echo htmlspecialchars($instituicao['nome_insti']); ?>">
 
-                <label for="cnpj">CNPJ:</label>
-                <input type="text" id="cnpj" name="cnpj" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($instituicao['email']); ?>">
 
-                <label for="cnpj">CEP:</label>
-                <input type="text" id="cep" name="cep" required>
+    <label for="data_fundacao">Data de Fundação:</label>
+    <input type="date" id="data_fundacao" name="data_fundacao" value="<?php echo htmlspecialchars($instituicao['data_fundacao']); ?>">
 
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email"  required></input>
-                
-                <label for="senha">Senha:</label>
-                <input type="text" id="senha" name="senha" required>
+    <label for="cnpj">CNPJ:</label>
+    <input type="text" id="cnpj" name="cnpj" maxlength="18" value="<?php echo htmlspecialchars($instituicao['cnpj']); ?>">
 
-                <button type="submit" class="adicionar">Adicionar</button>
+    <label for="telefone_celular">Telefone Celular:</label>
+    <input type="text" id="telefone_celular" name="telefone_celular" value="<?php echo htmlspecialchars($instituicao['telefone_celular']); ?>">
+
+    <label for="telefone_fixo">Telefone Fixo:</label>
+    <input type="text" id="telefone_fixo" name="telefone_fixo" value="<?php echo htmlspecialchars($instituicao['telefone_fixo']); ?>">
+
+    <label for="cep">CEP:</label>
+    <input type="text" id="cep" name="cep" maxlength="9" value="<?php echo htmlspecialchars($instituicao['cep']); ?>">
+
+    <label for="usuario">Usuário:</label>
+    <input type="text" id="usuario" name="usuario" value="<?php echo htmlspecialchars($instituicao['usuario']); ?>">
+
+    <label for="senha">Nova senha:</label>
+    <input type="password" id="senha" name="senha">
+
+    <button type="submit" class="alterar">Salvar</button>
             </form>
+
         </div>
+        <script>//modal editar perfil
+document.addEventListener('DOMContentLoaded', function() {
+    var abrirModalEditar = document.getElementById('abrirModalEditar');
+    console.log('abrirModalEditar:', abrirModalEditar);
+    if (abrirModalEditar) {
+        abrirModalEditar.addEventListener('click', function() {
+            var modalEditar = document.getElementById('modalEditar');
+            console.log('modalEditar:', modalEditar);
+            if (modalEditar) {
+                modalEditar.style.display = 'block';
+            }
+        });
+    }
+
+    var modalEditar = document.getElementById('modalEditar');
+    console.log('modalEditar:', modalEditar);
+    if (modalEditar) {
+        var fecharEditar = modalEditar.getElementsByClassName('fechar')[0];
+        console.log('fecharEditar:', fecharEditar);
+        if (fecharEditar) {
+            fecharEditar.addEventListener('click', function() {
+                modalEditar.style.display = 'none';
+            });
+        }
+
+        window.addEventListener('click', function(event) {
+            if (event.target == modalEditar) {
+                modalEditar.style.display = 'none';
+            }
+        });
+    }
+
+    var phoneInput = document.getElementById('phone');
+    console.log('phoneInput:', phoneInput);
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{5})(\d{4})/);
+            if (x) {
+                e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
+            }
+        });
+    }
+
+    var phoneFixedInput = document.getElementById('phone_fixed');
+    console.log('phoneFixedInput:', phoneFixedInput);
+    if (phoneFixedInput) {
+        phoneFixedInput.addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{4})(\d{4})/);
+            if (x) {
+                e.target.value = '+55(' + x[1] + ')' + x[2] + '-' + x[3];
+            }
+        });
+    }
+
+    var cpfInput = document.getElementById('cpf');
+    console.log('cpfInput:', cpfInput);
+    if (cpfInput) {
+        cpfInput.addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{3})(\d{3})(\d{3})(\d{2})/);
+            if (x) {
+                e.target.value = x[1] + '.' + x[2] + '.' + x[3] + '-' + x[4];
+            }
+        });
+    }
+
+    var cepInput = document.getElementById('cep');
+    console.log('cepInput:', cepInput);
+    if (cepInput) {
+        cepInput.addEventListener('blur', function (e) {
+            var cep = e.target.value.replace(/\D/g, '');
+            if (cep.length === 8) {
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.erro) {
+                            document.getElementById('logradouro').value = data.logradouro;
+                            document.getElementById('bairro').value = data.bairro;
+                            document.getElementById('cidade').value = data.localidade;
+                            document.getElementById('estado').value = data.uf;
+                        } else {
+                            alert('CEP não encontrado!');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar o CEP:', error);
+                        alert('Erro ao buscar o CEP!');
+                    });
+            } else {
+                alert('CEP inválido!');
+            }
+        });
+    }
+});</script>
     </div>
-    <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket" title="Sair"></i></a></li>
+    <li><form action="../../controllers/userController.php" method="post">
+          <input type="hidden" name="logout">
+          <button type="submit" style="background-color: transparent; border:none;"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </form>
+    </li>
   </ul>
 </div>
     <br>
@@ -162,6 +294,12 @@ require_once '../../footer.php';
 
 
 <style>
+  .sub-title-form{
+    font-weight: bold;
+    color: #007f9c;
+    margin-top: 3%;
+    margin-bottom: 1%;
+}
  /*modal*/
 
  #abrirModalEditar,#abrirModalAdicionar {
@@ -235,6 +373,8 @@ require_once '../../footer.php';
   input[type="text"],
   input[type="number"],
   input[type="date"],
+  input[type="email"],
+  input[type="password"],
   select,
   textarea {
       width: 100%;
@@ -260,6 +400,14 @@ require_once '../../footer.php';
   height: 35px;
   color: #007491;
   border: 1px solid #007491;
+}
+.alterar {
+    height: 40px;
+    border-radius: 6px;
+    background-color: #72dce5;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 .adicionar:hover, .add-img-curso:hover{
     -webkit-box-shadow: 0px 0px 2px 3px rgba(0, 45, 246, 0.1); 

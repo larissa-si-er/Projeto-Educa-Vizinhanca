@@ -1,9 +1,8 @@
 <?php
 session_start();
-require_once '../../models/conexao.php'; // Verifique o caminho correto aqui
+require_once '../../models/conexao.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica se o ID do aluno foi fornecido
     if (!isset($_POST['id_aluno'])) {
         $_SESSION['error_message'] = 'ID do aluno não fornecido.';
         header('Location: areaaluno.php');
@@ -12,9 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $id_aluno = $_POST['id_aluno'];
 
-    // Processa a atualização dos dados do aluno
-    if (
-        !empty($_POST['name']) && 
+    if (!empty($_POST['name']) && 
         !empty($_POST['data_nasc']) && 
         isset($_POST['sexo']) && 
         !empty($_POST['nome_materno']) && 
@@ -23,52 +20,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         !empty($_POST['phone']) && 
         !empty($_POST['phone_fixed']) && 
         !empty($_POST['usuario']) && 
-        isset($_POST['cep']) && 
-        !empty($_POST['cidade']) && 
-        !empty($_POST['estado']) && 
-        !empty($_POST['logradouro']) && 
-        !empty($_POST['bairro']) && 
-        !empty($_POST['num']) 
-    ) {
+        isset($_POST['cep'])) {
+        
         try {
-            // Inicia a transação
             $conn->beginTransaction();
+            echo 'Iniciando a atualização...';
 
-            // Sanitiza os dados do formulário
-            $nome = htmlspecialchars($_POST['name']);
+            $nome = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');
             $data_nasc = $_POST['data_nasc'];
             $sexo = $_POST['sexo'];
-            $nome_materno = htmlspecialchars($_POST['nome_materno']);
+            $nome_materno = htmlspecialchars($_POST['nome_materno'], ENT_QUOTES, 'UTF-8');
             $cpf = $_POST['cpf'];
             $email = $_POST['email'];
             $telefone_celular = $_POST['phone'];
             $telefone_fixo = $_POST['phone_fixed'];
-            $usuario = $_POST['usuario'];
+            $usuario = htmlspecialchars($_POST['usuario'], ENT_QUOTES, 'UTF-8');
             $cep = $_POST['cep'];
-            $cidade = htmlspecialchars($_POST['cidade']);
-            $estado = htmlspecialchars($_POST['estado']);
-            $logradouro = htmlspecialchars($_POST['logradouro']);
-            $bairro = htmlspecialchars($_POST['bairro']);
-            $num = htmlspecialchars($_POST['num']);
+   
 
-            // SQL para atualizar os dados do aluno
             $sql_update = "UPDATE aluno 
-                          SET nome = :nome, 
-                              data_nasc = :data_nasc, 
-                              sexo = :sexo, 
-                              nome_materno = :nome_materno, 
-                              cpf = :cpf, 
-                              email = :email, 
-                              telefone_celular = :telefone_celular, 
-                              telefone_fixo = :telefone_fixo, 
-                              usuario = :usuario, 
-                              cep = :cep, 
-                              cidade = :cidade, 
-                              estado = :estado, 
-                              logradouro = :logradouro, 
-                              bairro = :bairro,
-                              num = :num
-                          WHERE id_aluno = :id_aluno";
+                           SET nome = :nome, 
+                               data_nasc = :data_nasc, 
+                               sexo = :sexo, 
+                               nome_materno = :nome_materno, 
+                               cpf = :cpf, 
+                               email = :email, 
+                               telefone_celular = :telefone_celular, 
+                               telefone_fixo = :telefone_fixo, 
+                               usuario = :usuario, 
+                               cep = :cep
+                           WHERE id_aluno = :id_aluno";
 
             $stmt_update = $conn->prepare($sql_update);
             $stmt_update->bindParam(':nome', $nome, PDO::PARAM_STR);
@@ -81,24 +62,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_update->bindParam(':telefone_fixo', $telefone_fixo, PDO::PARAM_STR);
             $stmt_update->bindParam(':usuario', $usuario, PDO::PARAM_STR);
             $stmt_update->bindParam(':cep', $cep, PDO::PARAM_STR);
-            $stmt_update->bindParam(':cidade', $cidade, PDO::PARAM_STR);
-            $stmt_update->bindParam(':estado', $estado, PDO::PARAM_STR);
-            $stmt_update->bindParam(':logradouro', $logradouro, PDO::PARAM_STR);
-            $stmt_update->bindParam(':bairro', $bairro, PDO::PARAM_STR);
-            $stmt_update->bindParam(':num', $num, PDO::PARAM_STR);
             $stmt_update->bindParam(':id_aluno', $id_aluno, PDO::PARAM_INT);
 
             if ($stmt_update->execute()) {
-                // Commit se a atualização for bem-sucedida
                 $conn->commit();
                 $_SESSION['success_message'] = 'Dados do aluno atualizados com sucesso.';
             } else {
-                // Rollback se houver erro na execução do SQL
                 $conn->rollBack();
                 $_SESSION['error_message'] = 'Erro ao atualizar dados do aluno.';
             }
         } catch (PDOException $e) {
-            // Rollback se houver exceção
             $conn->rollBack();
             $_SESSION['error_message'] = 'Erro ao atualizar dados do aluno: ' . $e->getMessage();
         }
