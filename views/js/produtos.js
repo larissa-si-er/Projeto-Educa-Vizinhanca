@@ -159,3 +159,12 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "none";
     }
 });
+
+// MODAL FEED (CONFIGURAÇOES) [inicio]
+function toggleMenu(element) {
+    var dropdownMenu = element.querySelector('.dropdown-menu');
+    dropdownMenu.classList.toggle('show');
+}
+// MODAL FEED (CONFIGURAÇOES) [fim]
+
+

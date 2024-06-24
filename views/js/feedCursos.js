@@ -169,7 +169,7 @@ function fetchComentarios(id_curso, page) {
         .then(data => {
             var comentariosDiv = document.getElementById('lista-comentarios-' + id_curso);
             if (page === 1) {
-                comentariosDiv.innerHTML = ''; // Limpa a lista de comentários se for a primeira página
+                comentariosDiv.innerHTML = ''; 
             }
 
             if (data.error) {
