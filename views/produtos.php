@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -305,6 +308,21 @@
                 <div class="cards-GG">
                     <?php foreach ($produtos as $produto): ?>
                         <div class="card-GG img-prod-teste">
+  <!-- Verificar permissões para exibir botões de controle -->
+<?php if ($_SESSION['user_type'] === 'administracao'): ?>                    
+    <!-- Botões de controle para administradores -->
+    <div class="control-config" onclick="toggleMenu(this)">
+        <i class="bi bi-three-dots"></i>
+        <div class="dropdown-menu" id="dropdownMenu<?php echo $produto['id_produto']; ?>">
+            <button class="editar btn btn-secondary" onclick="openEditModalProduto(<?php echo htmlspecialchars(json_encode($produto)); ?>)">Editar <i class="bi bi-pencil-square"></i></button>
+            <form action="../controllers/excluir_produto.php" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este produto?');">
+                <input type="hidden" name="id_produto" value="<?php echo $produto['id_produto']; ?>">
+                <button type="submit" class="delet btn btn-danger">Deletar <i class="bi bi-trash3-fill"></i></button>
+            </form>
+        </div>
+    </div>
+<?php endif; ?>
+
                             <!-- Link para página do produto específico -->
                             <a class="link-prod" href="./subtelas/subProdBC.php?id_produto=<?php echo $produto['id_produto']; ?>">
                                 <?php
@@ -314,7 +332,7 @@
                                 <?php else: ?>
                                     <img class="card-GG-img" src="/views/fotos-banco/sem_foto.png" alt="Imagem não disponível">
                                 <?php endif; ?>
-                            </a>
+                            </a>                                
                             <h5 class="title-card-GG"><?php echo htmlspecialchars($produto['nome_produto']); ?></h5>
                             <div class="footer-card-GG">
                                 <p class="preco-card-GG">R$<?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
@@ -337,6 +355,105 @@
 
         
     </section>
+
+<!-- Modal de Edição de Produto -->
+<div id="editProductModal" class="edit-product-modal">
+    <div class="edit-product-modal-content">
+        <span class="close-edit" onclick="closeEditModal()">&times;</span>
+        <h2>Editar Produto</h2>
+        <form id="editProductForm" method="POST" action="../controllers/editar_produto.php" enctype="multipart/form-data">
+            <input type="hidden" id="id_produto_edit" name="id_produto">
+
+            <label for="nome_produto_edit">Nome do Produto:</label>
+            <input type="text" id="nome_produto_edit" name="nome_produto" required>
+
+            <label for="descricao_edit">Descrição:</label>
+            <textarea id="descricao_edit" name="descricao" required></textarea>
+
+            <label for="preco_edit">Preço:</label>
+            <input type="text" id="preco_edit" name="preco" required>
+
+            <label for="quantidade_estoque_edit">Quantidade em Estoque:</label>
+            <input type="number" id="quantidade_estoque_edit" name="quantidade_estoque" required>
+
+            <label for="imagem">Imagem:</label>
+            <input type="file" id="imagem_edit" name="imagem" accept="image/*">
+            <img id="imagem_atual_edit" src="" alt="Imagem Atual" style="width: 100px; height: auto; margin-top: 10px;">
+
+            <label for="categoria_edit">Categoria:</label>
+            <input type="text" id="categoria_edit" name="categoria" required>
+
+            <label for="cor_edit">Cor:</label>
+            <input type="text" id="cor_edit" name="cor" required>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+// ----------------MODAL EDITAR E DELETAR [INICIO]-------------------
+
+function openEditModalProduto(produto) {
+    document.getElementById('id_produto_edit').value = produto.id_produto;
+    document.getElementById('nome_produto_edit').value = produto.nome_produto;
+    document.getElementById('descricao_edit').value = produto.descricao;
+    document.getElementById('preco_edit').value = produto.preco;
+    document.getElementById('quantidade_estoque_edit').value = produto.quantidade_estoque;
+    document.getElementById('categoria_edit').value = produto.categoria;
+    document.getElementById('cor_edit').value = produto.cor;
+
+    // Imagem atual
+    var imagemAtual = document.getElementById('imagem_atual_edit');
+    var caminhoImagem = '../views/fotos-banco/' + produto.imagem;
+    imagemAtual.src = caminhoImagem;
+
+    var modal = document.getElementById("editProductModal");
+    modal.style.display = "block";
+}
+
+
+// Exclusão de produto
+function confirmDeletion(idProduto) {
+    Swal.fire({
+        title: 'Excluir permanentemente?',
+        text: "Você não poderá reverter isso!",
+        icon: 'warning',
+        iconHtml: '<i class="bi bi-exclamation-triangle-fill custom-swal-icon"></i>',
+        showCancelButton: true,
+        confirmButtonColor: '#E1241D',
+        cancelButtonColor: '#CCCCCC',
+        confirmButtonText: 'Sim, deletar!',
+        cancelButtonText: 'Cancelar',
+        customClass: {
+            confirmButton: 'botao-confirmar-swal', 
+            cancelButton: 'botao-cancelar-swal',
+            icon: 'custom-swal-icon'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Requisição POST para deletar o produto
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '../controllers/deletar_produto.php';
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'id_produto';
+            input.value = idProduto;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+}
+// ----------------MODAL EDITAR E DELETAR [FIM]-------------------
+
+</script>
+
 
     
         <!-- SLIDER -->
