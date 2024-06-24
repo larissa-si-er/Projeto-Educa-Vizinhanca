@@ -354,6 +354,7 @@ html[dark] .acess-window{
     font-size: 46px;
     color: #210082;
     text-decoration: none;
+    z-index: 9999;
 }
 /*--------------acessibilidade [fim]---------------*/
 

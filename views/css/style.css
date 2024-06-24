@@ -23,6 +23,10 @@ body{
     background-color: #ffffff;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 nav{
     position: fixed;
     position: absolute;

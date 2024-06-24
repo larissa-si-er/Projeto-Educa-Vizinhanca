@@ -121,7 +121,7 @@
         <section class="second-1">        
             <div class="cards-s1">
                 <div class="card-s1 bloco-a">
-                    <a class="a-bloco" href="#">
+                    <a class="a-bloco filtro-cadernos" href="?categoria=cadernos#produtos">
                         <div class="side1-bloco">
                             <h5 class="title-bloco">Cadernos</h5>
                             <span class="p-bloco1 p-a">Personalizados</span>
@@ -133,7 +133,7 @@
                 </div>
         
                 <div class="card-s1 bloco-b">
-                    <a class="a-bloco" href="#">
+                    <a class="a-bloco filtro-garrafas" href="?categoria=garrafas#produtos">
                         <div class="side1-bloco">
                             <h5 class="title-bloco">Garrafas</h5>
                             <span class="p-bloco1 p-b">Térmicas</span>
@@ -145,7 +145,7 @@
                 </div>
         
                 <div class="card-s1 bloco-c">
-                    <a class="a-bloco" href="#">
+                    <a class="a-bloco filtro-planners" href="?categoria=planners#produtos">
                         <div class="side1-bloco">
                             <h5 class="title-bloco">Planner</h5>
                             <span class="p-bloco1 p-c">Completo</span>
@@ -156,8 +156,15 @@
                     </a>
                 </div>
             </div>
-        </section>
 
+            <!-- Verifica se um filtro está aplicado e exibe o link "Mostrar Todos" -->
+            <?php if (isset($_GET['categoria'])): ?>
+                <div class="show-all">
+                    <a href="produtos.php#produtos" class="btn btn-secondary">Mostrar Todos os Produtos</a>
+                </div>
+            <?php endif; ?>
+
+        </section>
           
         <!-- MINI CARDS - SECOND SECTION -->
         <section class="second">
@@ -197,7 +204,7 @@
         </section>
 
         <!-- CARDS - GRANDE - PRODUTOS -->
-        <section class="third">
+        <!-- <section class="third">
             <h3 class="title title-produtos">PRODUTOS DISPONÍVEIS</h3>
 
             <div class="row">
@@ -281,9 +288,9 @@
                         
                 </div>
             </div>
-        </section>
+        </section> -->
 
-        <div id="produtos">
+<div id="produtos">
     <?php
     // Incluir arquivo com a lógica para buscar produtos
     include '../controllers/produtos_control.php';
@@ -293,7 +300,7 @@
         <p>Nenhum produto disponível no momento.</p>
     <?php else: ?>
         <section class="third">
-            <h3 class="title title-produtos" id="news">PRODUTOS RECENTEMENTE DISPONÍVEIS</h3>
+            <h3 class="title title-produtos" id="news">PRODUTOS DISPONÍVEIS</h3>
             <div class="row">
                 <div class="cards-GG">
                     <?php foreach ($produtos as $produto): ?>
@@ -303,7 +310,7 @@
                                 <?php
                                 $imagemPath = '/../views/fotos-banco/' . $produto['imagem'];
                                 if (file_exists(__DIR__ . $imagemPath)): ?>
-                                    <img class="card-GG-img" src="<?php echo htmlspecialchars($imagemPath); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
+                                    <img class="card-GG-img" src="<?php echo htmlspecialchars($imagemPath); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>" onerror="this.src='./fotos-banco/sem_foto.png'">
                                 <?php else: ?>
                                     <img class="card-GG-img" src="/views/fotos-banco/sem_foto.png" alt="Imagem não disponível">
                                 <?php endif; ?>
@@ -318,6 +325,12 @@
                      <?php endif; ?>
             </div>
         </div>
+
+        <?php if (isset($_GET['categoria'])): ?>
+                <div class="show-all">
+                    <a href="produtos.php#produtos" class="btn btn-secondary">Mostrar Todos os Produtos</a>
+                </div>
+        <?php endif; ?>
     </section>
 
         </div>
