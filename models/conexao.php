@@ -4,7 +4,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$dbname = "educa_vizinhanca";
+$dbname = "educa_teste";
 $port = 3306;
 
 try {
@@ -20,7 +20,7 @@ function consultarAlunos($idAluno) {
     try {
         // Consulta SQL para selecionar dados dos alunos associados ao usuário logado
         $sql = "SELECT a.id_aluno, a.nome, a.data_nasc, a.sexo, a.nome_materno, a.cpf, a.email, 
-                       a.telefone_celular, a.telefone_fixo, e.estado, e.logradouro, e.bairro, e.num, e.cep
+                       a.telefone_celular, a.telefone_fixo, a.usuario, e.estado, e.logradouro, e.bairro, e.num, e.cep
                 FROM aluno a
                 INNER JOIN endereco e ON a.cep = e.cep
                 WHERE a.id_aluno = :id_aluno";
@@ -79,7 +79,7 @@ class conexao {
     private $host = "localhost";
     private $user = "root";
     private $pass = "";
-    private $dbname = "educa_vizinhanca";
+    private $dbname = "educa_teste";
     private $port = 3306;
     private $conn;
 
