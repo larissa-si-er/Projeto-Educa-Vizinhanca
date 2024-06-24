@@ -12,13 +12,18 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- icones -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <script src="./js/pagamento.js"></script>
+    <!-- SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
 <div class="container">
    <div class="menu">
         <div class="menu-bar">
-            <a href="../../views/produtos.php"><i class="bi bi-box-arrow-left"></i></a>
+            <a href="../views/produtos.php"><i class="bi bi-box-arrow-left"></i></a>
             <img src="./img/Home-ic.png" alt="" class="img_lg">
         </div>
     </div>
@@ -96,10 +101,26 @@
             </div>
     
         </div>
-
-        <input type="submit" value="Confirmar" class="submit-btn">
-
+        <button id="confirmButton" class="submit-btn">Confirmar</button>
     </form>
+    <script>
+    // Espera até que o documento esteja completamente carregado
+    document.addEventListener("DOMContentLoaded", function() {
+        // Seleciona o botão pelo ID
+        var confirmButton = document.getElementById('confirmButton');
+
+        // Adiciona um ouvinte de evento para o clique no botão
+        confirmButton.addEventListener('click', function() {
+            // Usa o SweetAlert para mostrar a mensagem
+            swal({
+                title: "Compra confirmada!",
+                text: '<i class="fas fa-gift"></i>',  // Corrigido para 'fas' em vez de 'fa-solid'
+                iconHtml: true,
+                button: "OK",
+            });
+        });
+    });
+</script>
 
 </div>  
 </body>

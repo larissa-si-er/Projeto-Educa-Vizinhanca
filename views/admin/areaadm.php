@@ -123,7 +123,7 @@ $tipoUsuario = $_SESSION['user_type'];
         <div class="card-body-prod">
             <h1 class="card-number-prod" id="quantidadeProdutos">Carregando...</h1>
             <p class="card-products">Produtos </p>
-            <button id="vermais"><a href="">Ver mais</a>
+            <button id="vermais"><a href="../produtos.php">Ver mais</a>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
@@ -135,7 +135,7 @@ $tipoUsuario = $_SESSION['user_type'];
         <div class="card-body-prod">
             <h1 class="card-number-prod" id="quantidadeCursos">Carregando...</h1>
             <p class="card-products">Cursos</p>
-            <button id="vermais"><a href="cursosaddadm.php">Ver mais</a>
+            <button id="vermais"><a href="../feed.php">Ver mais</a>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>

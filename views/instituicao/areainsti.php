@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <h1>Cursos Adicionados</h1><br>
     <div class="card">
       <h3 class="card__title"><i class="fa-solid fa-graduation-cap"></i></h3>
-      <p class="card__content"><a href="cursosaddinsti.php" >Veja seus cursos adicionados na plataforma aqui.</a></p>
+      <p class="card__content"><a href="../feed.php" >Veja seus cursos adicionados na plataforma aqui.</a></p>
       <div class="card__date"></div>
       <div class="card__arrow">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
