@@ -80,7 +80,7 @@ function renderizarModalAdicionarCurso($tipoUsuario, $nomeInstituicao = null) {
                 <input type="date" id="terminoinscricoes" name="terminoinscricoes" required>
                  
                 <label for="fotocurso">Foto do Curso:</label>
-                <input type="file" id="fotocurso" name="fotocurso" accept="image/*">
+                <input type="file" id="fotocurso" name="fotocurso" accept="image/*" required>
                 
                 <button type="submit" class="adicionar">Adicionar</button>
             </form>

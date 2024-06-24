@@ -7,7 +7,11 @@ function gerarPergunta($authFactor) {
         case 'cep':
             return "Qual é o seu CEP?";
         case 'data_nasc':
-            return "Qual é a sua data de nascimento? "; 
+            return "Qual é a sua data de nascimento? ";
+        case 'data_fundacao':
+            return "Qual é a data de fundação? ";
+        case 'cnpj':
+            return "Qual é o CNPJ? "; 
         case 'nome_materno':
             return "Qual é o nome da sua mãe?";
         default:

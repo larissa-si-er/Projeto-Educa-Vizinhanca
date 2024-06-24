@@ -435,13 +435,13 @@ require_once '../../footer.php';
   }
 
   .adicionar{
-  margin-left: 50%; 
-  cursor: pointer;
-  border-radius: 7px;
-  width: 140px;
-  height: 35px;
-  color: #007491;
-  border: 1px solid #007491;
+    cursor: pointer;
+    border-radius: 7px;
+    width: 100%;
+    height: 35px;
+    color: #fff;
+    border: 1px solid #007491;
+    background-color: #008098;
 }
 .adicionar:hover, .add-img-curso:hover{
     -webkit-box-shadow: 0px 0px 2px 3px rgba(0, 45, 246, 0.1); 

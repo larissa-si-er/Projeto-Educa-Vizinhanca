@@ -1,11 +1,35 @@
 <?php
 include '../models/conexao.php';
 
-// Seleciona os cursos do banco de dados
-$sql = "SELECT id_curso, nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao, id_instituicao, data_time FROM curso ORDER BY data_time DESC";
+// Verifique se há uma consulta de pesquisa
+$searchQuery = $_GET['search'] ?? '';
+
+// Modifique a consulta SQL para incluir a pesquisa em vários campos
+$sql = "SELECT id_curso, nome_curso, descricao, areacurso, tipocurso, formato, quantidadevagas, duracao, turno, localidade, linksite, inicioinscricoes, terminoinscricoes, fotocurso, instituicao, id_instituicao, data_time 
+        FROM curso";
+
+if ($searchQuery) {
+    $sql .= " WHERE nome_curso LIKE :search 
+              OR descricao LIKE :search 
+              OR areacurso LIKE :search 
+              OR tipocurso LIKE :search 
+              OR formato LIKE :search 
+              OR localidade LIKE :search 
+              OR instituicao LIKE :search";
+}
+
+$sql .= " ORDER BY data_time DESC";
+
 $stmt = $conn->prepare($sql);
+
+if ($searchQuery) {
+    $searchTerm = '%' . $searchQuery . '%';
+    $stmt->bindParam(':search', $searchTerm);
+}
+
 $stmt->execute();
 $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 // Verificação para garantir que os cursos foram buscados corretamente
 if ($cursos === false) {

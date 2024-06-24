@@ -393,13 +393,13 @@ require_once '../../footer.php';
   }
 
   .adicionar{
-  margin-left: 50%; 
-  cursor: pointer;
-  border-radius: 7px;
-  width: 140px;
-  height: 35px;
-  color: #007491;
-  border: 1px solid #007491;
+    cursor: pointer;
+    border-radius: 7px;
+    width: 100%;
+    height: 35px;
+    color: #fff;
+    border: 1px solid #007491;
+    background-color: #008098
 }
 .alterar {
     height: 40px;
