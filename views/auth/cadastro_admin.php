@@ -82,57 +82,7 @@
                     <span id="cnpj_error" class="error"></span>
                     <small class="small-required" id="erroCnpj"></small>
                 </div>
-
-                <br>
-                <div class="inputbox">
-                    <div id="cursosContainer">
-                        <input type="checkbox" id="engenharia" value="engenharia" />
-                        <label for="engenharia">Engenharia</label>
-                        
-                        <input type="checkbox" id="medicina" value="medicina" />
-                        <label for="medicina">Medicina</label>
-                        
-                        <input type="checkbox" id="administração" value="administração" />
-                        <label for="administração">Administração</label>
-                        <!-- Adicione outras opções conforme necessário -->
-                    </div>
-                    <label for="cursos">Cursos Oferecidos: </label>
-                    <input type="text" id="outroCurso" placeholder="Outro curso..." class="inputUser" />
-                </div>
                 
-                <script>
-                    document.getElementById('outroCurso').addEventListener('change', function() {
-                        var novoCurso = this.value.trim();
-                
-                        if (novoCurso) {
-                            var checkbox = document.createElement('input');
-                            checkbox.type = 'checkbox';
-                            checkbox.id = novoCurso.toLowerCase();
-                            checkbox.value = novoCurso.toLowerCase();
-                            checkbox.checked = true; 
-                            checkbox.addEventListener('change', function() {
-                                if (!this.checked) {
-                                    
-                                    this.parentNode.removeChild(this.nextSibling);
-                                    this.parentNode.removeChild(this);
-                                }
-                            });
-                
-                            var label = document.createElement('label');
-                            label.htmlFor = novoCurso.toLowerCase();
-                            label.textContent = novoCurso;
-                
-                            document.getElementById('cursosContainer').appendChild(checkbox);
-                            document.getElementById('cursosContainer').appendChild(label);
-                
-                            this.value = '';
-                        }
-                    });
-                </script>
-
-                <br>
-                
-
                 <br>
                 <div class="inputbox w20">
                     <label for="celular">Celular: *</label>

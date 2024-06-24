@@ -1,12 +1,9 @@
 <?php
-// Verifica se a sessão não está ativa antes de iniciar
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Verifica se o usuário não está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // Redireciona para a página de login
     header('Location: ../views/auth/login.php');
     exit();
 }
@@ -60,7 +57,8 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                                     <!--erro-->
                                     <a href="../views/admin/areaadm.php">Meu perfil</a>
                                 </button>
-                                <form action="../controllers/userController.php" method="post">
+                                <!-- Formulário para realizar o logout -->
+                                <form action="../../controllers/userController.php" method="post">
                                     <input type="hidden" name="logout">
                                     <button type="submit" id="bnt-sair">Sair</button>
                                 </form>

@@ -120,8 +120,10 @@ font-family: "Poppins", sans-serif;
     transition: background-color 0.3s ease;
     text-decoration: none;
     color: white;
-    margin-top: 5%;
-    
+    margin-top: 5%;    
+  }
+  #bnt-sair{
+    width: 62px;
   }
 
   

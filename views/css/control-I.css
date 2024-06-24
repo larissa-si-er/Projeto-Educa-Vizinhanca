@@ -121,7 +121,7 @@ font-family: "Poppins", sans-serif;
   padding: 20px;
   border-radius: 4px;
   margin-top: -5px;
-  margin-top: 20%;
+  margin-top: 24%;
   position: absolute;
   right: 0;
 }
@@ -141,6 +141,7 @@ font-family: "Poppins", sans-serif;
   transition: background-color 0.3s ease;
   text-decoration: none;
   color: white;
+  margin-top: 3%;
   
 }
 #bnt-user a, #bnt-sair a{ text-decoration: none;}
