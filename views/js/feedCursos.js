@@ -233,3 +233,42 @@ function enviarComentario(id_curso) {
 }
 // ---------------- COMMENTS [FIM]-------------------
 
+
+// ---------------- PESQUISA [INICIO]-------------------
+document.querySelector('.input').addEventListener('input', function() {
+    if (this.value === '') {
+        document.getElementById('searchForm').submit();
+    }
+});
+// ---------------- PESQUISA [FIM]-------------------
+
+
+// ---------------- CURTIDA [INICIO]-------------------
+function curtirCurso(id_curso) {
+    // Realiza uma requisição AJAX para enviar a curtida para o servidor
+    fetch('../controllers/curtidaController.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id_curso: id_curso
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Atualiza a interface para refletir a curtida
+            const botaoCurtir = document.querySelector(`.botao-curtir[title="Curtir"][onclick="curtirCurso(${id_curso})"]`);
+            botaoCurtir.classList.add('curtido');
+            // Exemplo: adicionar feedback visual
+            // alert('Curso curtido com sucesso!');
+        } else {
+            alert('Erro ao curtir o curso. Tente novamente.');
+        }
+    })
+    .catch(error => {
+        console.error('Erro na requisição:', error);
+        alert('Erro ao curtir o curso. Tente novamente.');
+    });
+}

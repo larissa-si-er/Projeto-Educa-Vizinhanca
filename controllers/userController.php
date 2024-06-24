@@ -118,7 +118,6 @@ function login($user) {
             exit();
         }
     } else {
-        // Se o método de solicitação não for POST ou se os campos estiverem vazios
         $_SESSION['login_error'] = 'Erro ao logar. Por favor, preencha todos os campos.';
         header('Location: ../views/auth/login.php');
         exit();
@@ -126,12 +125,10 @@ function login($user) {
 }
 
 function logout() {
-    // session_start(); // Inicia a sessão se ainda não estiver iniciada
 
-    // Remove todas as variáveis de sessão
+    // tira as variáveis de sessão
     $_SESSION = array();
 
-    // Se necessário, destrói a sessão
     if (session_status() === PHP_SESSION_ACTIVE) {
         session_destroy();
     }
@@ -158,6 +155,17 @@ function verificarAutenticacao($resposta, $campo_correto) {
     switch ($authFactor) {
         case 'cep':
             if ($resposta === $_SESSION['user_data']['cep']) {
+                $isValid = true;
+            }
+            break;
+        case 'data_fundacao':
+            $dataFormatada = DateTime::createFromFormat('d/m/Y', $resposta) ?: DateTime::createFromFormat('d-m-Y', $resposta);
+            if ($dataFormatada && $dataFormatada->format('Y-m-d') === $_SESSION['user_data']['data_fundacao']) {
+                $isValid = true;
+            }
+            break;
+        case 'cnpj':
+            if ($resposta === $_SESSION['user_data']['cnpj']) {
                 $isValid = true;
             }
             break;
@@ -222,16 +230,13 @@ function cadastrarAluno($user) {
     // Array para armazenar os dados do aluno
     $alunoData = [];
 
-    // Verifica se todos os campos obrigatórios foram recebidos
     foreach ($requiredFields as $field) {
         if (!isset($_POST[$field])) {
-            // Campos obrigatórios não foram recebidos
             var_dump($_POST);
             error_log("Campo obrigatório '$field' não recebido.");
             echo json_encode(['message' => 'Por favor, preencha todos os campos obrigatórios.']);
             return;
         }
-        // Sanitiza os dados contra caracteres especiais
         $alunoData[$field] = htmlspecialchars($_POST[$field]);
     }
 
@@ -268,28 +273,24 @@ function cadastrarInstituicao($user) {
         'logradouro', 'bairro', 'num', 'usuario', 'senha'
     ];
 
-    // armazenar os dados da instituição
+    // armazenar dados instituição
     $instituicaoData = [];
 
-    // Verifica se todos os campos obrigatórios foram recebidos
     foreach ($requiredFields as $field) {
         if (!isset($_POST[$field])) {
-            // Campos obrigatórios não foram recebidos
             error_log("Campo obrigatório '$field' não recebido.");
             echo json_encode(['message' => 'Por favor, preencha todos os campos obrigatórios.']);
             return false;
         }
-        // Sanitiza os dados contra caracteres especiais
         $instituicaoData[$field] = htmlspecialchars($_POST[$field]);
     }
 
-    // Criptografa a senha antes de armazenar
     $instituicaoData['senha'] = password_hash($instituicaoData['senha'], PASSWORD_DEFAULT);
 
     session_start();
     // Cadastrar a instituição
     if ($user->cadastrarInstituicao($instituicaoData)) {
-        // Cadastro realizado com sucesso
+        //sucesso
         echo json_encode(['message' => 'Cadastro realizado com sucesso.']);
 
         $_SESSION['login_sucess'] = 'Cadastrado com sucesso.';

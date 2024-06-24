@@ -68,7 +68,7 @@ $primeiroNome = $_SESSION['first_name'] ?? '';
                                 <button id="bnt-user">
                                     <a href="../views/admin/areaadm.php">Meu perfil</a>
                                 </button>
-                                <form action="../controllers/userController.php" method="post">
+                                <form action="./userController.php" method="post">
                                     <input type="hidden" name="logout">
                                     <button type="submit" id="bnt-sair">Sair</button>
                                 </form>
