@@ -1,111 +1,107 @@
-
 <?php
-    require_once '../../head.php';
-    include_once '../../views/menuinterno.php';
-    require_once '../../models/conexao.php';
+require_once '../../head.php';
+include_once '../../views/menuinterno.php';
+require_once '../../models/conexao.php';
+
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: ../views/auth/login.php');
+    exit();
+}
+
+$idAlunoLogado = $_SESSION['user_data']['id_aluno'] ?? null;
+
+if (!$idAlunoLogado) {
+    echo "ID do aluno não encontrado.";
+    exit();
+}
+
+try {
+    $sql = "SELECT curso.* FROM salvo 
+            JOIN curso ON salvo.id_curso = curso.id_curso 
+            WHERE salvo.id_aluno = :id_aluno";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':id_aluno', $idAlunoLogado, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro ao executar a consulta: " . $e->getMessage();
+}
+
+$conn = null;
 ?>  
+
 <div class="voltar">
   <div class="meu_perfil">
-  <ul>
-    <li>
-    <i class="fa-solid fa-arrow-left" style="margin-top: 0px; display: inline-block;"></i>
-    <a href="areaaluno.php" style="display: inline-block; vertical-align: top;">Voltar</a>
-  </ul>
+    <ul>
+      <li>
+        <i class="fa-solid fa-arrow-left" style="margin-top: 0px; display: inline-block;"></i>
+        <a href="areaaluno.php" style="display: inline-block; vertical-align: top;">Voltar</a>
+      </li>
+    </ul>
   </div>
-  </div>
-  <br>
+</div>
+<br>
+
 <div class="container">
- <div class="group">
-  <i class="fa-solid fa-magnifying-glass" id="search"></i>
-  <input placeholder="Busque aqui seus cursos salvos." type="search" class="input">
-  </div>
-  </div>
-<div class="container">
-  <div class="card">
-    <div id="pagina1" class="page">
-      <img src="../img/oratoria.png">
-      <div class="card-content">
-        <div class="card-title">teste</div>
-        <div class="card-price">Tipo de Curso</div>
+  <?php if ($result): ?>
+    <?php foreach ($result as $curso): ?>
+      <div class="card">
+        <div id="pagina1" class="page">
+        <?php $caminhoImagem = '/../views/fotos-banco/' . htmlspecialchars($curso['fotocurso']); ?>
+        <img src="<?php echo $caminhoImagem; ?>" alt="<?php echo htmlspecialchars($curso['nome_curso']); ?>" class="curso-img">
+          <div class="card-content">
+            <div class="card-title"> <strong>Curso: </strong><?php echo htmlspecialchars($curso['nome_curso']); ?></div>
+            <div class="card-price"><?php echo htmlspecialchars($curso['tipocurso']); ?></div>
+          </div>
+          <div class="card-description">
+            <p><strong> Área do curso: </strong> <?php echo htmlspecialchars($curso['areacurso']); ?></p>
+          </div>
+          <br>
+
+          <a href="<?php echo htmlspecialchars($curso['linksite']); ?>" target="_blank" class="botao-acessar">Acessar</a>
+          
+          <a href="../feed.php" class="botao-acessar"><i class="fa-regular fa-eye"></i></a>
+
+    
+        </div>
       </div>
-      <div class="card-description">
-        <p>Área do Curso</p>
-      </div>
-     <br>
-      <div class="progress">
-        <div class="item">
-      <i class="fa-regular fa-bookmark"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-thumbs-up"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-comment-dots"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      </div>
-  </div>
-  </div>
-  <div id="pagina1" class="page">
-    <div class="card">
-      <img src="../img/oratoria.png">
-      <div class="card-content">
-        <div class="card-title">Nome do Curso</div>
-        <div class="card-price">Tipo de Curso</div>
-      </div>
-      <div class="card-description">
-        <p>Área do Curso</p>
-      </div>
-     <br>
-      <div class="progress">
-        <div class="item">
-      <i class="fa-regular fa-bookmark"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-thumbs-up"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-comment-dots"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      </div>
-  </div>
-  </div>
-  <div id="pagina1" class="page">
-    <div class="card">
-      <img src="../img/oratoria.png">
-      <div class="card-content">
-        <div class="card-title">Nome do Curso</div>
-        <div class="card-price">Tipo de Curso</div>
-      </div>
-      <div class="card-description">
-        <p>Área do Curso</p>
-      </div>
-     <br>
-      <div class="progress">
-        <div class="item">
-      <i class="fa-regular fa-bookmark"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-thumbs-up"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      <div class="item">
-      <i class="fa-regular fa-comment-dots"></i>
-      <progress value="50" max="100" id="progress1"></progress>
-      </div>
-      </div>
-  </div>
-  </div>
-  
-  </div>
+    <?php endforeach; ?>
+  <?php else: ?>
+    <p>Nenhum curso salvo.</p>
+  <?php endif; ?>
+</div>
+
+<script>
+    // Aqui vai o JavaScript que você já possui para interagir com o botão salvar
+</script>
 
   <style>
+
+.curso-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 3px;
+}
+
+.botao-acessar {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #74DCE6;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  margin-right: 70px;
+  margin-left: 19px;
+}
+
+.botao-acessar:hover {
+  background-color: #65cad3;
+}
+
  .meu_perfil ul {
   list-style: none;
   display: flex;
@@ -155,14 +151,14 @@
 }
 
 
-    .card img {
-      border-radius: 20px;
-      width: 380px;
-      padding: 10px;
-      height: 200px;
-      height: auto;
-
-    }
+.card img {
+  border-radius: 20px;
+  width: 380px; /* Largura desejada */
+  height: auto; /* Altura automática para manter a proporção */
+  object-fit: cover; /* Ajuste para cobrir o espaço do elemento */
+  max-height: 200px; /* Altura máxima permitida */
+  padding: 10px; /* Espaçamento interno */
+}
 
     .card-content {
   display: flex;
@@ -183,7 +179,7 @@
     .card-description p{
       margin-top: 10px;
       padding-left: 30px;
-      color: #ccc;
+      color: #0d0c22;
     }
 
     /*pesquisar*/

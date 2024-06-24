@@ -144,11 +144,7 @@ function getSettingsLink($userType) {
                                             <i class="fa-solid fa-house" id="filter-icon" style="cursor: pointer;"></i><span>Início</span>
                                            </a>
                                         </li>
-                                        <li>
-                                            <a>
-                                            <i class="bi bi-sliders2" id="filter-icon" style="cursor: pointer;"></i><span>Filtro</span>
-                                           </a>
-                                        </li>
+                                       
                                         <li>
                                             <!-- <a href="./produtos-interno.php">  -->
                                             <a href="./produtos.php">
@@ -164,39 +160,7 @@ function getSettingsLink($userType) {
 
 
 
-            <div id="filter-modal" class="modal-filter">
-                <div class="modal-content">
-                    <span class="close closeFilter">&times;</span>
-                    <h3><i class="bi bi-sliders2"></i> Filtro</h3>
-                    <label for="area-select">Selecione a área:</label>
-                    <select id="area-select">
-                        <option value="todos">Todos</option>
-                        <option value="desenvolvimento-web">Desenvolvimento Web</option>
-                        <option value="desenvolvimento-ti">Desenvolvimento T.I</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="direito">Direito</option>
-                        <option value="empreendedorismo">Empreendedorismo</option>
-                        <option value="pedagogia">Pedagogia</option>
-                    </select>
-
-                    <label for="modalidade-select">Selecione a modalidade:</label>
-                    <select id="modalidade-select">
-                        <option value="todos">Todos</option>
-                        <option value="online">Online</option>
-                        <option value="presencial">Presencial</option>
-                    </select>
-
-                    <label for="regiao-select">Selecione a região:</label>
-                    <select id="regiao-select">
-                        <option value="todos">Todos</option>
-                        <option value="rj">RJ</option>
-                        <option value="sp">SP</option>
-                        <option value="mg">MG</option>
-                    </select>
-                    <button id="filter-button">Filtrar</button>
-                    <div class="no-results">Nenhum curso encontrado.</div>
-                </div>
-            </div>
+        
        </header>
 <br>
 
@@ -396,7 +360,67 @@ function getSettingsLink($userType) {
 
                             <i class="fa-regular fa-thumbs-up botao-curtir" title="curtir"></i>
                             <i class="fa-regular fa-comment-dots botao-comentar" title="comentar" onclick="toggleComments(<?php echo $curso['id_curso']; ?>)"></i>
-                            <i class="fa-regular fa-bookmark botao-salvar" title="salvar"></i>
+
+                            <i class="fa-regular fa-bookmark botao-salvar" title="salvar" data-id-curso="<?php echo $curso['id_curso']; ?>"></i>
+
+                                <script>
+                              document.addEventListener('DOMContentLoaded', () => {
+                                document.querySelectorAll('.botao-salvar').forEach(item => {
+                                    item.addEventListener('click', salvarCurso);
+                                });
+                            });
+
+                            function salvarCurso(event) {
+                                const idCurso = event.currentTarget.getAttribute('data-id-curso');
+
+                                fetch('../../views/aluno/salvar_curso.php', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ id_curso: idCurso }),
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Erro na requisição AJAX: ' + response.status);
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    if (data.success) {
+                                        // Utilizando SweetAlert2 para exibir mensagem de sucesso
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Curso salvo com sucesso!',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        }).then(() => {
+                                            // Redirecionar para a página de favoritos após 1.5 segundos
+                                            window.location.href = 'aluno/favoritosaluno.php';
+                                        });
+
+                                    } else {
+                                        // Utilizando SweetAlert2 para exibir mensagem de erro
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Erro ao salvar o curso!',
+                                            text: data.message
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Erro ao salvar o curso:', error);
+                                    // Utilizando SweetAlert2 para exibir mensagem de erro genérica
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Erro ao salvar o curso!',
+                                        text: 'Detalhes no console.'
+                                    });
+                                });
+                            }
+
+                                </script>
+
                             <i class="fa-solid fa-share botao-compartilhar" title="compartilhar"></i>
                         </div>
                     </div>           
